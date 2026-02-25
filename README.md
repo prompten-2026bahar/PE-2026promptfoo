@@ -1,4 +1,4 @@
-# PE-2026 Promptfoo Çeviri Projesi
+# Promptfoo - Ekip 5
 
 ## 👥 Grup Üyeleri
 - Burhan Kavak - 20259267003
