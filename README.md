@@ -2,8 +2,8 @@
 
 ## 👥 Grup Üyeleri
 - Burhan Kavak - 20259267003
-- ...
-- ...
+- Sümeyye Şahin - 20259267002
+- Hatice Kılıboz - 20259258009
 
 ## 📚 Kütüphane Tanıtımı
 
