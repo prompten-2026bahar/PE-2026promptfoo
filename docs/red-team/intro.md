@@ -1,60 +1,60 @@
 ---
 sidebar_position: 1
-sidebar_label: Intro
-title: LLM red teaming guide (open source)
-description: Red team LLM systems through systematic adversarial testing to detect content policy violations, information leakage, and API misuse before production deployment
+sidebar_label: Giriş
+title: LLM kırmızı takım kılavuzu (Açık Kaynak)
+description: Üretim dağıtımından önce içerik politika ihlallari, bilgi sızıntıları ve API kötüye kullanımını yakalamak için sistematik çekişmeli testler aracılığıyla LLM kırmızı takım sistemleri 
 ---
 
 # LLM red teaming
 
-LLM red teaming is a way to find vulnerabilities in AI systems _before_ they're deployed by using simulated adversarial inputs.
+LLM kırmızı takım çalışması simüle edilmiş çekişmeli girdileri kullanarak sistemler uygulanmadan önce yapayzeka sistemlerindeki güvenlik açıklarını bulmanın bir yoludur. 
 
-As of today, there are multiple inherent security challenges with LLM architectures. Depending on your system's design, e.g. [RAG](/docs/red-team/rag/), [LLM agent](/docs/red-team/agents/), or [chatbot](/docs/red-team/llm-vulnerability-types/), you'll face different types of vulnerabilities.
+Günümüzde LLM mimarilerinde birden fazla güvenlik sorunu bulunmaktadır. Sistem tasarımınıza bağlı olarak, örneğin RAG, LLM ajanı yada sohbet robotu, farklı türlerde güvenlik açıklarıyla karşılaşacaksınız.
 
-Almost every LLM app has potential issues with generation of off-topic, inappropriate, or harmful content that breaches business policies or other guidelines. As architectures become more complex, problems can arise in the form of information leakage and access control (RAG architectures), misuse of connected APIs or databases (in agents), and more.
+Hemen hemen her LLM uygulamasında, iş politikalarını veya diğer yönergeleri ihlal eden, konu dışı, uygunsuz veya zararlı içerik üretme potansiyel sorunları vardır. Mimari daha karmaşık hale geldikçe, bilgi sızıntısı ve erişim kontrolü(RAG mimarileri),bağlantılı API'lerin veya veri tabanlarının (ajanlarda) ve dahası gibi sorunlar ortaya çıkabilir.  
 
-In order to identify these types of vulnerabilities before they make it to production, we need to generate a wide range of adversarial inputs and evaluate the LLM's responses.
+Bu tür güvenlik açıklarını üretime geçmeden önce tespit edebilmek için, çok çeşitli çekişmeli girdiler üretmemiz ve LLM'nin yanıtlarını değerlendirmemiz gerekiyor.
 
-By systematically probing the LLM application, we can produce a report that quantifies the risk of misuse and provides suggestions for mitigation.
+LLM uygulamasını sistematik olarak inceleyerek, kötüye kullnım riskinin oranını belirten  ve azaltma önerileri sunan bir rapor hazırlayabiliriz.
 
-:::tip
-Ready to run a red team? Jump to **[Quickstart](/docs/red-team/quickstart/)**.
+:::Öneri
+Kırmızı Takımı yönetmeye hazır mısın ? Gitmek için tıkla **[Quickstart](/docs/red-team/quickstart/)**.
 :::
 
 <div style={{ maxWidth: 760, margin: '0 auto' }}>
   ![llm red team report](/img/riskreport-1@2x.png)
 </div>
 
-## Why is LLM red teaming important?
+## LLM kırmızı takım çalışması niçin önemlidir?
 
-Red teaming is different from other AI security approaches because it provides a quantitative measure of risk _before_ deployment.
+Kırmızı ekip çalışması diğer yapay zeka güvenlik yaklaşımlarından farklıdır, çünkü o devreye alınmadan önce riskin niceliksel bir ölçümünü sağlar.
 
-By running thousands of probes and evaluating the AI's performance, developers can make informed decisions about acceptable risk levels in offline testbeds. Many organizations build this into their development cycle and into processes like CI/CD.
+Geliştiriciler, binlerce test çalıştırarak ve yapay zekanın performansını değerlendirerek, çevrim dışı test ortamlarında kabul edilebilir risk seviyeleri hakkında kararlar verebilirler. Birçok kuruluş bunu geliştirme döngüsü ve CI/CD gibi süreçlere entegre eder. 
 
-This process is how the big foundation labs - OpenAI, Anthropic, Microsoft, and Google - evaluate their models before they release them to the public. For a while, AI red teams were confined to these elite labs. Now, AI red teaming is becoming more common as tools proliferate and best practices emerge.
+Bu süreç OpenAI, Anthropic, Microsoft, ve Google gibi büyük kuruluş laboratuvarlarının modellerini halka sunmadan önce değerlendirme yöntemidir.Bir süre boyunca, yapay zeka kırmızı ekipleri bu seçkim laboratuvarlarıyla sınırlıydı. Şimdi yapay zeka kırmızı takım çalışmaları araçlar çoğaldıkça ve en iyi uygulamalar ortaya çıktıkça daha yaygın hale geliyor.
 
-This is a new field and standards are emerging around the world, ranging from [OWASP LLM Top 10](https://owasp.org/www-project-top-10-for-large-language-model-applications/) to [NIST's AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) and the [EU AI Act](https://www.europarl.europa.eu/topics/en/article/20230601STO93804/eu-ai-act-first-regulation-on-artificial-intelligence).
+Bu yeni bir alan ve standartlar dünya çapında ortaya çıkmaktadır, [OWASP LLM Top 10](https://owasp.org/www-project-top-10-for-large-language-model-applications/) 'dan [NIST's AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) kadar değişen ve [EU AI Act](https://www.europarl.europa.eu/topics/en/article/20230601STO93804/eu-ai-act-first-regulation-on-artificial-intelligence).
 
-From what we've seen so far, most regulations/standards support a systematic benchmarking/red teaming process that quantifies risk via testing prior to deployment.
+şimdiye kadar gördüklerimize göre, çoğu düzenleme ve standartlar yayınlamadan önce testler yoluyla riski ölçensistematik bir kıyasalama/kırmızı takım çalışması sürecini destekliyor.
 
-## How LLM red teaming works
+## LLM kırmızı takım çalışması nasıl işliyor
 
-The process of red teaming LLMs generally requires some degree of automation for a comprehensive evaluation. This is because LLMs have such a wide attack surface and are stochastic in nature (i.e. they are not consistent from one generation to the next).
+LLM'lerin kırmızı ekip tarafından incelenmesi süreci, geniş kapsamlı bir değerlendirme için genellikle bir miktar otomasyon gerektirir. Bunun nedeni, LLM'lerin çok geniş bir saldırı yüzeyine sahip olması ve doğaları gereği stokastik olmalarıdır (yani, onlar bir nesilden diğerine tutarlı değiller).
 
-A systematic approach looks like this:
+Sistematik bir yaklaşım şu şekildedir:
 
-1. **Generate Adversarial Inputs**: Create or curate a diverse set of malicious intents targeting potential vulnerabilities. For each intent, wrap it in a prompt that attempts to exploit the target. You can incorporate methods like prompt injection and jailbreaking at this step.
+1. **Çekişkili Girişler Oluşturma**: Potansiyel güvenlik açıklarını hedefleyen çeşitli kötü amaçlı niyetler oluşturun veya derleyin.Her bir niyet için, hedefi istismar etmeye çalışan bir komut istemi ekleyin. Bu adımda komut istemi enjeksiyonu ve jailbreak gibi yöntemleri dahil edebilirsiniz.
 
-2. **Evaluate Responses**: Run these inputs through your LLM application to observe the model's behavior. This step is a great candidate for automation.
+2. **Yanıtları Değerlendirin**: Bu girdileri modelin davranışını gözlemlemek için  LLM uygulamanızdan geçirin. Bu adım otomasyon için mükemmel bir adaydır.
 
-3. **Analyze Vulnerabilities**: Evaluate the LLM's outputs automatically using deterministic and model-graded metrics, and examine the responses to identify weaknesses or undesirable behaviors.
+3. **Güvenlik Açıklarını Analiz Edin**: LLM'nin çıktılarını deterministik ve model dereceli ölçütler kullanarak otomatik olarak değerlendirin ve zayıf noktaları veya istenmeyen davranışları belirlemek için yanıtları inceleyin.
 
-Once a process is set up, it can be applied in two primary ways:
+Bir süreç oluşturulduktan sonra, iki temel şekilde uygulanabilir: 
 
-- **One-off runs**: Generate a comprehensive report that allows you to examine vulnerabilities and suggested mitigations.
-- **CI/CD integration**: Continuously monitor for vulnerabilities in your deployment pipeline, ensuring ongoing safety as your application evolves.
+- **Tek seferlik çalıştırmalar**: Güvenlik açıklarını ve önerilen önlemleri incelemenizi sağlayan kapsamlı bir rapor oluşturun.
+- **CI/CD Entegrasyonu**: Uygulamanız geliştikçe sürekli güvenliği sağlamak için dağıtım hattınızdaki güvenlik açıklarını sürekli olarak izleyin.
 
-The magic moment for managing AI risk usually comes after an organization is able to set up some continuous measurement of AI risk: whether through CI/CD, internal requirements, or some other form of scheduled runs.
+Yapay zekâ riskini yönetmek için sihirli an genellikle bir kuruluşun yapay zekâ riskinin sürekli ölçümünü sağlayacak bir mekanizma kurabilmesinden sonra gelir: bu mekanizma CI/CD , iç gereksinimler yada planlanmış çalışmaların başka bir biçimi olabilir.
 
 <div style={{ maxWidth: 760, margin: '0 auto' }}>
   ![llm security continuous monitoring](/img/continuous-monitoring.png)
