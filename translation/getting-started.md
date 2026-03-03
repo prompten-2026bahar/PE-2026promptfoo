@@ -1,12 +1,10 @@
 ---
-title: Getting Started
-description: Learn how to set up your first promptfoo config file, create prompts, configure providers, and run your first LLM evaluation.
-keywords: [getting started, setup, configuration, prompts, providers, evaluation, llm testing]
+title: Başlarken
+description: İlk promptfoo yapılandırma dosyanızı nasıl oluşturacağınızı, promptları nasıl yazacağınızı, sağlayıcıları nasıl yapılandıracağınızı ve ilk LLM değerlendirmenizi nasıl çalıştıracağınızı öğrenin.
+keywords: [başlarken, kurulum, yapılandırma, promptlar, sağlayıcılar, değerlendirme, llm testleri]
 sidebar_position: 5
 ---
-title: Başlarken
-description: İlk `promptfoo` yapılandırma dosyanızı nasıl oluşturacağınızı, promptları nasıl yazacağınızı, sağlayıcıları nasıl yapılandıracağınızı ve ilk LLM değerlendirmenizi nasıl çalıştıracağınızı öğrenin.
-keywords: [başlarken, kurulum, yapılandırma, promptlar, sağlayıcılar, değerlendirme, llm testleri]
+
 # Başlarken
 
 [promptfoo](/docs/installation) yüklendikten sonra ilk yapılandırma dosyanızı birkaç şekilde oluşturabilirsiniz:
@@ -122,7 +120,7 @@ Bu, prompt oluşturma, sağlayıcı seçme ve test vakası ekleme adımlarında 
   <img src="/img/docs/eval-setup.png" alt="Promptfoo eval setup Web UI" style={{ width: '80%' }} />
 </div>
 
-## Next steps
+## Sonraki adımlar
 
 İlk değerlendirmenizi çalıştırdıktan sonra daha derinlemesine incelemek için bazı yollar:
 
