@@ -1,101 +1,143 @@
-title: Başlarken description: İlk promptfoo yapılandırma dosyanızı nasıl kuracağınızı, istemler (prompts) oluşturmayı, sağlayıcıları (providers) yapılandırmayı ve ilk LLM değerlendirmenizi nasıl çalıştıracağınızı öğrenin. keywords: [başlarken, kurulum, yapılandırma, istemler, sağlayıcılar, değerlendirme, llm testi] sidebar_position: 5
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+---
+title: Getting Started
+description: Learn how to set up your first promptfoo config file, create prompts, configure providers, and run your first LLM evaluation.
+keywords: [getting started, setup, configuration, prompts, providers, evaluation, llm testing]
+sidebar_position: 5
+---
+title: BaÅŸlarken
+description: Ä°lk `promptfoo` yapÄ±landÄ±rma dosyanÄ±zÄ± nasÄ±l oluÅŸturacaÄŸÄ±nÄ±zÄ±, promptlarÄ± nasÄ±l yazacaÄŸÄ±nÄ±zÄ±, saÄŸlayÄ±cÄ±larÄ± nasÄ±l yapÄ±landÄ±racaÄŸÄ±nÄ±zÄ± ve ilk LLM deÄŸerlendirmenizi nasÄ±l Ã§alÄ±ÅŸtÄ±racaÄŸÄ±nÄ±zÄ± Ã¶ÄŸrenin.
+keywords: [baÅŸlarken, kurulum, yapÄ±landÄ±rma, promptlar, saÄŸlayÄ±cÄ±lar, deÄŸerlendirme, llm testleri]
+# BaÅŸlarken
 
-Başlarken
-promptfoo kurulumunu tamamladıktan sonra, ilk yapılandırma dosyanızı birkaç farklı yolla oluşturabilirsiniz:
+[promptfoo](/docs/installation) yÃ¼klendikten sonra ilk yapÄ±landÄ±rma dosyanÄ±zÄ± birkaÃ§ ÅŸekilde oluÅŸturabilirsiniz:
 
-Bir Örnek Çalıştırma
-Önceden oluşturulmuş bir örnekle ilk yapılandırma dosyanızı kurmak için npx, npm veya brew kullanarak şu komutu çalıştırın:
+## Bir Ã¶rneÄŸi Ã§alÄ±ÅŸtÄ±rma
+
+HazÄ±r bir Ã¶rnek kullanarak ilk yapÄ±landÄ±rma dosyanÄ±zÄ± oluÅŸturmak iÃ§in aÅŸaÄŸÄ±daki komutlardan birini kullanÄ±n (Ã¶rneÄŸin `npx`, `npm` veya `brew`):
 
   <Tabs groupId="promptfoo-command">
     <TabItem value="npx" label="npx" default>
-      bash       npx promptfoo@latest init --example getting-started       
+      ```bash
+      npx promptfoo@latest init --example getting-started
+      ```
     </TabItem>
     <TabItem value="npm" label="npm">
-      bash       npm install -g promptfoo       promptfoo init --example getting-started       
+      ```bash
+      npm install -g promptfoo
+      promptfoo init --example getting-started
+      ```
     </TabItem>
     <TabItem value="brew" label="brew">
-      bash       brew install promptfoo       promptfoo init --example getting-started       
+      ```bash
+      brew install promptfoo
+      promptfoo init --example getting-started
+      ```
     </TabItem>
   </Tabs>
 
-Bu komut, farklı modeller arasında çeviri istemlerini test eden temel bir örnek içeren yeni bir dizin oluşturacaktır. Örnek şunları içerir:
+Bu komut, farklÄ± modellerde Ã§eviri promptlarÄ±nÄ± test eden bir [temel Ã¶rnek](https://github.com/promptfoo/promptfoo/tree/main/examples/getting-started) iÃ§eren yeni bir dizin oluÅŸturur. Ã–rnek ÅŸunlarÄ± iÃ§erir:
 
-Örnek istemler, sağlayıcılar ve test senaryoları içeren bir promptfooconfig.yaml yapılandırma dosyası.
+- Ã–rnek promptlar, saÄŸlayÄ±cÄ±lar ve test vakalarÄ±nÄ± iÃ§eren `promptfooconfig.yaml` yapÄ±landÄ±rma dosyasÄ±.
+- Ã–rneÄŸin nasÄ±l Ã§alÄ±ÅŸtÄ±ÄŸÄ±nÄ± anlatan bir `README.md` dosyasÄ±.
 
-Örneğin nasıl çalıştığını açıklayan bir README.md dosyası.
+Ã‡oÄŸu saÄŸlayÄ±cÄ± kimlik doÄŸrulamasÄ± gerektirir. OpenAI iÃ§in Ã¶rnek:
 
-Çoğu sağlayıcı kimlik doğrulama gerektirir. OpenAI için:
-
-Bash
+```sh
 export OPENAI_API_KEY=sk-abc123
-Ardından örnek dizinine gidin, değerlendirmeyi (eval) çalıştırın ve sonuçları görüntüleyin:
+```
+
+ArdÄ±ndan Ã¶rnek dizine gidin, deÄŸerlendirmeyi Ã§alÄ±ÅŸtÄ±rÄ±n ve sonuÃ§larÄ± gÃ¶rÃ¼ntÃ¼leyin:
 
 <Tabs groupId="promptfoo-command">
   <TabItem value="npx" label="npx" default>
-    bash     cd getting-started     npx promptfoo@latest eval     npx promptfoo@latest view     
+    ```bash
+    cd getting-started
+    npx promptfoo@latest eval
+    npx promptfoo@latest view
+    ```
   </TabItem>
   <TabItem value="npm" label="npm">
-    bash     cd getting-started     promptfoo eval     promptfoo view     
+    ```bash
+    cd getting-started
+    promptfoo eval
+    promptfoo view
+    ```
   </TabItem>
   <TabItem value="brew" label="brew">
-    bash     cd getting-started     promptfoo eval     promptfoo view     
+    ```bash
+    cd getting-started
+    promptfoo eval
+    promptfoo view
+    ```
   </TabItem>
 </Tabs>
 
-CLI Üzerinden Kurulum
-Sıfırdan başlamak için, etkileşimli bir CLI rehberliği aracılığıyla yapılandırma oluşturmak üzere promptfoo init komutunu çalıştırın:
+## CLI ile kurulum
+
+SÄ±fÄ±rdan baÅŸlamak iÃ§in etkileÅŸimli CLI adÄ±mlarÄ±nÄ± kullanarak bir yapÄ±landÄ±rma oluÅŸturmak iÃ§in `promptfoo init` Ã§alÄ±ÅŸtÄ±rÄ±n:
 
 <Tabs groupId="promptfoo-command">
   <TabItem value="npx" label="npx" default>
-    bash     npx promptfoo@latest init     
+    ```bash
+    npx promptfoo@latest init
+    ```
   </TabItem>
   <TabItem value="npm" label="npm">
-    bash     promptfoo init     
+    ```bash
+    promptfoo init
+    ```
   </TabItem>
   <TabItem value="brew" label="brew">
-    bash     promptfoo init     
+    ```bash
+    promptfoo init
+    ```
   </TabItem>
 </Tabs>
 
-Web Arayüzü (UI) Üzerinden Kurulum
-Görsel bir arayüzü tercih ederseniz, ilk değerlendirmenizi web arayüzü üzerinden yapılandırmak için promptfoo eval setup komutunu çalıştırın:
+## Web UI ile kurulum
+
+GÃ¶rsel bir arayÃ¼z tercih ediyorsanÄ±z, web tabanlÄ± kurulum ile ilk deÄŸerlendirmenizi oluÅŸturmak iÃ§in `promptfoo eval setup` Ã§alÄ±ÅŸtÄ±rÄ±n:
 
 <Tabs groupId="promptfoo-command">
   <TabItem value="npx" label="npx" default>
-    bash     npx promptfoo@latest eval setup     
+    ```bash
+    npx promptfoo@latest eval setup
+    ```
   </TabItem>
   <TabItem value="npm" label="npm">
-    bash     promptfoo eval setup     
+    ```bash
+    promptfoo eval setup
+    ```
   </TabItem>
   <TabItem value="brew" label="brew">
-    bash     promptfoo eval setup     
+    ```bash
+    promptfoo eval setup
+    ```
   </TabItem>
 </Tabs>
 
-Bu, istemler oluşturma, sağlayıcıları seçme ve test senaryoları ekleme konularında size rehberlik eden tarayıcı tabanlı bir kurulum akışı açar.
+Bu, prompt oluÅŸturma, saÄŸlayÄ±cÄ± seÃ§me ve test vakasÄ± ekleme adÄ±mlarÄ±nda size rehberlik eden tarayÄ±cÄ± tabanlÄ± bir kurulum akÄ±ÅŸÄ± aÃ§ar.
 
-<div style={{ textAlign: 'center' }}>
-
-<img src="/img/docs/eval-setup.png" alt="Promptfoo eval setup Web UI" style={{ width: '80%' }} />
-
+<div style={{ textAlign: 'center' }}>   
+  <img src="/img/docs/eval-setup.png" alt="Promptfoo eval setup Web UI" style={{ width: '80%' }} />
 </div>
 
-Yapılandırma
-Değerlendirmenizi yapılandırmak için:
+## Next steps
 
-İstemlerinizi (prompts) ayarlayın: promptfooconfig.yaml dosyasını açın ve test etmek istediğiniz istemleri ekleyin. Değişken yer tutucuları için çift süslü parantez kullanın: {{degisken_adi}}. Örneğin:
+Ä°lk deÄŸerlendirmenizi Ã§alÄ±ÅŸtÄ±rdÄ±ktan sonra daha derinlemesine incelemek iÃ§in bazÄ± yollar:
 
-YAML
-prompts:
-  - 'Aşağıdaki İngilizce metni {{language}} diline çevir: {{input}}'
-» İstemleri ayarlama hakkında daha fazla bilgi
+**Kurulumu Ã¶zelleÅŸtirin:**
 
-Test etmek istediğiniz AI modellerini belirtmek için providers ekleyin. Promptfoo; OpenAI, Anthropic, Google ve diğerleri dahil olmak üzere 60'tan fazla sağlayıcıyı destekler:
+- [YapÄ±landÄ±rma rehberi](/docs/configuration/guide) - TÃ¼m yapÄ±landÄ±rma seÃ§eneklerinin ayrÄ±ntÄ±lÄ± aÃ§Ä±klamasÄ±
+- [SaÄŸlayÄ±cÄ± belgeleri](/docs/providers) - Desteklenen 60+ AI modeli ve servis
+- [Assert'ler & Metrikler](/docs/configuration/expected-outputs) - Ã‡Ä±ktÄ±larÄ± otomatik olarak geÃ§/kalÄ±r ÅŸeklinde deÄŸerlendirme
 
-YAML
-providers:
-  - openai:gpt-5.2
-  - openai:gpt-5-mini
-  - anthropic:me
+**KullanÄ±m senaryolarÄ±nÄ± keÅŸfedin:**
+
+- [RAG deÄŸerlendirmesi](/docs/guides/evaluate-rag) - Retrieval-augmented generation akÄ±ÅŸlarÄ±nÄ± test etme
+- [Red teaming hÄ±zlÄ± baÅŸlangÄ±Ã§](/docs/red-team/quickstart) - LLM uygulamanÄ±zÄ± gÃ¼venlik aÃ§Ä±sÄ±ndan tarama
+- [CI/CD entegrasyonu](/docs/integrations/github-action) - DeÄŸerlendirmeleri her PR'da otomatik Ã§alÄ±ÅŸtÄ±rma
+
+**Ã–rneklerden Ã¶ÄŸrenin:**
+
+- GitHub deposundaki [daha fazla Ã¶rnek](https://github.com/promptfoo/promptfoo/tree/main/examples)
