@@ -1,6 +1,6 @@
 ---
-title: "Promptfoo'yu Yükleme"
-description: "`npm`, `npx` veya Homebrew kullanarak `promptfoo` nasıl yükleneceğini öğrenin. Komut satırında kullanım veya projenizde bir kütüphane olarak kurulum adımları."
+title: 'Promptfoo''yu Yükleme'
+description: '`npm`, `npx` veya Homebrew kullanarak `promptfoo` nasıl yükleneceğini öğrenin. Komut satırında kullanım veya projenizde bir kütüphane olarak kurulum adımları.'
 keywords: [kurulum, yükleme, npm, npx, homebrew, windows, kurulum, promptfoo]
 sidebar_position: 4
 ---
