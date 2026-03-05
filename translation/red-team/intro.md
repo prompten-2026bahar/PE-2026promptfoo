@@ -5,9 +5,9 @@ title: LLM kırmızı takım kılavuzu (Açık Kaynak)
 description: Üretim dağıtımından önce içerik politika ihlallari, bilgi sızıntıları ve API kötüye kullanımını yakalamak için sistematik çekişmeli testler aracılığıyla LLM kırmızı takım sistemleri 
 ---
 
-# LLM red teaming
+# LLM red-teaming
 
-LLM kırmızı takım çalışması simüle edilmiş çekişmeli girdileri kullanarak sistemler uygulanmadan önce yapayzeka sistemlerindeki güvenlik açıklarını bulmanın bir yoludur. 
+LLM red teaming, simüle edilmiş çekişmeli girdileri kullanarak sistemler uygulanmadan önce yapayzeka sistemlerindeki güvenlik açıklarını bulmanın bir yoludur. 
 
 Günümüzde LLM mimarilerinde birden fazla güvenlik sorunu bulunmaktadır. Sistem tasarımınıza bağlı olarak, örneğin RAG, LLM ajanı yada sohbet robotu, farklı türlerde güvenlik açıklarıyla karşılaşacaksınız.
 
@@ -25,21 +25,21 @@ Kırmızı Takımı yönetmeye hazır mısın ? Gitmek için tıkla **[Quickstar
   ![llm red team report](/img/riskreport-1@2x.png)
 </div>
 
-## LLM kırmızı takım çalışması niçin önemlidir?
+## LLM red-teaming niçin önemlidir?
 
-Kırmızı ekip çalışması diğer yapay zeka güvenlik yaklaşımlarından farklıdır, çünkü o devreye alınmadan önce riskin niceliksel bir ölçümünü sağlar.
+Red-teaming diğer yapay zeka güvenlik yaklaşımlarından farklıdır, çünkü o devreye alınmadan önce riskin niceliksel bir ölçümünü sağlar.
 
 Geliştiriciler, binlerce test çalıştırarak ve yapay zekanın performansını değerlendirerek, çevrim dışı test ortamlarında kabul edilebilir risk seviyeleri hakkında kararlar verebilirler. Birçok kuruluş bunu geliştirme döngüsü ve CI/CD gibi süreçlere entegre eder. 
 
-Bu süreç OpenAI, Anthropic, Microsoft, ve Google gibi büyük kuruluş laboratuvarlarının modellerini halka sunmadan önce değerlendirme yöntemidir.Bir süre boyunca, yapay zeka kırmızı ekipleri bu seçkim laboratuvarlarıyla sınırlıydı. Şimdi yapay zeka kırmızı takım çalışmaları araçlar çoğaldıkça ve en iyi uygulamalar ortaya çıktıkça daha yaygın hale geliyor.
+Bu süreç OpenAI, Anthropic, Microsoft, ve Google gibi büyük kuruluş laboratuvarlarının modellerini halka sunmadan önce değerlendirme yöntemidir.Bir süre boyunca, AI red-teaming ekipleri bu seçkin laboratuvarlarıyla sınırlıydı. Şimdi AI red-teaming araçlar çoğaldıkça ve en iyi uygulamalar ortaya çıktıkça daha yaygın hale geliyor.
 
 Bu yeni bir alan ve standartlar dünya çapında ortaya çıkmaktadır, [OWASP LLM Top 10](https://owasp.org/www-project-top-10-for-large-language-model-applications/) 'dan [NIST's AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) kadar değişen ve [EU AI Act](https://www.europarl.europa.eu/topics/en/article/20230601STO93804/eu-ai-act-first-regulation-on-artificial-intelligence).
 
-şimdiye kadar gördüklerimize göre, çoğu düzenleme ve standartlar yayınlamadan önce testler yoluyla riski ölçensistematik bir kıyasalama/kırmızı takım çalışması sürecini destekliyor.
+Şimdiye kadar gördüklerimize göre, çoğu düzenleme ve standartlar yayınlamadan önce testler yoluyla riski ölçensistematik bir kıyasalama/red-teaming sürecini destekliyor.
 
-## LLM kırmızı takım çalışması nasıl işliyor
+## LLM red-teaming nasıl işliyor
 
-LLM'lerin kırmızı ekip tarafından incelenmesi süreci, geniş kapsamlı bir değerlendirme için genellikle bir miktar otomasyon gerektirir. Bunun nedeni, LLM'lerin çok geniş bir saldırı yüzeyine sahip olması ve doğaları gereği stokastik olmalarıdır (yani, onlar bir nesilden diğerine tutarlı değiller).
+LLM'lerin red-teaming tarafından incelenmesi süreci, geniş kapsamlı bir değerlendirme için genellikle bir miktar otomasyon gerektirir. Bunun nedeni, LLM'lerin çok geniş bir saldırı yüzeyine sahip olması ve doğaları gereği stokastik olmalarıdır (yani, onlar bir nesilden diğerine tutarlı değiller).
 
 Sistematik bir yaklaşım şu şekildedir:
 
@@ -60,92 +60,94 @@ Yapay zekâ riskini yönetmek için sihirli an genellikle bir kuruluşun yapay z
   ![llm security continuous monitoring](/img/continuous-monitoring.png)
 </div>
 
-## Model vs application layer threats
+## Model ve uygulama katmanı tehditleri
 
-In general, threats fall into two main categories: model ("foundation") or application layer. While there is some overlap, it helps to be explicit in your red teaming goals which side you want to test.
+Genel olarak, tehditler iki ana kategoriye ayrılır: model ("temel") veya uygulama katmanı. Bazı çakışmalar olsa da, red-teaming hangi tarafı test etmek istediğinizi açıkça belirtmek faydalı olacaktır.
 
-When research labs like OpenAI or Anthropic train a new model, they have internal (and external) testers stress-test the chat-tuned model for safety and research purposes. Model-layer vulnerabilities include things like ability to produce:
+OpenAI veya Anthropic gibi araştırma laboratuvarları yeni bir model eğittiklerinde, güvenlik ve araştırma amaçları için sohbet odaklı modeli dahili (ve harici) test uzmanlarına stres testinden geçirirler. Model katmanı güvenlik açıkları şunları içerebilir:
 
-- Prompt injections and jailbreaks
-- Hate speech, bias, toxicity, and other harmful outputs
-- Hallucinations
-- Copyright violations
-- Specialized advice (medical, financial)
-- Results that exhibit excessive agency or exploit overreliance
-- PII leaks (from training data)
+- Hızlı enjeksiyonlar ve hapishaneden kaçışlar
+- Nefret söylemi, önyargı, zehirlilik ve diğer zararlı sonuçlar
+- Halüsinasyonlar
+- Telif hakkı ihlalleri
+- Uzman tavsiyeler (tıbbi, finansal)
+- Aşırı özerklik sergileyen veya aşırı güveni istismar eden sonuçlar
+- Kişisel bilgilerin sızdırılması (eğitim verilerinden)
 
-On the other hand, there are classes of vulnerabilities that only manifest once you've connected the model to a larger application environment. These include:
+Öte yandan, modeli daha büyük bir uygulama ortamına bağladıktan sonra ortaya çıkan güvenlik açığı sınıfları da vardır. Bunlar şunları içerir:
 
-- Indirect prompt injections
-- PII leaks (from context, e.g. in RAG architectures)
-- Tool-based vulnerabilities (e.g. unauthorized data access, privilege escalations, SQL injections - depending on API and database access)
-- Hijacking (aka off-topic use)
-- Data/chat exfiltration techniques (e.g. markdown images, link unfurling)
+- Dolaylı komut istemi enjeksiyonları
+- Kişisel verilerin sızdırılması (bağlamdan, örneğin RAG mimarilerinde)
+- Araç tabanlı güvenlik açıkları (örneğin yetkisiz veri erişimi, ayrıcalık yükseltmeleri, SQL enjeksiyonları - API ve veritabanı erişimine bağlı olarak)
+- Konu dışı kullanım (yani konu dışı kullanım)
+- Veri/sohbet sızdırma teknikleri (örneğin markdown resimleri, bağlantı açma)
 
-Most applications integrate existing models rather than requiring their own dedicated ones. For this reason, application layer threats are often the focus of red teaming efforts for LLM-based software, as they are likely to cause the greatest technical risks.
+Çoğu uygulama, kendi özel modellerine ihtiyaç duymak yerine mevcut modelleri entegre eder. Bu nedenle, uygulama katmanı tehditleri, LLM tabanlı yazılımlar için red-teaming'in odak noktasıdır, çünkü en büyük teknik risklere neden olma olasılıkları yüksektir.
 
-## White box vs black box testing
+## Beyaz kuru ve kara kutu testi
 
-White box testing of LLMs involves having full access to the model's architecture, training data, and internal weights. This enables highly effective attack algorithms like [greedy coordinate descent](https://github.com/llm-attacks/llm-attacks) and [AutoDAN](https://arxiv.org/abs/2310.04451).
+LLM'lerin beyaz kutu testi, modelin mimarisine, eğitim verilerine ve iç ağırlıklarına tam erişime sahip olmayı içerir. Bu, [açgözlü koordinat inişi](https://github.com/llm-attacks/llm-attacks) and [AutoDAN](https://arxiv.org/abs/2310.04451).  gibi son derece etkili saldırı algoritmalarını mümkün kılar.
 
-The downside of these white box attacks is that they tend to be slow and are adapted to specific characteristics of the model. Additionally, most developers are not building with models that are exposed via their weights, so this approach is not practical for most use cases.
+Bu beyaz kutu saldırılarının dezavantajı, yavaş olma eğiliminde olmaları ve modelin belirli özelliklerine uyarlanmış olmalarıdır. Ek olarak, çoğu geliştirici, ağırlıkları aracılığıyla açığa çıkarılan modellerle çalışmadığından, bu yaklaşım çoğu kullanım durumu için pratik değildir.
 
-On the other hand, black box testing treats the LLM as a closed system, where only inputs and outputs are observable. This approach simulates real-world scenarios where attackers don't have insider knowledge.
+Öte yandan, kara kutu testi, LLM'yi yalnızca girdilerin ve çıktıların gözlemlenebildiği kapalı bir sistem olarak ele alır. Bu yaklaşım, saldırganların içeriden bilgiye sahip olmadığı gerçek dünya senaryolarını simüle eder.
 
-Both methods have their merits in red teaming:
+Her iki yöntemin de red-teaming için avantajları vardır:
 
-- White box testing can uncover deeper, structural vulnerabilities.
-- Black box testing is more representative of real-world attack scenarios and can reveal unexpected behaviors.
+Beyaz kutu testi, daha derin, yapısal güvenlik açıklarını ortaya çıkarabilir.
 
-For most developers and AppSec teams, black box testing is the more practical approach, because in most cases testers do not have access to model internals. A black-box approach more easily incorporates the real world infrastructure associated with RAGs and agents.
+Kara kutu testi, gerçek dünya saldırı senaryolarını daha iyi temsil eder ve beklenmedik davranışları ortaya çıkarabilir.
+
+Çoğu geliştiriciler ve uygulama güvenliği ekipleri için kara kutu testi daha pratik bir yaklaşımdır, çünkü çoğu durumda test uzmanlarının modelin iç yapısına erişimi yoktur. Kara kutu yaklaşımı, RAG'ler ve ajanlarla ilişkili gerçek dünya altyapısını daha kolay bir şekilde entegre eder.
+
+
 
 <div style={{ maxWidth: 760, margin: '0 auto' }}>
   ![llm testing: white-box vs black-box](/img/docs/llm-testing-diagram.svg)
 </div>
 
-## Common threats
+## Genel Tehditler
 
-The number of threats AI apps face can be overwhelming because AI apps, often by definition, offer generative features with unpredictable results. As Tomasz Tunguz, Venture Capitalist at Theory, has [written](https://www.linkedin.com/posts/tomasztunguz_product-managers-designers-working-with-activity-7183149701674807296-4fAn/), "With AI, the rules have changed. Non-deterministic ML models introduce uncertainty & chaotic behavior."
+Yapay zeka uygulamalarının karşılaştığı tehdit sayısı oldukça fazla olabilir çünkü yapay zeka uygulamaları, tanımları gereği, öngörülemeyen sonuçlar veren üretken özellikler sunar. Theory'de Girişim Sermayecisi olan Tomasz Tunguz'un belirttiği gibi,  [written](https://www.linkedin.com/posts/tomasztunguz_product-managers-designers-working-with-activity-7183149701674807296-4fAn/), "Yapay zeka ile kurallar değişti. Belirsiz makine öğrenimi modelleri belirsizlik ve kaotik davranış getiriyor."
 
-This non-deterministic behavior has implications on the product side, but it also has implications for those of us who are more paranoid.
+Bu deterministik olmayan davranışın ürün tarafında etkileri vardır,ancak aynı zamanda daha paranoyak olanlarımız için de etkileri vardır.
 
-### Privacy violations
+### Gizlilik İhlalleri
 
-To state the obvious: Gen AI apps depend on massive data sources, by definition, and adversaries who could gain access to those data sources would pose massive threats to the companies behind the apps.
+Açıkça belirtmek gerekirse: Genel amaçlı yapay zeka uygulamaları, tanım gereği, büyük veri kaynaklarına bağımlıdır ve bu veri kaynaklarına erişim sağlayabilecek rakipler, uygulamaların arkasındaki şirketler için büyük tehditler oluşturacaktır.
 
-Even if user privacy isn't directly violated, companies with AI apps likely don't want outsiders to know the training data they use. But, in a [2022 paper](https://arxiv.org/pdf/2202.03286), researchers found it was relatively easy to use an adversarial LLM to reveal another LLM's training data (while this applies only to base models and fine-tunes, it's relevant to RAGs with additional data in context).
+Kullanıcı gizliliği doğrudan ihlal edilmese bile, yapay zeka uygulamalarına sahip şirketler, kullandıkları eğitim verilerinin dışarıdan kişiler tarafından bilinmesini muhtemelen istemezler. Ancak,  [2022 paper](https://arxiv.org/pdf/2202.03286) 2022'de yayınlanan bir makalede, araştırmacılar, rakip bir LLM kullanarak başka bir LLM'nin eğitim verilerini ortaya çıkarmanın nispeten kolay olduğunu bulmuşlardır (bu durum yalnızca temel modeller ve ince ayarlar için geçerli olsa da, ek verilerle birlikte bağlam içinde yer alan RAG'ler için de önemlidir).
 
 <div style={{ maxWidth: 250, margin: '0 auto' }}>
   ![Training data leakage](/img/docs/training-data-leakage.png)
 </div>
 
-That same paper shows, however, that with similar methods, privacy violations can be much more direct – ranging from an LLM sharing phone numbers it shouldn't to sharing individual email addresses.
-
+Ancak aynı makale, benzer yöntemlerle gizlilik ihlallerinin çok daha doğrudan olabileceğini gösteriyor; bu ihlaller, bir LLM'nin paylaşmaması gereken telefon numaralarını paylaşmasından, bireysel e-posta adreslerini paylaşmaya kadar uzanabilir.
 <div style={{ maxWidth: 600, margin: '0 auto' }}>
   ![Training data leakage 2](/img/docs/training-data-leakage2.png)
 </div>
 
-A leak of personally identifiable information (PII) is bad in itself, but once adversaries have that PII, they could use the stolen identities to gain unauthorized access to internal companies' resources—to steal the resources, blackmail the company, or insert malware.
+Kişisel olarak tanımlanabilir bilgilerin (PII) sızdırılması başlı başına kötü bir durumdur, ancak rakipler bu PII'ye sahip olduktan sonra, çalınan kimlikleri kullanarak şirketlerin iç kaynaklarına yetkisiz erişim sağlayabilir; kaynakları çalabilir, şirkete şantaj yapabilir veya kötü amaçlı yazılım yerleştirebilirler.
 
-Many of the best use cases for AI apps involve adapting general-purpose models to specific contexts by fine-tuning them on specific data sources. This entire use case could be shuttered if companies don't feel comfortable connecting private data sources to vulnerable AI apps.
+Yapay zekâ uygulamalarının en iyi kullanım alanlarının çoğu, genel amaçlı modelleri belirli veri kaynakları üzerinde ince ayar yaparak özel bağlamlara uyarlamayı içerir. Şirketler özel veri kaynaklarını savunmasız yapay zekâ uygulamalarına bağlamaktan rahatsızlık duyarlarsa, bu kullanım alanının tamamı ortadan kalkabilir.
 
-### Prompt injections
+### Prompt Enjeksiyonları
 
-LLMs present a whole new range of vulnerabilities that will look familiar to many security teams but present novel risks and novel strategies for addressing them.
+LLM'ler, birçok güvenlik ekibine tanıdık gelebilecek ancak yeni riskler ve bunlarla başa çıkmak için yeni stratejiler sunan yepyeni bir dizi güvenlik açığı ortaya koyuyor.
 
-Prompt injections, for example, resemble SQL injections but present differently. Prompt injections are a type of attack that [chains untrusted user input](https://embracethered.com/blog/posts/2024/m365-copilot-prompt-injection-tool-invocation-and-data-exfil-using-ascii-smuggling/) with trusted prompts built by a trusted developer. (Importantly, this is [different than jailbreaking](https://simonwillison.net/2024/Mar/5/prompt-injection-jailbreaking/), which we'll get into in the next section).
+Prompt enjeksiyonları,SQL enjeksiyonlarına benzerler ancak farklı şekillerde ortaya çıkarlar. Prompt injections  güvenilmeyen kullanıcı girdilerini güvenilir bir geliştirici tarafından oluşturulan güvenilir istemlerle birleştiren bir saldırı türüdür. (Önemli olan, bu sonraki bölümde ele alınacaktır[jailbreaking'den farklı](https://simonwillison.net/2024/Mar/5/prompt-injection-jailbreaking/)).
 
-In a 2023 [Black Hat presentation](https://i.blackhat.com/BH-US-23/Presentations/US-23-Greshake-Compromising-LLMS.pdf), security researchers ran through numerous examples of prompt injections working in the wild. With one prompt injection, researchers hijacked an LLM, convinced the user to disclose their names, and got the user to click on a link that redirected them to a malware website, for example.
+2023 [Black Hat sunumunda](https://i.blackhat.com/BH-US-23/Presentations/US-23-Greshake-Compromising-LLMS.pdf), güvenlik araştırmacıları, gerçek dünyada çalışan çok sayıda promt enjeksiyon örneğini inceledi. Araştırmacılar prompt enjeksiyonun birtanesiyle bir LLM'yi ele geçirdiler, kullanıcıyı adlarını açıklamaya ikna ettiler, ve kullanıcının kötü amaçlı yazılım içeren bir web sitesine yönlendiren bir bağlantıya tıklamasını sağladılar.
 
 <div style={{ maxWidth: 650, margin: '0 auto' }}>
   <img src="/img/docs/prompt-injection-example.png" />
 </div>
 
-Of course, though researchers analogize prompt injections to more traditional SQL and shell injections, AI-based SQL and shell injections are still possible, too.
+Elbette, araştırmacılar prompt enjeksiyonlarını daha geleneksel SQL ve shell enjeksiyonlarına benzetseler de, yapay zeka tabanlı SQL ve shell enjeksiyonları da hala mümkündür.
 
-In a [2023 paper](https://arxiv.org/abs/2308.01990), another team of researchers showed that prompt-to-SQL injections can be very effective. In the paper, the team evaluated 7 LLMs and demonstrated "the pervasiveness of P2SQL attacks across language models."
+[2023 yayınında](https://arxiv.org/abs/2308.01990), başka bir araştırma ekibi, prompt-to-SQL enjeksiyonlarının çok etkili olabileceğini gösterdi. Makalede, bu ekip 7 LLM modelini değerlendirdi ve "P2SQL saldırılarının dil modelleri genelinde yaygınlığını" gösterdi.
 
-Shell injections are similar. AI apps that haven't been through red teaming are frequently susceptible to attacks that execute unauthorized shell commands.
+Kabuk enjeksiyonlartı da benzer şekilde çalışır. Red-teaming testlerinden geçmemiş  AI uygulamaları, yetkisiz kabuk komutlarını çalıştıran saldırılara karşı sıklıkla savunmasızdır.
 
 ### Jailbreaking
 
