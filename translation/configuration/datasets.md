@@ -19,18 +19,18 @@ pagination_next: configuration/huggingface-datasets
 
 # Veri Seti Oluşturma
 
-Veri setiniz, LLM değerlendirmenizin kalbidır. Mümkün olduğu kadar, LLM uygulamanuzun gerçek girdilerini yakından temsil etmelidir.
+Veri setiniz, LLM değerlendirmenizin kalbidirdir. Mümkün olduğu kadar, LLM uygulamanuzun gerçek girdilerini yakından temsil etmelidir.
 
 promptfoo, `promptfoo generate dataset` komutu kullanılarak mevcut veri setlerini genişletebilir ve onları daha kapsamlı ve çeşitli hale getirebilir. Bu kılavuz, `promptfoo` kullanılarak veri setleri oluşturma sürecinde sizi tanıtabilecektir.
 
 ### İstemlerinizi Hazırlayın
 
-Bir veri seti oluşturmadan önce, `prompts` öğeleriniz ve isteyen olarak `tests` öğeleriniz hazır olması gerekir:
+Bir veri seti oluşturmadan önce, `prompts` öğleriniz ve isteyen olarak `tests` öğleriniz hazır olması gerekir:
 
 ```yaml
 prompts:
   - 'Bir seyahat rehberi olarak hareket et {{location}} için'
-  - 'Sen bir seyahat rehberi olarak hareket etmesini istiyorum. Bana konumumu yazacağım ve sen konumuma yakın ziyaret edebileceğin bir yer önereceksin. Bazı durumlarda, ziyaret edeceğim yerlerin türünü de sana veriri. Ayrıca bana ilk konumuma yakın benzer türde yerleri öner. Mevcut konumum {{location}}'
+  - 'Ben bir seyahat rehberi olarak hareket etmesini istiyorum. Bana konumumu yazacağım ve sen konumuma yakın ziyaret edebileceğin bir yer önereceksin. Bazı durumlarda, ziyaret edeceğim yerlerin türünü de sana verir. Ayrıca bana ilk konumuma yakın benzer türdö yerleri öner. Mevcut konumum {{location}}'
 
 tests:
   - vars:
@@ -43,7 +43,7 @@ tests:
       location: 'Great Barrier Reef'
 ```
 
-Alternatif olarak, [istepleneri CSV olarak](/docs/configuration/prompts#csv-files-csv) belirtebilirsiniz:
+Alternatif olarak, [İstemlerinizi CSV olarak](/docs/configuration/prompts#csv-files-csv) belirtebilirsiniz:
 
 ```yaml
 prompts: file://travel-guide-prompts.csv
@@ -54,7 +54,7 @@ CSV şöyle gözükecektir:
 ```csv title="travel-guide-prompts.csv"
 istem
 "Bir seyahat rehberi olarak hareket et {{location}} için"
-"Sen bir seyahat rehberi olarak hareket etmesini istiyorum. Bana konumumu yazacağım ve sen konumuma yakın ziyaret edebileceğin bir yer önereceksin. Bazı durumlarda, ziyaret edeceğim yerlerin türünü de sana veriri. Ayrıca bana ilk konumuma yakın benzer türde yerleri öner. Mevcut konumum {{location}}"
+"Ben bir seyahat rehberi olarak hareket etmesini istiyorum. Bana konumumu yazacağım ve sen konumuma yakın ziyaret edebileceğin bir yer önereceksin. Bazı durumlarda, ziyaret edeceğim yerlerin türünü de sana verir. Ayrıca bana ilk konumuma yakın benzer türdö yerleri öner. Mevcut konumum {{location}}"
 ```
 
 ### `promptfoo generate dataset` Çalıştırın
@@ -96,7 +96,7 @@ promptfoo generate dataset -w
 ```yaml
 prompts:
   - 'Bir seyahat rehberi olarak hareket et {{location}} için'
-  - 'Sen bir seyahat rehberi olarak hareket etmesini istiyorum. Bana konumumu yazacağım ve sen konumuma yakın ziyaret edebileceğin bir yer önereceksin. Bazı durumlarda, ziyaret edeceğim yerlerin türünü de sana veriri. Ayrıca bana ilk konumuma yakın benzer türde yerleri öner. Mevcut konumum {{location}}'
+  - 'Ben bir seyahat rehberi olarak hareket etmesini istiyorum. Bana konumumu yazacağım ve sen konumuma yakın ziyaret edebileceğin bir yer önereceksin. Bazı durumlarda, ziyaret edeceğim yerlerin türünü de sana verir. Ayrıca bana ilk konumuma yakın benzer türdö yerleri öner. Mevcut konumum {{location}}'
 
 tests:
   - file://tests.csv
@@ -114,15 +114,15 @@ tests:
 
 Veri seti oluşturma sürecini `promptfoo generate dataset` komutuna ek seçenekler sağlayarak özelleştirebilirsiniz. Aşağıda desteklenen parametrelerin bir tablosu yer almaktadır:
 
-| Parameter                  | Açıklama                                                              |
+| Parametre                  | Açıklama                                                             |
 | -------------------------- | ----------------------------------------------------------------------- |
-| `-c, --config`             | Yapılandırma dosyasına giden yol.                                    |
+| `-c, --config`             | Yapılandırma dosyasına giden yol.                                         |
 | `-i, --instructions`       | Test durumları oluşturulurken LLM'ın izlemesi gereken özel talimatlar. |
-| `-o, --output [path]`      | Çıktı dosyasına giden yol. CSV ve YAML destekler.                 |
-| `-w, --write`              | Oluşturulan test durumlarını doğrudan yapılandırma dosyasına yaz. |
-| `--numPersonas`            | Veri seti için oluşturulacak kişilerın sayısı.                          |
-| `--numTestCasesPerPersona` | Kişi başına oluşturulacak test durumlarının sayısı.                  |
-| `--provider`               | Veri seti oluşturma için kullanılacak sağlayıcı. Örn: openai:chat:gpt-5 |
+| `-o, --output [path]`      | Çıktı dosyasına giden yol. CSV ve YAML destekler.                             |
+| `-w, --write`              | Oluşturulan test durumlarını doğrudan yapılandırma dosyasına yaz.      |
+| `--numPersonas`            | Veri seti için oluşturulacak kişilerin sayısı.                         |
+| `--numTestCasesPerPersona` | Kişi başına oluşturulacak test durumlarının sayısı.                           |
+| `--provider`               | Veri seti oluşturma için kullanılacak sağlayıcı. Örn: openai:chat:gpt-5       |
 
 Örneğin:
 
