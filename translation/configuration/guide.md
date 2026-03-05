@@ -1,14 +1,14 @@
 ---
 sidebar_position: 1
 sidebar_label: Kılavuz
-title: Yapılandırma Kılavuzu - Promptfoo'ya Başlangıç
-description: Promptfoo'yu LLM değerlendirmesi için yapılandırmak için eksiksiz kılavuz. İstemler, sağlayıcılar, test durumları, iddialar ve örnekleriyle gelişmiş özellikleri öğrenin.
+title: Yapılandırma Kılavuzu - Promptfoo ile Başlayın
+description: promptfoo'yu LLM değerlendirmesi için yapılandırma konusunda eksiksiz kılavuz. İstemler, sağlayıcılar, test durumları, iddialar ve ileri özellikler örnekler ile öğren.
 keywords:
   [
     promptfoo yapılandırması,
     LLM değerlendirme kurulumu,
     istem testi,
-    yapay zeka modeli karşilaştırması,
+    AI modeli karşılaştırması,
     değerlendirme çerçevesi,
     başlangıç,
   ]
@@ -17,13 +17,13 @@ pagination_next: configuration/reference
 
 # Yapılandırma
 
-YAML yapılandırma biçimi, her istemi bir dizi örnek girişi ("İstem durumu" öğesi olarak da adlandırılır) aracılığından çalıştırır ve bunların gereksinimler ("İddialıar" öğesi olarak da adlandırılır) karoşı olup olmadığını kontrol eder.
+YAML yapılandırma formatı, her istemi bir dizi örnek girdi (aka "test durumu") aracılığıyla çalıştırır ve gereksinimler (aka "iddialar") karşılayıp karşılamadığını kontrol eder.
 
-İddialar _istenel_. Birçok kişi çıktıları manuel olarak gözden geçirerek değer elde eder ve web ara yüzü bunu kolaylaştırır.
+İddiaları _isteğe bağlıdır_. Birçok kişi çıktıları manuel olarak incelemekten ve web kullanıcı arayüzünün bunu kolaylaştırmasından faydalanır.
 
 ## Örnek
 
-Bir dil çevirisi yapan bir uygulama yapıyor olduğumuzu hayal edelim. Bu yapılandırma, her istemi GPT-4.1 ve Gemini’den geçirir ve `language` ve `input` değişkenlerini değiştirir:
+Dil çevirisi yapan bir uygulama geliştirdiğimizi düşünelim. Bu yapılandırma her istemi GPT-4.1 ve Gemini aracılığıyla çalıştırarak `language` ve `input` değişkenlerini değiştiriyor:
 
 ```yaml
 prompts:
@@ -47,11 +47,11 @@ tests:
 
 :::
 
-Bu yapılandırma üzerine `promptfoo eval` çalıştırmak, GPT ve Gemini'nin değerlendirmesi için kullanabileceğiniz bir _matris görünümü_ ile sonuçlanacaktır.
+`promptfoo eval` komutunu bu yapılandırma üzerinde çalıştırmak, GPT'yi Gemini ile değerlendirmek için kullanabileceğiniz bir _matrix view_ (matris görünümü) sonucu verecektir.
 
-## Çıktıyı doğrulamak için iddiaları kullanın
+## Çıktıyı doğrulamak için iddialar kullanın
 
-Sıradı, bir iddianın eklenmesine geldi. Bu, JSON içermeyen herhangi bir çıktıyı otomatik olarak reddeder:
+İleri gidelim ve bir iddia ekleyelim. Bu otomatik olarak JSON içermeyen çıktıları reddeder:
 
 ```yaml
 prompts:
@@ -73,9 +73,9 @@ tests:
       input: How's it going?
 ```
 
-Ek testler oluşturabiliriz. Başka bir [iddialıar türü](/docs/configuration/expected-outputs) ekleyelim. Tek bir test durumu için tüm koşulların karşılanmasını sağlamak için bir dizi iddialıar kullanın.
+Ek testler oluşturabiliriz. [İddiaların diğer türlerini](/docs/configuration/expected-outputs) ekleyelim. Tüm koşulların karşılanmasını sağlamak için tek bir test durumu için iddia dizisini kullanın.
 
-Bu örnekte, `javascript` iddialı LLM çıktısına karşı Javascript çalıştırır. `similar` iddialıar, yerleştirmeler kullanarak semantik benzerliği kontrol eder:
+Bu örnekte, `javascript` iddiası LLM çıktısına karşı Javascript çalıştırır. `similar` iddiası embedding'leri kullanarak anlamsal benzerliği kontrol eder:
 
 ```yaml
 prompts:
@@ -106,12 +106,12 @@ tests:
 ```
 
 :::tip
-İddialar hakkında daha fazla bilgi öğrenmek için bkz. [iddialar ve metrikler](/docs/configuration/expected-outputs) havuzunda yapılandırma dokümantasyonu.
+İddiaları yapılandırma hakkında daha fazla bilgi edinmek için bkz. [iddialar ve metrikler](/docs/configuration/expected-outputs) belgeleri.
 :::
 
-## Ayrı dosyalardan sağlayıcıları içe aktarma
+## Sağlayıcıları ayrı dosyalardan içe aktarın
 
-`providers` yapılandırma özelliği, dosya listesine işaret edebilir. Örneğin:
+`providers` yapılandırma özelliği, bir dosya listesini gösterebilir. Örneğin:
 
 ```yaml
 providers:
@@ -119,7 +119,7 @@ providers:
   - file://path/to/provider2.json
 ```
 
-Sağlayıcı dosyası şöyle gözükecektir:
+Sağlayıcı dosyası şöyle görünür:
 
 ```yaml
 id: openai:gpt-5-mini
@@ -128,9 +128,9 @@ config:
   temperature: 0.9
 ```
 
-## Testleri ayrı dosyalardan içe aktarma
+## Testleri ayrı dosyalardan içe aktarın
 
-`tests` yapılandırma özelliği, dosya veya dizin yollarının listesini alır. Örneğin:
+`tests` yapılandırma özelliği, dosya veya dizinlere bir yol listesi alır. Örneğin:
 
 ```yaml
 prompts: file://prompts.txt
@@ -150,13 +150,13 @@ tests:
       var2: bar
 ```
 
-Tek bir dize de geçerlidir:
+Tek bir string de geçerlidir:
 
 ```yaml
 tests: file://tests/*
 ```
 
-Veya yol listesi:
+Veya bir yol listesi:
 
 ```yaml
 tests:
@@ -166,19 +166,19 @@ tests:
 ```
 
 :::tip
-Test dosyaları YAML/JSON, JSONL, [CSV](/docs/configuration/test-cases#csv-format) ve TypeScript/JavaScript’te tanımlanabilir. Ayrıca [Google Sheets](/docs/integrations/google-sheets) CSV veri setlerini destekleriz.
+Test dosyaları YAML/JSON, JSONL, [CSV](/docs/configuration/test-cases#csv-format) ve TypeScript/JavaScript'te tanımlanabilir. Ayrıca [Google Sheets](/docs/integrations/google-sheets) CSV veri setlerini de destekliyoruz.
 :::
 
-## Ayrı dosyalardan vars'u içe aktarma
+## Değişkenleri ayrı dosyalardan içe aktarın
 
-`vars` özelliği bir dosya veya dizine işaret edebilir. Örneğin:
+`vars` özelliği bir dosya veya dizini gösterebilir. Örneğin:
 
 ```yaml
 tests:
   - vars: file://path/to/vars*.yaml
 ```
 
-`file://` öneki kullanarak dosyadan tek tek değişkenleri yükleyebilirsiniz. Örneğin:
+Ayrıca dosyadan bireysel değişkenleri `file://` öneki kullanarak yükleyebilirsiniz. Örneğin:
 
 ```yaml
 tests:
@@ -196,9 +196,9 @@ tests:
       context: file://fetch_from_vector_database.py
 ```
 
-Komut dosye değişkenleri, Pinecone, Chroma, Milvus vb. gibi vektör veritabanıları test ederken yararlıdır. İhtiyaç duyduğunuz bağlamı getirmek için veritabanı ile doğrudan iletişim kurabiliriz.
+Komut dosyalı değişkenler, Pinecone, Chroma, Milvus gibi vektör veritabanlarını test ederken yararlıdır. Ihtiyacınız olan bağlamı almak için doğrudan veritabanıyla iletişim kurabilirsiniz.
 
-PDF'ler de desteklenir ve belgeden metin çıkarmak için kullanılabilir:
+PDF'ler de desteklenir ve bir belgeden metin çıkarmak için kullanılabilir:
 
 ```yaml
 tests:
@@ -206,7 +206,7 @@ tests:
       paper: file://pdfs/arxiv_1.pdf
 ```
 
-PDF'leri değişken olarak kullanmak için `pdf-parse` paketi kurmanız gerektigini unutmayın:
+PDF'leri değişken olarak kullanmak için `pdf-parse` paketini yüklemeniz gerektiğini unutmayın:
 
 ```
 npm install pdf-parse
@@ -214,7 +214,7 @@ npm install pdf-parse
 
 ### Javascript değişkenleri
 
-Bir JavaScript dosyasından dinamik olarak bir değişkeni yüklemek için, YAML yapılandırmanızda `file://` öneki kullanın ve bir işlev dışa aktarın bir JavaScript dosyasına işaret edin.
+Bir JavaScript dosyasından dinamik olarak bir değişken yüklemek için YAML yapılandırmanuzda `file://` öneki kullanın, bir işın veya fonksiyonu dışa aktan bir JavaScript dosyasına gösterileyin.
 
 ```yaml
 tests:
@@ -222,26 +222,26 @@ tests:
       context: file://path/to/dynamicVarGenerator.js
 ```
 
-İşlev `varName`, `prompt`, `otherVars` ve `provider` öğeleri öğesi olarak alır:
+Fonksiyon, arguman olarak `varName`, `prompt`, `otherVars` ve `provider` alır:
 
 ```js title="dynamicVarGenerator.js"
 module.exports = async function (varName, prompt, otherVars, provider) {
-  // Test durumundan diğer değişkenlere erişin
+  // Access other variables from the test case
   const role = otherVars.role;
 
-  // Dinamik değeri döndür
+  // Return the dynamic value
   return { output: PROMPTS[role] };
 
-  // Veya bir hata döndür
+  // Or return an error
   // return { error: 'Something went wrong' };
 };
 ```
 
-[Dinamik-var örneği](https://github.com/promptfoo/promptfoo/tree/main/examples/dynamic-var) için tam çalışan bir örneğe bakın.
+Komple bir çalışan örnek için [dynamic-var example](https://github.com/promptfoo/promptfoo/tree/main/examples/dynamic-var) adresine bakın.
 
 ### Python değişkenleri
 
-`var_name`, `prompt` ve `other_vars` öğeleri kabul eden bir `get_var` işlevi tanımla:
+`var_name`, `prompt` ve `other_vars` kabul eden bir `get_var` fonksiyonu tanımlayın:
 
 ```yaml
 tests:
@@ -251,23 +251,23 @@ tests:
 
 ```python title="load_context.py"
 def get_var(var_name, prompt, other_vars):
-    # Test durumundan diğer değişkenlere erişin
+    # Access other variables from the test case
     role = other_vars.get("role")
 
-    # Dinamik değeri döndür
+    # Return the dynamic value
     return {"output": PROMPTS[role]}
 
-    # Veya bir hata döndür
+    # Or return an error
     # return {"error": "Something went wrong"}
 ```
 
-## Tekrarlamayı Önlemek
+## Tekrarı önlemek
 
-### Varsayılan Test Durumları
+### Varsayılan test durumları
 
-Tüm testler için özellikleri ayarlamak için `defaultTest`'i kullanın.
+Tüm testler için özellikleri ayarlamak için `defaultTest` kullanın.
 
-Bu örnekte, LLM'nin kendisine bir yapay zeka olarak atfetmemesini sağlamak için `llm-rubric` iddialı kullanırız. Bu kontrol tüm test durumlarına uygulanır:
+Bu örnekte, LLM'in kendisini bir AI olarak adlandırmadığını sağlamak için bir `llm-rubric` iddiası kullanıyoruz. Bu kontrol tüm test durumlarına uygulanır:
 
 ```yaml
 prompts:
@@ -280,7 +280,7 @@ providers:
 defaultTest:
   assert:
     - type: llm-rubric
-      value: kendisini bir yapay zeka, model veya sohbet botu olarak tarif etmez
+      value: does not describe self as an AI, model, or chatbot
 // highlight-end
 tests:
   - vars:
@@ -299,7 +299,7 @@ tests:
         threshold: 0.6
 ```
 
-Her test için kullanılan modeli de geçersiz kılmak için `defaultTest` öğesini de kullanabilirsiniz. Bu, [model tarafından değerlendirilen değerlendirmeler](/docs/configuration/expected-outputs/model-graded) için yararlı olabilir:
+Ayrıca her test için kullanılan modeli geçersiz kılmak için `defaultTest`'i kullanabilirsiniz. Bu, [model-graded evals](/docs/configuration/expected-outputs/model-graded) için yararlı olabilir:
 
 ```yaml
 defaultTest:
@@ -307,33 +307,33 @@ defaultTest:
     provider: openai:gpt-5-mini-0613
 ```
 
-### Varsayılan Değişkenler
+### Varsayılan değişkenler
 
 Tüm testler arasında paylaşılan değişkenleri tanımlamak için `defaultTest`'i kullanın:
 
 ```yaml
 defaultTest:
   vars:
-    template: 'Yeniden kullanılabilir {{shared_var}} ile bir istem şablonu'
-    shared_var: 'paylaşılan içerik'
+    template: 'A reusable prompt template with {{shared_var}}'
+    shared_var: 'some shared content'
 
 tests:
   - vars:
       unique_var: value1
   - vars:
       unique_var: value2
-      shared_var: 'varsayılanları geçersiz kıl' # İsteğe bağlı olarak varsayılanları geçersiz kıl
+      shared_var: 'override shared content' # Optionally override defaults
 ```
 
-### Dış Dosyalardan defaultTest Yükleme
+### Dış dosyalardan defaultTest yükleme
 
-Proje genelinde test yapılandırmaları paylaşmak için `defaultTest: file://path/to/config.yaml` kullanarak dış dosyalardan `defaultTest` yapılandırması yükleyebiliriniz.
+Projeler arasında test yapılandırmalarını paylaşmak için `defaultTest: file://path/to/config.yaml` kullanarak dış dosyalardan `defaultTest` yapılandırmasını yükleyebilirsiniz.
 
-### YAML Referansları
+### YAML referansları
 
-promptfoo yapılandırmaları, yeniden kullanılabilir blokları tanımlayan JSON şeması [referanslarını](https://opis.io/json-schema/2.x/references.html) destekler.
+promptfoo yapılandırmaları yeniden kullanılabilir blokları tanımlayan JSON schema [referanslarını](https://opis.io/json-schema/2.x/references.html) destekler.
 
-They iddialarını tam olarak birden fazla kez tanımlamak zorunda kalmadan kullanın. İşte bir örnek:
+İddiaları birden fazla kez tam olarak tanımlamak zorunda kalmadan yeniden kullanmak için `$ref` anahtarını kullanın. İşte bir örnek:
 
 ```yaml
 prompts:
@@ -355,11 +355,11 @@ tests:
       - $ref: '#/assertionTemplates/noAIreference'
       - $ref: '#/assertionTemplates/startsUpperCase'
 
-    //Vurgula-başı
+// highlight-start
 assertionTemplates:
     noAIreference:
       type: llm-rubric
-      value: kendisini bir yapay zeka, model veya sohbet botu olarak tarif etmez
+      value: does not describe self as an AI, model, or chatbot
     startsUpperCase:
       type: javascript
       value: output[0] === output[0].toUpperCase()
@@ -367,14 +367,14 @@ assertionTemplates:
 ```
 
 :::info
-`tools` ve `functions` değerleri provider yapılandırmasında _referans değil_ (dereferenced). Bunun nedeni, kendi dahili referansları olabilecek bağımsız JSON şmalarıdır.
+Sağlayıcı yapılandırmasındaki `tools` ve `functions` değerleri dereferenceılenmiyor. Bunun nedeni, kendi iç bağlantılarında bulunabilecek bağımsız JSON şemaları olmalarıdır.
 :::
 
-## Tek bir Test Durumunda Birden Çok Değişken
+## Tek bir test durumunda birden fazla değişken
 
-Test içindeki `vars` haritaı, dizi değerleri destekler. Değerler bir dizi ise, test durumu her değer kombinasyonunu çalıştıracaktır.
+Test'teki `vars` haritası dizi değerlerini de destekler. Değerler bir diziyse, test durumu değerlerin her kombinasyonunu çalıştırır.
 
-Örneğin:
+For example:
 
 ```yaml
 prompts: file://prompts.txt
@@ -399,11 +399,11 @@ tests:
         threshold: 0.8
 ```
 
-İ çalıştırmak her `language` x `input` kombinasyonu:
+Her `language` x `input` kombinasyonunu değerlendiri:
 
-<img alt="Var girdişlerinin birçok kombinasyonu" src="https://user-images.githubusercontent.com/310310/243108917-dab27ca5-689b-4843-bb52-de8d459d783b.png" />
+<img alt="Multiple combinations of var inputs" src="https://user-images.githubusercontent.com/310310/243108917-dab27ca5-689b-4843-bb52-de8d459d783b.png" />
 
-Var'lar glob dosya yollarından da ithal edilebilir. Auto matically olarak bir diziye genişledırirler. Örneğin:
+Vars can also be imported from globbed filepaths. They are automatically expanded into an array. For example:
 
 ```yaml
   - vars:
@@ -416,13 +416,13 @@ Var'lar glob dosya yollarından da ithal edilebilir. Auto matically olarak bir d
       // highlight-end
 ```
 
-## Nunjucks Şablonlarını Kullanma
+## Nunjucks şablonları kullanma
 
-Nunjucks şablonlarını kullanarak istem şablonlarınza ek kontrol sahibi olun; döngüler, koşullar ve daha fazla.
+İstem şablonlarınız üzerinde ek kontrol sağlamak için Nunjucks şablonlarını kullanın; döngüler, koşullar ve daha fazlasını içerir.
 
-### Nesneleri Değiştirme
+### Nesneleri işleme
 
-Yukarıdaki örneklerde, `vars` değerleri dizelerdir. Ancak `vars`, nes neler dahil olmak üzere herhangi bir JSON veya YAML öğesi olabilir. Bu nesneleri isteme içinde değiştirebilirsiniz; bunlar [nunjucks](https://mozilla.github.io/nunjucks/) şablonlarıdır:
+Yukarıdaki örneklerde, `vars` değerleri string'dir. Ancak `vars`, iç içe nesneler de dahil olmak üzere herhangi bir JSON veya YAML varlığı olabilir. Bu nesneleri istemde [nunjucks](https://mozilla.github.io/nunjucks/) şablonları olan istemde işleyebilirsiniz:
 
 promptfooconfig.yaml:
 
@@ -445,15 +445,15 @@ tests:
 prompt.txt:
 
 ```liquid
-Kullanıcı Profili:
-- Adı: {{ user_profile.name }}
-- İlgileri: {{ user_profile.interests | join(', ') }}
-- Son Aktivite: {{ recent_activity.type }} "{{ recent_activity.details.title }}" tarafından {{ recent_activity.details.author }}
+User Profile:
+- Name: {{ user_profile.name }}
+- Interests: {{ user_profile.interests | join(', ') }}
+- Recent Activity: {{ recent_activity.type }} on "{{ recent_activity.details.title }}" by {{ recent_activity.details.author }}
 
-Yukarıdaki kullanıcı profili dayanağında, "{{ recent_activity.details.title }}" benzeri kitaplari içeren ve kullanıcının ilgilerine uyumlu kişiselliktirilmiş bir okuma önerisi listesi olutur.
+Based on the above user profile, generate a personalized reading recommendation list that includes books similar to "{{ recent_activity.details.title }}" and aligns with the user's interests.
 ```
 
-Here's another example. Consider this test case, which lists a handful of user and assistant messages in an OpenAI-compatible format:
+İşte bir başka örnek. Bir OpenAI uyumlu formatında bir avuç kullanıcı ve asistan iletisiyle bir test durumu düşünün:
 
 ```yaml
 tests:
@@ -467,13 +467,13 @@ tests:
           content: great, thanks
 ```
 
-The corresponding `prompt.txt` file simply passes through the `previous_messages` object using the [dump](https://mozilla.github.io/nunjucks/templating.html#dump) filter to convert the object to a JSON string:
+Uygun `prompt.txt` dosyası, `previous_messages` nesnesini [dump](https://mozilla.github.io/nunjucks/templating.html#dump) filtresi kullanarak JSON dizesine dönüştürmek için geçiş yapı yardımcısı kullanır:
 
 ```nunjucks
 {{ previous_messages | dump }}
 ```
 
-Running `promptfoo eval -p prompt.txt -c path_to.yaml` will call the Chat Completion API with the following prompt:
+`promptfoo eval -p prompt.txt -c path_to.yaml` komutunu çalıştırmak, Chat Completion API'sini aşağıdaki istemle çağıracaktır:
 
 ```json
 [
@@ -492,9 +492,9 @@ Running `promptfoo eval -p prompt.txt -c path_to.yaml` will call the Chat Comple
 ]
 ```
 
-### Escaping JSON strings
+### JSON dizelerini kaçırma
 
-If the prompt is valid JSON, nunjucks variables are automatically escaped when they are included in strings:
+İstem geçerli JSON ise, nunjucks değişkenleri dizelere eklendiğinde otomatik olarak kaçırılır:
 
 ```yaml
 tests:
@@ -511,7 +511,7 @@ tests:
 }
 ```
 
-You can also manually escape the string using the nunjucks [dump](https://mozilla.github.io/nunjucks/templating.html#dump) filter. This is necessary if your prompt is not valid JSON, for example if you are using nunjucks syntax:
+Ayrıca nunjucks [dump](https://mozilla.github.io/nunjucks/templating.html#dump) filtresini kullanarak dizesini manuel olarak kaçırabilirsiniz. İstem geçerli JSON değilse, örneğin nunjucks söz dizimini kullanıyorsanız bu gereklidir:
 
 ```liquid
 {
@@ -520,9 +520,9 @@ You can also manually escape the string using the nunjucks [dump](https://mozill
 }
 ```
 
-### Variable composition
+### Değişken bestesi
 
-Variables can reference other variables:
+Değişkenler diğer değişkenlere başvurabilir:
 
 ```yaml
 prompts:
@@ -538,9 +538,9 @@ tests:
       topic: 'theoretical quantum physics in alternate dimensions'
 ```
 
-### Accessing environment variables
+### Ortam değişkenlerine erişim
 
-You can access environment variables in your templates using the `env` global:
+Şablonlarınızda `env` global'ını kullırarak ortam değişkenlerine erişebilirsiniz:
 
 ```yaml
 prompts:
@@ -551,29 +551,29 @@ tests:
       headline: 'Articles about {{ env.TOPIC }}'
 ```
 
-Ortam Değişkenleri yapılandırma yükleme zamanında çözülür (çalışma zamanında değil) ve dosya yollarını ve API anahtarlarını kontrol edebilir—onları yalnızca güvenilir ortamlarda kullanın.
+Ortam değişkenleri yapılandırma yükleme zamanında (çalışma zamanında değil) çözülür ve dosya yollarını ve API anahtarlarını kontrol edebilir—onları yalnızca güvenilen ortamlarda kullanın.
 
 :::warning
 
-`ANTHROPIC_API_KEY: '{{ env.ANTHROPIC_API_KEY }}'` gibi şablonlarla `config.env`'ye sırları kopyalamaktan kaçının. Bu, sırrı eval config nesnesine çözer ve dışa aktarılan sonuçlarda görünebilir.
+`ANTHROPIC_API_KEY: '{{ env.ANTHROPIC_API_KEY }}'` gibi şablonlarıyla `config.env`'ye sırları kopyalamaktan kaçının. Bu, sırrı eval yapılandırma nesnesine çözer ve dışa aktarılan sonuçlarda görünebilir.
 
-Bir sır zaten shell ortamınızda mevcutsa (veya `--env-file` aracılığıyla yüklenmişse), doğrudan işlem env'den okumayı tercih edin ve `config.env`'yi hassas olmayan bayraklar için tutun.
+Bir sır zaten kabuk ortamınızda mevcutsa (veya `--env-file` aracılığıyla yüklenirse), doğrudan işlem ortamından okurmayı tercih edin ve `config.env`'yi hassas olmayan bayraklar için tutun.
 
 :::
 
 ## Araçlar ve İşlevler
 
-promptfoo, Google, OpenAI ve Anthropic modelleriyle araç kullanımı ve işlev çağrısını destekler; sıcaklık ve token sayısı gibi diğer sağlayıcı özel yapılandırmaların yanı sıra. İşlevleri ve araçları tanımlama hakkında daha fazla bilgi için bkz. [Google Vertex sağlayıcı dokümantasyonu](/docs/providers/vertex/#function-calling-and-tools), [Google AIStudio sağlayıcı dokümantasyonu](/docs/providers/google/#tool-calling), [Google Live sağlayıcı dokümantasyonu](/docs/providers/google#function-calling-example), [OpenAI sağlayıcı dokümantasyonu](/docs/providers/openai#using-tools) ve [Anthropic sağlayıcı dokümantasyonu](/docs/providers/anthropic#tool-calling).
+promptfoo, Google, OpenAI ve Anthropic modelleriyle araç kullanımı ve işlev çağrısını destekler; sıcaklık ve token sayısı gibi diğer sağlayıcıya özel yapılandırmalara ek olarak. İşlevleri ve araçları tanımlama hakkında daha fazla bilgi için bkz. [Google Vertex sağlayıcı belgeler](/docs/providers/vertex/#function-calling-and-tools), [Google AIStudio sağlayıcı belgeler](/docs/providers/google/#tool-calling), [Google Live sağlayıcı belgeler](/docs/providers/google#function-calling-example), [OpenAI sağlayıcı belgeler](/docs/providers/openai#using-tools) ve [Anthropic sağlayıcı belgeler](/docs/providers/anthropic#tool-calling).
 
-## Düşünme Çıktısı
+## Düşünme Çıkışı
 
-Anthropik'in Claude ve DeepSeek gibi bažı modeller, modelin son cevap sunmadan önce akl üyönetim sürecini gösterebilecek düşünme/akla dışí İstenileri destekler.
+Anthropic's Claude ve DeepSeek gibi bazı modeller, modelin son bir cevap vermeden önce akıl yürütme sürecini göstermesine izin veren düşünme/akıl yürütme yeteneklerini destekler.
 
-Bu, akl üretim görevleri veya modelin sonuca nasıl vardığını anlamak için yararlıdır.
+Bu, akıl yürütme görevleri için veya modelin nasıl bir sonuca ulaştığını anlamak için yararlıdır.
 
-### Düşünme Çıktısını Kontrol Etme
+### Düşünme Çıkışını Kontrol Etme
 
-Varsayılan olarak, düşünme içeriği yanıtta yer alır. `showThinking`'i `false` olarak ayarlayarak gizleyebilirsiniz.
+Varsayılan olarak, düşünme içeriği yanıta dahil edilir. `showThinking`'i `false`'a ayarlayarak bunu gizleyebilirsiniz.
 
 Örneğin, Claude için:
 
@@ -584,55 +584,55 @@ providers:
       thinking:
         type: 'enabled'
         budget_tokens: 16000
-      showThinking: false # Düşünme içeriğizini çıktıdan hariç tuı
+      showThinking: false # Düşünme içeriğini çıktıdan hariç tut
 ```
 
-Bu, daha iyi akl ûretim istiyor ancak düşünme süreciğini iddialarınıza maruz bırakmak istemediğinizde yararlıdır.
+Bu, daha iyi akıl yürütme istediğinizde ancak düşünme sürecini iddialarınıza göstermek istemediğinizde yararlıdır.
 
-Geneleştirilmiş düşünme yeteneği hakkında daha fazla bilgi için bkz. [Anthropic sağlayıcı dokümantasyonu](/docs/providers/anthropic#extended-thinking) ve [AWS Bedrock sağlayıcı dokümantasyonu](/docs/providers/aws-bedrock#claude-models).
+Genişletilmiş düşünme yetenekleri hakkında daha fazla ayrıntı için bkz. [Anthropic sağlayıcı belgeler](/docs/providers/anthropic#extended-thinking) ve [AWS Bedrock sağlayıcı belgeler](/docs/providers/aws-bedrock#claude-models).
 
-## Çıktıları Dönüştürme
+## Çıktıları dönüştürme
 
-Dönüşümler, değerlendirme banıtının birden çok düze yinde uygulanabilir:
+Dönüştürmeler, değerlendirme işlem hattının birden fazla seviyesinde uygulanabilir:
 
-### Transform çalışma Sırası
+### Dönüşüm yürütme sırası
 
-1. **Sağlayıcı dönüşümleri** (`transformResponse`) - Her zaman ilk olarak uygulanır
-2. **Test dönüşümleri** (`options.transform`) ve **Bağlam dönüşümleri** (`contextTransform`)
-   - Her ikisi de sağlayıcı dönüşümünden çıktıyı alır
-   - Test dönüşümleri, iddiaları için çıktıyı değiştirir
-   - Bağlam dönüşümleri, bağlam tabanlı iddialar için bağlam çıkarır (e.g., `context-faithfulness`)
+1. **Sağlayıcı dönüştürmeleri** (`transformResponse`) - Her zaman ilk uygulanır
+2. **Test dönüştürmeleri** (`options.transform`) ve **Bağlam dönüştürmeleri** (`contextTransform`)
+   - Her ikisi de sağlayıcı dönüşümünden çıktı alır
+   - Test dönüştürmeleri, çıktıyı iddialar için değiştir
+   - Bağlam dönüştürmeleri, bağlam tabanlı iddialar (örn. `context-faithfulness`) için bağlamları çıkarır
 
-### Test Dönüşüm Hiyerarşisi
+### Test dönüştürme hiyerarşisi
 
-Test dönüşümleri özellikleri için:
+Test dönüştürmeleri özellikle için:
 
-1. Varsayılan test dönüşümleri (`defaultTest` belirtilmişse)
-2. Bireysel test durumu dönüşümleri (mevcutsa `defaultTest` dönüşümünü geçersiz kılır)
+1. Varsayılan test dönüştürmeleri (eğer `defaultTest`'te belirtilmişse)
+2. Bireysel test case dönüştürmeleri (`defaultTest` dönüşümünü geçersiz kılar, varsa)
 
-Not: Test durumu düzeyinde, yalnızca bir dönüşüm uygulanır - `defaultTest`'ten veya bireysel test durumundan, her ikisinden değil.
+Yalnızca bir dönüşümün test duruşu seviyesinde uygulanacağını unutmayın - `defaultTest`'ten veya bireysel test durumundan, both değil.
 
-`TestCase.options.transform` alanı, iddiaları çalıştırmadan önce LLM çıktısını değiştiren bir Javascript parçacığıdır.
+`TestCase.options.transform` alanı, test iddialarından önce LLM çıktısını değiştiren bir Javascript snippet'idir.
 
-Bu, bir dize çıktısı ve bağlam nesnesini alan bir işlev:
+Bir dize çıktısı ve bağlam nesnesi alan bir işlevdir:
 
 ```typescript
 transformFn: (output: string, context: {
   prompt: {
-    // Seçilen ilemek işlevinin kimliği varsa
+    // Kimliği atanmışsa, istemi kimliği.
     id?: string;
-    // {{variable}} öznitelik akında olmaksızamın test durumunda sağlanan ham istem.
+    // {{variable}} ikamesiz test durumunda sağlanan ham istem.
     raw?: string;
-    // LLM API ve iddiaları gönderilen istem.
+    // LLM API'sine ve iddialarına gönderilen istem.
     display?: string;
   };
   vars?: Record<string, any>;
-  // Sağlayıcı yanıtında döndürülen Metaveri.
+  // Sağlayıcı yanıtında döndürülen meta veriler.
   metadata?: Record<string, any>;
 }) => void;
 ```
 
-Bu, eval'den önce LLM çıktısını dönüştürmen veya temizlemen gerekiyorsa yararlıdır.
+Bir eval çalıştırmadan önce LLM çıktısını dönüştürmen veya temizlemen gerekirse bu yararlıdır.
 
 Örneğin:
 
@@ -667,7 +667,7 @@ tests:
     # ...
 ```
 
-Aynı zamanda, iddialarda da çalışır; bu, JSON değerleri değerleri seçmek için yararlıdır:
+Ayrıca iddialar içinde çalışır; bu JSON'dan değerleri seçmek için yararlıdır:
 
 ```yaml
 tests:
@@ -676,16 +676,16 @@ tests:
     assert:
       - type: equals
         value: 'foo'
-        transform: output.category # JSON çıktısından 'category' anahtarını seçin
+        transform: output.category # Çıktı json'dan 'category' anahtarını seç
 ```
 
 :::tip
-Her test durumuna transform seçeneğini uygulamak için `defaultTest` kullanın.
+`defaultTest` test paketinizdeki her test durumuna dönüşüm seçeneğini uygulamak i\u00e7in kullan\u0131n.
 :::
 
-### Ayrı Dosyalardan Dönüşümler
+### Dosyalardan dönüşümler
 
-Dönüştürme işlevleri harici JavaScript veya Python dosyalarından çalıştırılabilir. İsteğe bağlı olarak kullanılacak bir işlev adı belirtebilirsiniz.
+Dönüştürme işlevleri, harici JavaScript veya Python dosyalarından yürütülebilir. İsteğe bağlı olarak kullanılacak bir işlev adı belirtebilirsiniz.
 
 JavaScript için:
 
@@ -718,21 +718,21 @@ def get_transform(output, context):
     return output.upper()
 ```
 
-Python dosyaları için işlev adı belirtilmezse, `get_transform` varsayılatır. Özel bir Python işlevini kullanmak için, dosya yolunda belirtin:
+Python dosyaları için işlev adı belirtilmemişse, `get_transform` değerine varsayılan olur. Özel bir Python işlevi kullanmak için dosya yolunda belirtin:
 
 ```yaml
 transform: file://transform.py:custom_python_transform
 ```
 
-## Giriş Değişkenlerini Dönüştürme
+## Giriş değişkenlerini dönüştürme
 
-İstemde kullanılmadan önce giriş değişkenlerini `transformVars` seçeneğini kullanarak dönüştürebilirsiniz. Bu özellik, verileri önceden işlemeniz veya harici kaynaklardan içerik yüklemeniz gerektiğinde yararlıdır.
+Ayrıca `transformVars` seçeneğini kullanarak giriş değişkenlerini isteminde kullanılmadan önce dönüştürebilirsiniz. Bu özellik, veri ön işleme veya harici kaynaklardan içerik yüklemeniz gerektiğinde yararlıdır.
 
-`transformVars` işlevi, dönüştürülen değişken adlarını ve değerlerini içeren bir nesne döndürmelidir. Bu dönüştürülen değişkenler `vars` nesnesine eklenir ve varolan anahtarları geçersiz kılabilir. Örneğin:
+`transformVars` işlevi, dönüştürülen değişken adları ve değerleriyle bir nesne döndürmelidir. Bu dönüştürülen değişkenler, `vars` nesnesine eklenir ve mevcut anahtarları geçersiz kılabilir. Örneğin:
 
 ```yaml
 prompts:
-  - 'Aşağıdaki metni {{topic_length}} kelimede özetle: {{processed_content}}'
+  - 'Summarize the following text in {{topic_length}} words: {{processed_content}}'
 
 defaultTest:
   options:
@@ -745,14 +745,14 @@ defaultTest:
 
 tests:
   - vars:
-      topic: 'iklim değişikliği'
-      content: '  Bu iklim değişikliği hakkında işlenmesi gereken bir metindir.  '
+      topic: 'climate change'
+      content: '  This is some text about climate change that needs processing.  '
     assert:
       - type: contains
         value: '{{uppercase_topic}}'
 ```
 
-Dönüştürme işlevleri, bireysel test durumlarında da belirtilebilir.
+Dönüştürme işlevleri, bireysel test durumları içinde de belirtilebilir.
 
 ```yaml
 tests:
@@ -763,9 +763,9 @@ tests:
         return { ...vars, image_markdown: `![image](${vars.url})` }
 ```
 
-### Giriş Dönüşümleri Ayrı Dosyalardan
+### Dosyalardan giriş dönüştürmeleri
 
-Daha künmçek dönüşümler için `transformVars` için dış dosyaları kullanabilirsiniz:
+Daha karmaşık dönüştürmeler için `transformVars` için harici dosyaları kullanabilirsiniz:
 
 ```yaml
 defaultTest:
@@ -785,16 +785,16 @@ module.exports = {
         file_content: fs.readFileSync(vars.file_path, 'utf-8'),
       };
     } catch (error) {
-      console.error('transformVars’de hata:', error);
+      console.error('Error in transformVars:', error);
       return {
-        error: 'Değişkenleri dönüştürmeyi başarısız oldu',
+        error: 'Failed to transform variables',
       };
     }
   },
 };
 ```
 
-Dönüşümleri python’da da tanımlayabilirsiniz.
+Python'da da dönüştürmeler tanımlayabilirsiniz.
 
 ```yaml
 defaultTest:
@@ -817,11 +817,11 @@ def get_transform(vars, context):
     }
 ```
 
-## Yapılandırma Yapısı ve Organizasyonu
+## Yapılandırma yapısı ve düzenleme
 
-Yapılandırma yapısı hakkında ayrıntılı bilgi için bkz. [Yapılandırma Referansı](/docs/configuration/reference).
+Yapılandırma yapısı hakkında detaylı bilgi için bkz. [Yapılandırma Referansı](/docs/configuration/reference).
 
-Birden fazla test seti varsa, onları birden fazla yapılandırma dosyasına bölmek yardımcı olur. Her bireysel yapılandırmayı çalıştırmak için `--config` veya `-c` parametresini kullanın:
+Birden fazla test seti varsa, bunları birden fazla yapılandırma dosyasına bölmek yardımcı olur. Her bireysel yapılandırmayı çalıştırmak için `--config` veya `-c` parametresini kullanın:
 
 ```
 promptfoo eval -c usecase1.yaml
@@ -833,7 +833,7 @@ ve
 promptfoo eval -c usecase2.yaml
 ```
 
-Birden fazla yapılandırmayı aynı anda çalıştırabilirsiniz, bu da onları tek bir eva olarak birleştirir. Örneğin:
+Birden fazla yapılandırmayı aynı anda çalıştırabilirsiniz; bunlar tek bir eval'de birleştirilecektir. Örneğin:
 
 ```
 promptfoo eval -c my_configs/*
@@ -845,9 +845,9 @@ veya
 promptfoo eval -c config1.yaml -c config2.yaml -c config3.yaml
 ```
 
-## CSV’den Test Yükleme
+## CSV'den testleri yükleme
 
-YAML hoshan, ancak bazı kurumólferin LLM testlerini işbirliğini kolaylanştirator çınb yapraklarında tutarlar. promptfoo, özel [CSV dosyası biçimini](/docs/configuration/test-cases#csv-format) destekler.
+YAML güzeldir, ancak bazı kuruluşlar işbirliğini kolaylaştırmak için LLM testlerini elektronik tablolarda tutar. promptfoo özel bir [CSV dosya biçimini](/docs/configuration/test-cases#csv-format) destekler.
 
 ```yaml
 prompts:
@@ -860,7 +860,7 @@ providers:
 tests: file://tests.csv
 ```
 
-promptfoo ayrıca bir Google Eçleğiınden test durumları çekebs yeteneğine sahiptir. Başlamanın en kolay yolu sayfayı "bağlantı ile herhangi biri" olarak görünür. Örneğin:
+promptfoo ayrıca Google Sheet'ten test durumları çekmek için yerleşik yeteneklere sahiptir. Başlamak için en kolay yol, sayfayı "bağlantısı olan herkes" e görünür yapmaktır. Örneğin:
 
 ```yaml
 prompts:
@@ -873,6 +873,6 @@ providers:
 tests: https://docs.google.com/spreadsheets/d/1eqFnv1vzkPvS7zG-mYsqNDwOzvSaiIAsKB3zKg9H18c/edit?usp=sharing
 ```
 
-Burada [tam örnek](https://github.com/promptfoo/promptfoo/tree/main/examples/google-sheets) yer almaktadır.
+[Tam örnek](https://github.com/promptfoo/promptfoo/tree/main/examples/google-sheets) burada yer almaktadır.
 
-promptfoo’yu özel bir spreadsheet'e erişmek için ayarlamakı iŞ hakkında kılavuz için bkz. [Google Eçleği entiegrasyonu](/docs/integrations/google-sheets).
+Promptfoo'yu özel bir elektronik tabloyu erişecek şekilde ayarlamak hakkında ayrıntılar için bkz. [Google Sheets entegrasyonu](/docs/integrations/google-sheets).
