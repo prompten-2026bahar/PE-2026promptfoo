@@ -1,6 +1,6 @@
 ---
 sidebar_position: 60
-description: Bellek optimizasyonu, API yapılandırması, Node.js hataları, yerel derlemeler ve ağ/proxy kurulumu için ortak promptfoo sorunlarını ayıklayın ve çözün
+description: Bellek optimizasyonu, API yapılandırması, Node.js hataları, yerel derlemeler ve ağ/proxy yapılandırması ile promptfoo sorunlarını giderin ve çözün
 ---
 
 # Sorun Giderme
@@ -9,87 +9,87 @@ description: Bellek optimizasyonu, API yapılandırması, Node.js hataları, yer
 
 Belirli sorunları gidermeden önce, sorunları teşhis etmeye yardımcı olmak için ayrıntılı günlüklere erişebilirsiniz:
 
-- **Günlükleri doğrudan görüntüle**: Günlük dosyaları yapılandırma dizininizde `~/.promptfoo/logs` konumunda varsayılan olarak depolanır
-- **Özel günlük dizini**: Günlükleri farklı bir dizine yazmak için `PROMPTFOO_LOG_DIR` ortam değişkenini ayarlayın (örn. `PROMPTFOO_LOG_DIR=./logs promptfoo eval`)
-- **Günlükleri paylaşım için dışarı aktarma**: Hata ayıklama veya destek için günlük dosyalarınızın sıkıştırılmış arşivini oluşturmak için `promptfoo export logs` kullanın
+- **Günlükleri doğrudan görüntüleyin**: Günlük dosyaları varsayılan olarak yapılandırma dizininizde `~/.promptfoo/logs` içinde saklanır
+- **Özel günlük dizini**: Günlükleri farklı bir dizine yazmak için `PROMPTFOO_LOG_DIR` ortam değişkenini ayarlayın (ör. `PROMPTFOO_LOG_DIR=./logs promptfoo eval`)
+- **Günlükleri paylaşmak için dışa aktarın**: Hata ayıklama veya destek için günlük dosyalarınızın sıkıştırılmış bir arşivini oluşturmak üzere `promptfoo export logs` komutunu kullanın
 
 ### Canlı Hata Ayıklama Geçişi
 
-`promptfoo redteam run` sırasında, yeniden başlatmadan hata ayıklama günlüğünü gerçek zamanlı olarak açıp kapatabilirsiniz:
+`promptfoo redteam run` sırasında, yeniden başlatmaya gerek kalmadan gerçek zamanlı olarak hata ayıklama günlüklerini açıp kapatabilirsiniz:
 
-- **`v` basın** istediğiniz zaman ayrıntılı/hata ayıklama çıktısını değiştirmek için
-- Yalnızca etkileşimli terminal modunda çalışır (CI'da veya çıktı boru hattıyla verildiğinde değil)
-- Günlük çıktıyı fazla yüklemeden sorunları araştırmak için yararlı
+- **`v` tuşuna** herhangi bir zamanda basarak ayrıntılı/hata ayıklama çıktısını geçiş yapın
+- Bu yalnızca etkileşimli terminal modunda çalışır (CI'da veya çıktının yönlendirildiği durumlarda değil)
+- Bir tarama sırasında sorunları incelerken veya belirli bir test durumunda neler olup bittiğini anlamak istediğinizde yararlıdır
 
-Bir tarama başlattığınızda şunu göreceksiniz:
+Bir taramaya başladığınızda şunu görürsünüz:
 
 ```
-  İpucu: Hata ayıklama çıktısını değiştirmek için v tuşuna basın
+  Tip: Hata ayıklama çıktısını geçiş için v tuşuna basın
 ```
 
-Ayrıntılı API isteklerini, sağlayıcı yanıtlarını ve notlandırma sonuçlarını görmek için hata ayıklama günlüklerini etkinleştirmek üzere `v` tuşuna basın. Temiz çıktıya dönmek için `v` tuşuna tekrar basın.
+`v` tuşuna basarak ayrıntılı günlükleri etkinleştirin ve API isteklerini, sağlayıcı yanıtlarını ve derecelendirme sonuçlarını görün. Tekrar `v` tuşuna basarak temiz çıktıya geri dönün.
 
 :::tip
-Bu, bir taramanın takılmış görünmesi veya belirli bir test durumunda neler olup bittiğini anlamak istediğinizde özellikle yararlıdır.
+Bir tarama takılı kaldıysa veya belirli bir test durumu ile neler olup bittiğini anlamak istiyorsanız bu özellikle faydalıdır.
 :::
 
-## Bellek dışı hata
+## Bellek yetersizliği hatası
 
-Birçok test veya testleriniz büyük çıktılara sahipse, bellek dışı hata ile karşılaşabilirsiniz. Bunu ele almanın birkaç yolu vardır:
+Çok sayıda testiniz varsa veya testleriniz büyük çıktılar üretiyorsa, bellek yetersizliği hatası alabilirsiniz. Bunu yönetmenin birkaç yolu vardır:
 
-### Temel kurulum
+### Temel yapılandırma
 
-Aşağıdaki adımların **tümünü** izleyin:
+**Tüm** bu adımları izleyin:
 
-1. `--no-write` bayrağını kullanmayın. Bellek sorunlarından kaçınmak için diske yazmamız gerekir.
+1. `--no-write` bayrağını kullanmayın. Bellek sorunlarını önlemek için diske yazmamız gerekiyor.
 2. `--no-table` bayrağını kullanın.
-3. **JSONL biçimini kullanın**: `--output results.jsonl`
+3. **JSONL formatını kullanın**: `--output results.jsonl`
 
 :::tip
-JSONL biçimi, sonuçları toplu olarak işler ve büyük veri kümeleri için JSON dışarı aktarmayı başarısız kılan bellek sınırlarından kaçınır.
+JSONL formatı sonuçları partiler halinde işler ve büyük veri setlerinde JSON dışa aktarmasının başarısız olmasına neden olan bellek sınırlarından kaçınır.
 :::
 
-### Granüler bellek optimizasyonu
+### Hassas bellek optimizasyonu
 
-Ortam değişkenlerini kullanarak sonuçlardan seçici olarak ağır verileri çıkarabilirsiniz:
+Sonuçlardan ağır verileri seçici olarak çıkarmak için aşağıdaki ortam değişkenlerini kullanabilirsiniz:
 
 ```bash
-# İstem metnini çıkart (isteminiz büyük miktarda metin veya resim içeriyorsa yararlı)
+# İstem metnini çıkart (istençleriniz büyük miktarda metin veya resim içeriyorsa kullanışlıdır)
 export PROMPTFOO_STRIP_PROMPT_TEXT=true
 
-# Model çıktılarını çıkart (modeliniz büyük yanıtlar üretiyorsa yararlı)
+# Model çıktılarının çıkartılması (modeliniz büyük yanıtlar üretiyorsa kullanışlıdır)
 export PROMPTFOO_STRIP_RESPONSE_OUTPUT=true
 
-# Test değişkenlerini çıkart (test durumlarınız büyük veri kümeleri içeriyorsa yararlı)
+# Test değişkenlerini çıkart (test durumlarınız büyük veri setleri içeriyorsa kullanışlıdır)
 export PROMPTFOO_STRIP_TEST_VARS=true
 
-# Notlandırma sonuçlarını çıkart (model tarafından notlandırılmış iddiaları kullanıyorsanız yararlı)
+# Derecelendirme sonuçlarını çıkart (model derecelendirmeli iddialar kullanıyorsanız kullanışlıdır)
 export PROMPTFOO_STRIP_GRADING_RESULT=true
 
-# Meta verilerini çıkart (büyük miktarda özel meta veri depoluyorsanız yararlı)
+# Meta veriyi çıkart (büyük miktarda özel meta veri saklıyorsanız kullanışlıdır)
 export PROMPTFOO_STRIP_METADATA=true
 ```
 
 İhtiyacınız olan verileri korurken bellek kullanımını optimize etmek için bu değişkenlerin herhangi bir kombinasyonunu kullanabilirsiniz.
 
-### Node.js bellek sınırını artır
+### Node.js bellek sınırını artırma
 
-Yukarıdaki seçenekleri denedikten sonra hala bellek sorunlarıyla karşılaşıyorsanız, `NODE_OPTIONS` ortam değişkenini ayarlayarak promptfoo'ya sunulan hafızanın miktarını artırabilirsiniz:
+Yukarıdaki seçeneklerden sonra hala bellek sorunları yaşıyorsanız, promptfoo'nun kullanabileceği bellek miktarını `NODE_OPTIONS` ortam değişkenini ayarlayarak artırabilirsiniz:
 
 ```bash
-# 8192 MB, 8 GB'dir. Bunu makineniz için uygun bir değere ayarlayın.
+# 8192 MB 8 GB'dir. Makineniz için uygun bir değere ayarlayın.
 NODE_OPTIONS="--max-old-space-size=8192" npx promptfoo eval
 ```
 
-## Object template handling
+## Nesne şablonu işlemleri
 
-When working with complex data structures in templates, you might encounter issues with how objects are displayed or accessed in your prompts and grading rubrics.
+Şablonlarda karmaşık veri yapılarıyla çalışırken, nesnelerin çıktılarda veya derecelendirme sonuçlarında nasıl görüntülendiği veya erişildiği konusunda sorunlarla karşılaşabilirsiniz.
 
-### `[object Object]` appears in outputs
+### `[object Object]` görünmesi
 
-If you see `[object Object]` in your LLM outputs or grading results, this means JavaScript objects are being converted to their string representation without proper serialization. By default, promptfoo automatically stringifies objects to prevent this issue.
+LLM çıktılarınızda veya derecelendirme sonuçlarında `[object Object]` görürseniz, bu JavaScript nesnelerinin uygun seri hale getirme olmadan stringe çevrildiği anlamına gelir. Varsayılan olarak promptfoo bu sorunu önlemek için nesneleri otomatik olarak string hale getirir.
 
-**Example problem:**
+**Örnek sorun:**
 
 ```yaml
 prompts:
@@ -99,79 +99,79 @@ tests:
       product:
         name: 'Headphones'
         price: 99.99
-# Results in: "Product: [object Object]" in outputs
+# Sonuç: çıktılarda "Product: [object Object]" 
 ```
 
-**Default solution:** Objects are automatically converted to JSON strings:
+**Varsayılan çözüm:** Nesneler otomatik olarak JSON dizelerine dönüştürülür:
 
 ```text
 Product: {"name":"Headphones","price":99.99}
 ```
 
-### Accessing object properties in templates
+### Şablonlarda nesne özelliklerine erişme
 
-If you need to access specific properties of objects in your templates (like `{{ product.name }}`), you can enable direct object access:
+Şablonlarınızda nesnelerin belirli özelliklerine (ör. `{{ product.name }}`) erişmeniz gerekiyorsa, doğrudan nesne erişimini etkinleştirebilirsiniz:
 
 ```bash
 export PROMPTFOO_DISABLE_OBJECT_STRINGIFY=true
 promptfoo eval
 ```
 
-With this setting enabled, you can use object property access in templates:
+Bu ayar etkinleştirildiğinde şablonlarda nesne özelliklerine erişebilirsiniz:
 
 ```yaml
 prompts:
   - 'Product: {{ product.name }} costs ${{ product.price }}'
-# Results in: "Product: Headphones costs $99.99"
+# Sonuç: "Product: Headphones costs $99.99"
 ```
 
-### When to use each approach
+### Hangi yaklaşımı ne zaman kullanmalı
 
-**Use default behavior (stringified objects) when:**
+**Varsayılan davranışı (stringleştirilmiş nesneler) şu durumlarda kullanın:**
 
-- You want objects as JSON strings in your prompts
-- Working with existing templates that expect JSON strings
-- You need maximum compatibility and don't want to see `[object Object]`
+- Nesneleri istemlerinizde JSON dizeleri olarak istiyorsunuz
+- JSON dizeleri bekleyen mevcut şablonlarla çalışıyorsunuz
+- Maksimum uyumluluk istiyor ve `[object Object]` görmek istemiyorsunuz
 
-**Use object property access (`PROMPTFOO_DISABLE_OBJECT_STRINGIFY=true`) when:**
+**Nesne özellik erişimi (`PROMPTFOO_DISABLE_OBJECT_STRINGIFY=true`) şu durumlarda kullanın:**
 
-- You need to access specific properties like `{{ product.name }}`
-- Building new templates designed for object navigation
-- Working with complex nested data structures
+- `{{ product.name }}` gibi belirli özelliklere erişmeniz gerekiyorsa
+- Nesne gezinimi için tasarlanmış yeni şablonlar oluşturuyorsunuz
+- Karmaşık iç içe veri yapılarıyla çalışıyorsunuz
 
-## Node.js sürümü uyumsuzluğu hatası
+## Node.js sürüm uyuşmazlığı hatası
 
-`npx promptfoo@latest` çalıştırırken, bu hatayı alabilirsiniz:
+`npx promptfoo@latest` çalıştırırken şu hatayla karşılaşabilirsiniz:
 
 ```text
 Error: The module '/path/to/node_modules/better-sqlite3/build/Release/better_sqlite3.node'
 was compiled against a different Node.js version using
 NODE_MODULE_VERSION 115. This version of Node.js requires
 NODE_MODULE_VERSION 127. Please try re-compiling or re-installing
-the module (for instance, using `npm rebuild` or `npm install`).
+ the module (for instance, using `npm rebuild` or `npm install`).
 ```
 
-Bu, promptfoo'nun Node.js sürümünüz için özel olarak derlenmelesi gereken yerel kod modülleri (better-sqlite3 gibi) kullandığı için olur.
+Bu hata, promptfoo'nun kullandığı native kod modüllerinin (better-sqlite3 gibi) Node.js sürümünüz için özel olarak derlenmesi gerektiği için oluşur.
 
-### Çözüm: npx önbelleğini kaldırın ve yeniden yükle
+### Çözüm: npx önbelleğini kaldırın ve yeniden yükleyin
 
-Bu sorunu çözmek için bu tek komutu çalıştırın:
+Bu sorunu düzeltmek için bu tek komutu çalıştırın:
 
 ```bash
 rm -rf ~/.npm/_npx && npx -y promptfoo@latest
 ```
 
-Bu, npx önbelleği dizininde önbelleklenen npm paketlerini kaldırır ve promptfoo'nun taze bir ünden indirilmesini ve kurulumunu zorlayarak yerel modülerin mevcut Node.js sürümünüz için doğru şekilde derlenmesini sağlar.
+Bu, npx önbellek dizinindeki tüm npm paketlerini kaldırır ve promptfoo'nun güncel sürümünün yeniden indirilmesini ve yüklenmesini sağlar; böylece native modüller mevcut Node.js sürümünüz için doğru şekilde derlenir.
 
-## Yerel derleme hatalari
+## Yerel derleme hataları
 
-[better-sqlite3](https://github.com/WiseLibs/better-sqlite3) gibi bazı bağımlılıklar yerel olarak derlenmesi gereken yerel kod içerir. Makinenizin bir C/C++ derleme araçları zincirine sahip olduğundan emin olun:
+[better-sqlite3](https://github.com/WiseLibs/better-sqlite3) gibi bazı bağımlılıklar yerel olarak derlenmesi gereken native kod içerir. Makinenizde bir C/C++ derleme araç zinciri olduğundan emin olun:
 
 - **Ubuntu/Debian**: `sudo apt-get install build-essential`
 - **macOS**: `xcode-select --install`
-- **Windows**: [Visual Studio Derleme Araçları](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+- **Windows**: [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
 
-Önceden derlenmiş ikililer başarısız olursa, yerel bir derlemeyi zorlayın:
+Önceden derlenmiş ikili dosyalar başarısız olursa yerel derleme zorlayın:
 
 ```bash
 npm install --build-from-source
@@ -181,26 +181,26 @@ npm rebuild
 
 ## Ağ ve proxy sorunları
 
-Kurumsal bir proxy veya güvenleme duvarının arkasındaysanız ve LLM API'lerine bağlanmada sorun yaşıyorsanız:
+Kurumsal bir proxy veya güvenlik duvarının arkasındaysanız ve LLM API'larına bağlanırken sorun yaşıyorsanız:
 
-### Proxy ayarlarını yapılandır
+### Proxy ayarlarını yapılandırma
 
-Prompfoo çalıştırmadan önce standart proxy ortam değişkenlerini ayarlayın:
+promptfoo'yu çalıştırmadan önce standart proxy ortam değişkenlerini ayarlayın:
 
 ```bash
-# HTTPS istekleri için proxy'yi ayarla (çoğu yaygın)
+# HTTPS istekleri için proxy ayarlayın (en yaygın)
 export HTTPS_PROXY=http://proxy.company.com:8080
 
 # Gerekirse kimlik doğrulama ile
 export HTTPS_PROXY=http://username:password@proxy.company.com:8080
 
-# Belirli sunucuları proxy'den dışı tut
+# Belirli ana makineleri proxy dışında tutun
 export NO_PROXY=localhost,127.0.0.1,internal.domain.com
 ```
 
 ### Özel CA sertifikaları
 
-Özel sertifika yetkililerine sahip ortamlar için:
+Özel sertifika otoriteleri olan ortamlarda:
 
 ```bash
 export PROMPTFOO_CA_CERT_PATH=/path/to/ca-bundle.crt
@@ -210,15 +210,15 @@ export PROMPTFOO_CA_CERT_PATH=/path/to/ca-bundle.crt
 
 Algılanan proxy ayarlarını görmek ve ağ yapılandırmanızın doğru olduğunu doğrulamak için `promptfoo debug` çalıştırın.
 
-Tamamen proxy ve SSL yapılandırması ayrıntıları için [SSS](/docs/faq/#how-do-i-configure-promptfoo-for-corporate-networks-or-proxies)'e bakın.
+Tam proxy ve SSL yapılandırma ayrıntıları için [SSS](/docs/faq/#how-do-i-configure-promptfoo-for-corporate-networks-or-proxies) bölümüne bakın.
 
-## OpenAI API anahtarı ayarlanmadı
+## OpenAI API anahtarı ayarlı değil
 
 OpenAI kullanıyorsanız, `OPENAI_API_KEY` ortam değişkenini ayarlayın veya sağlayıcı yapılandırmasına `apiKey` ekleyin.
 
-OpenAI kullanmıyorsanız ancak yine de bu mesajı alıyorsanız, muhtemelen [model tarafından notlandırılan metrik](/docs/configuration/expected-outputs/model-graded/) gibi `llm-rubric` veya `similar` gibi bir metrik var, bu da [notlandıranı geçersiz kılmanızı](/docs/configuration/expected-outputs/model-graded/#overriding-the-llm-grader) gerektirir.
+OpenAI kullanmıyorsanız ancak bu mesajı almaya devam ediyorsanız, muhtemelen `llm-rubric` veya `similar` gibi [model-derecelendirmeli bir metrik](/docs/configuration/expected-outputs/model-graded/) kullanıyorsunuzdur ve derecelendiriciyi [geçersiz kılmanız](/docs/configuration/expected-outputs/model-graded/#overriding-the-llm-grader) gerekir.
 
-Notlandıranı geçersiz kılmak için talimatları izleyin, örneğin `defaultTest` özelliğini kullanarak:
+Örneğin derecelendiriciyi `defaultTest` özelliğini kullanarak geçersiz kılma talimatlarını izleyin:
 
 ```yaml
 defaultTest:
@@ -234,25 +234,25 @@ defaultTest:
           apiHost: xxx.openai.azure.com
 ```
 
-## Python/JavaScript araç dosyaları işlev adı gerektir
+## Python/JavaScript araç dosyaları fonksiyon adı gerektirir
 
-Python veya JavaScript dosyalarından araçlar yüklerken `Python dosyaları bir ışlev adı gerektirir` gibi hatalar görüyorsanız, araç tanımlarını veren ışlev adını belirtmeniz gerekir.
+Python veya JavaScript dosyalarından araçları yüklerken `Python files require a function name` gibi hatalar görürseniz, araç tanımlarını döndüren fonksiyon adını belirtmeniz gerekir.
 
 ### Çözüm
 
-Python ve JavaScript araç dosyaları `file://path:function_name` biçimini kullanarak bir ışlev adı belirtmelidir:
+Python ve JavaScript araç dosyaları `file://path:function_name` formatını kullanarak bir fonksiyon adı belirtmelidir:
 
 ```yaml title="promptfooconfig.yaml"
 providers:
   - id: openai:chat:gpt-4.1-mini
     config:
-      # Doğru - işlev adını belirtir
+      # Correct - specifies function name
       tools: file://./tools.py:get_tools
-      # veya JavaScript/TypeScript için
+      # or for JavaScript/TypeScript
       tools: file://./tools.js:getTools
 ```
 
-İşlev araç tanımları dizisini döndürümü gerekir (senkron veya eş zaman sız olabilir):
+The function must return a tool definitions array (can be synchronous or asynchronous):
 
 ```python title="tools.py"
 def get_tools():
@@ -261,13 +261,13 @@ def get_tools():
             "type": "function",
             "function": {
                 "name": "get_current_weather",
-                "description": "Belirli bir yerdeki mevcut hava durumunu al",
+                "description": "Get the current weather in a given location",
                 "parameters": {
                     "type": "object",
                     "properties": {
                         "location": {
                             "type": "string",
-                            "description": "Şehir ve eyalet, örneğin San Francisco, CA"
+                            "description": "The city and state, e.g. San Francisco, CA"
                         }
                     },
                     "required": ["location"]
@@ -284,13 +284,81 @@ function getTools() {
       type: 'function',
       function: {
         name: 'get_current_weather',
-        description: 'Belirli bir yerdeki mevcut hava durumunu al',
+        description: 'Get the current weather in a given location',
         parameters: {
           type: 'object',
           properties: {
             location: {
               type: 'string',
-              description: 'Şehir ve eyalet, örneğin San Francisco, CA',
+              description: 'The city and state, e.g. San Francisco, CA',
+            },
+          },
+          required: ['location'],
+        },
+      },
+    },
+  ];
+}
+
+module.exports = { getTools };
+```
+## Python/JavaScript tool files require function name
+
+If you see errors like `Python files require a function name` when loading tools from Python or JavaScript files, you need to specify the function name that returns the tool definitions.
+
+### Solution
+
+Python and JavaScript tool files must specify a function name using the `file://path:function_name` format:
+
+```yaml title="promptfooconfig.yaml"
+providers:
+  - id: openai:chat:gpt-4.1-mini
+    config:
+      # Correct - specifies function name
+      tools: file://./tools.py:get_tools
+      # or for JavaScript/TypeScript
+      tools: file://./tools.js:getTools
+```
+
+The function must return a tool definitions array (can be synchronous or asynchronous):
+
+```python title="tools.py"
+def get_tools():
+    return [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_current_weather",
+                "description": "Get the current weather in a given location",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "location": {
+                            "type": "string",
+                            "description": "The city and state, e.g. San Francisco, CA"
+                        }
+                    },
+                    "required": ["location"]
+                }
+            }
+        }
+    ]
+```
+
+```javascript title="tools.js"
+function getTools() {
+  return [
+    {
+      type: 'function',
+      function: {
+        name: 'get_current_weather',
+        description: 'Get the current weather in a given location',
+        parameters: {
+          type: 'object',
+          properties: {
+            location: {
+              type: 'string',
+              description: 'The city and state, e.g. San Francisco, CA',
             },
           },
           required: ['location'],
@@ -303,30 +371,30 @@ function getTools() {
 module.exports = { getTools };
 ```
 
-## Taşıı ilgisi ış değerlendirmeleri nasıl ışıԟırım
+## How to triage stuck evals
 
-Bu değerlendirmeleri çalıştırırken, özellikle yerel sağlayıcılar kullanırken veya çok sayıda eş zaman lı istek çalıştırırken zaman aşımı hatalarıyla karşılaşabilirsiniz. Bunları çözümlemek için burada nasıl yapılır:
+When running evals, you may encounter timeout errors, especially when using local providers or when running many concurrent requests. Here's how to fix them:
 
-**Yaygın kullanım durumları:**
+**Common use cases:**
 
-- Değerlendirmelerin bir zaman sınırı içinde tamamlanmasını sağlayın (CI/CD için yararlı)
-- Özel sağlayıcıları veya takılı kalan sağlayıcıları ele alın
-- Uzun süren değerlendirmelerden kaynaklanabilecek harcamaları önleyin
+- Ensure evaluations complete within a time limit (useful for CI/CD)
+- Handle custom providers or providers that get stuck
+- Prevent runaway costs from long-running evaluations
 
-İki ayarı kontrol edebilirsiniz: bireysel test durumları için zaman aşımı ve tüm değerlendirme için zaman aşımı.
+You can control two settings: timeout for individual test cases and timeout for the entire evaluation.
 
-### Hızlı düzeltmeler
+### Quick fixes
 
-**Bireysel istekler ve toplam değerlendirme süresine yönelik zaman aşımları ayarla:**
+**Set timeouts for individual requests and total evaluation time:**
 
 ```bash
-export PROMPTFOO_EVAL_TIMEOUT_MS=30000  # İstek başına 30 saniye
-export PROMPTFOO_MAX_EVAL_TIME_MS=300000  # Toplam sınır 5 dakika
+export PROMPTFOO_EVAL_TIMEOUT_MS=30000  # 30 seconds per request
+export PROMPTFOO_MAX_EVAL_TIME_MS=300000  # 5 minutes total limit
 
 npx promptfoo eval
 ```
 
-Bu değerleri `.env` dosyanızda veya Promptfoo yapılandırıcı dosyasında da ayarlayabilirsiniz:
+You can also set these values in your `.env` file or Promptfoo config file:
 
 ```yaml title="promptfooconfig.yaml"
 env:
@@ -334,64 +402,64 @@ env:
   PROMPTFOO_MAX_EVAL_TIME_MS: 300000
 ```
 
-## Python Hata Ayıklaması
+## Debugging Python
 
-Özel Python sağlayıcıları, istemler, kancalar, iddialar vb. kullanırken, Python kodunuzu ayıklamanız gerekebilir. İşte sorun gidermede size yardımcı olacak bazı ipuçları:
+When using custom Python providers, prompts, hooks, assertions, etc., you may need to debug your Python code. Here are some tips to help you troubleshoot issues:
 
-### Python çıktısını görüntüleme
+### Viewing Python output
 
-Python komut dosyanızından çıktıyı görmek için, print deyimleri de dahil olmak üzere, değerlendirmeyi çalıştırırken `LOG_LEVEL` ortam değişkenini `debug` olarak ayarlayın:
+To see the output from your Python script, including print statements, set the `LOG_LEVEL` environment variable to `debug` when running your eval:
 
 ```bash
 LOG_LEVEL=debug npx promptfoo eval
 ```
 
-Alternatif olarak, `--verbose` bayrağını kullanabilirsiniz:
+Alternatively, you can use the `--verbose` flag:
 
 ```bash
 npx promptfoo eval --verbose
 ```
 
-### Python ayıklayıcısını kullama (pdb)
+### Using the Python debugger (pdb)
 
-Promptfoo artık pdb ile yerel Python hata ayıklamasını desteklemektedir. Bunu etkinleştirmek için:
+Promptfoo now supports native Python debugging with pdb. To enable it:
 
 ```bash
 export PROMPTFOO_PYTHON_DEBUG_ENABLED=true
 ```
 
-Ardından Python kodunuzda kesme noktaları ekleyin:
+Then add breakpoints in your Python code:
 
 ```python
 import pdb
 
 def call_api(prompt, options, context):
-    pdb.set_trace()  # Hata ayıklayıcı burada duracak
-    # Kodunuz...
+    pdb.set_trace()  # Debugger will pause here
+    # Your code...
 ```
 
-### Python Kurulumu ve Yol Sorunları
+### Python Installation and Path Issues
 
-`spawn py -3 ENOENT` veya `Python 3 bulunamadı` gibi hatalarla karşılaşırsanız, promptfoo Python kurulumunuzu bulamıyor. Bunu çözmek için burada nasıl:
+If you encounter errors like `spawn py -3 ENOENT` or `Python 3 not found`, promptfoo cannot locate your Python installation. Here's how to resolve this:
 
-#### Özel Python Yolu Ayarlama
+#### Setting a Custom Python Path
 
-Python yürütülebilir dosyasını belirtmek için `PROMPTFOO_PYTHON` ortam değişkenini kullanın:
+Use the `PROMPTFOO_PYTHON` environment variable to specify your Python executable:
 
 ```bash
-# Windows (Özel bir konumda Python kuruluysa)
+# Windows (if Python is installed at a custom location)
 export PROMPTFOO_PYTHON=C:\Python\3_11\python.exe
 
 # macOS/Linux
 export PROMPTFOO_PYTHON=/usr/local/bin/python3
 
-# İşetim sisteminizi çalıştırın
+# Then run your evaluation
 npx promptfoo eval
 ```
 
-#### Sağlayıcıya Özel Python Yapılandırması
+#### Per-Provider Python Configuration
 
-Ayrıca yapılandırmanızda belirli sağlayıcılar için Python yolunu ayarlayabilirsiniz:
+You can also set the Python path for specific providers in your config:
 
 ```yaml
 providers:
@@ -400,72 +468,70 @@ providers:
       pythonExecutable: /path/to/specific/python
 ```
 
-#### Windows Özel Sorunlar
+#### Windows-Specific Issues
 
-Windows'ta, promptfoo Python'u bu sırayla tespit çalmaya çalışır:
+On Windows, promptfoo tries to detect Python in this order:
 
-1. `PROMPTFOO_PYTHON` ortam değişkeni (
-ayarlanmışsa)
-2. Sağlayıcıya özel `pythonExecutable` yapılandırması (
-ayarlanmışsa)
-3. **Windows akıllı algılama**: `where python` komutunu kullanır ve Microsoft Mağazosı saplarcılarını filtreler
-4. `python -c "import sys; print(sys.executable)"` (gerçek Python yolunu almak için)
-5. Yaygın bu komutlar: `python`, `python3`, `py -3`, `py`
+1. `PROMPTFOO_PYTHON` environment variable (if set)
+2. Provider-specific `pythonExecutable` config (if set)
+3. **Windows smart detection**: Uses `where python` command and filters out Microsoft Store stubs
+4. `python -c "import sys; print(sys.executable)"` (to get the actual Python path)
+5. Common fallback commands: `python`, `python3`, `py -3`, `py`
 
-Python başlatıcısı (`py.exe`) yüklemeden ancak Python doğrudan w vardır için, `python` komutunun komut satırından işe yaradığından emin olun. Değilse, ya:
+If you don't have the Python launcher (`py.exe`) installed but have Python directly, make sure the `python` command works from your command line. If not, either:
 
-- Python kurulumu dizininizi PATH'e ekleyin
-- `PROMPTFOO_PYTHON`'u `python.exe`'nizin tam yoluna ayarlayın
+- Add your Python installation directory to your PATH
+- Set `PROMPTFOO_PYTHON` to the full path of your `python.exe`
 
-**Yaygın Windows Python Konumları:**
+**Common Windows Python locations:**
 
-- Microsoft Mağazası: `%USERPROFILE%\AppData\Local\Microsoft\WindowsApps\python.exe`
-- Doğrudan yükleyici: `C:\Python3X\python.exe` (X sürümdür)
+- Microsoft Store: `%USERPROFILE%\AppData\Local\Microsoft\WindowsApps\python.exe`
+- Direct installer: `C:\Python3X\python.exe` (where X is the version)
 - Anaconda: `C:\Users\YourName\anaconda3\python.exe`
 
-#### Python Yapılandırmanızı Test Etme
+#### Testing Your Python Configuration
 
-Python'unuzun doğru yapılandırıldığını doğrulamak için:
+To verify your Python is correctly configured:
 
 ```bash
-# Promptfoo'nun Python'unuzu bulabildiğini test edin
+# Test that promptfoo can find your Python
 python -c "import sys; print(sys.executable)"
 
-# Bu işe yarıyor ama promptfoo hala sorun varsa, PROMPTFOO_PYTHON'u ayarlayın:
+# If this works but promptfoo still has issues, set PROMPTFOO_PYTHON:
 export PROMPTFOO_PYTHON=$(python -c "import sys; print(sys.executable)")
 ```
 
-### Hataları Ele Alma
+### Handling errors
 
-Python komut dosyanızda hatalarla karşılaşırsanız, hata mesajı ve istif izleri promptfoo çıktısında görüntülenecektir. Kodunuzda neler yanlış olabileceğine dair ipuçları için bu bilgilere bakın.
+If you encounter errors in your Python script, the error message and stack trace will be displayed in the promptfoo output. Make sure to check this information for clues about what might be going wrong in your code.
 
-Promptfoo Python komut dosyanızı ayrı bir işlemde çalıştırdığı için, bazı standart hata ayıklama teknikleri bekleneceği gibi çalışmayabilir. Yukarıda açıklandığı gibi günlüğü ve uzaktan hata ayıklamayı kullanmak, Python sağlayıcılarında sorunları gidermek için en güvenilir yollarıdır.
+Remember that promptfoo runs your Python script in a separate process, so some standard debugging techniques may not work as expected. Using logging and remote debugging as described above are the most reliable ways to troubleshoot issues in your Python providers.
 
-## Veritabanını Hata Ayıklama
+## Debugging the Database
 
-1. Ortam değişkenlerini ayarlayın:
+1. Set environment variables:
 
    ```bash
    export PROMPTFOO_ENABLE_DATABASE_LOGS=true
    export LOG_LEVEL=debug
    ```
 
-2. Komutunuzu çalıştırın:
+2. Run your command:
 
    ```bash
    npx promptfoo eval
    ```
 
-3. İşlem bittiğinde günlüğü devre dışı bırakın:
+3. Disable logging when done:
 
    ```bash
    unset PROMPTFOO_ENABLE_DATABASE_LOGS
    ```
 
-## Günlük Dosyalarını Bulma
+## Finding log files
 
-Promptfoo, hata ve ayrıntılı günlükleri varsayılan olarak `~/.promptfoo/logs` dizinine kaydetmektedir.
+Promptfoo logs errors and verbose logs to `~/.promptfoo/logs` by default.
 
-Konumu değiştirmek için `PROMPTFOO_LOG_DIR`'i farklı bir dizine ayarlayın.
+Change the location by setting `PROMPTFOO_LOG_DIR` to a different directory.
 
-Her çalıştırma için bir hata günlüğü ve bir hata ayıklama günlüğü oluşturulur.
+For each run an error log and a debug log will be created.
