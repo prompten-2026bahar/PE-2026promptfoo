@@ -1,32 +1,32 @@
 ---
 sidebar_position: 999
-sidebar_label: Büyük Yapılandırmaları Yönetme
-title: Büyük Promptfoo Yapılandırmalarını Yönetme
-description: Daha iyi bakım ve yeniden kullanılabilirlik için büyük promptfoo yapılandırmalarını yapılandırmak, organize etmek ve modülarise etmek hakkında bilgi edinin.
+sidebar_label: Managing Large Configs
+title: Managing Large Promptfoo Configurations
+description: Learn how to structure, organize, and modularize large promptfoo configurations for better maintainability and reusability.
 keywords:
   [
-    promptfoo yapılandırması,
-    modüler yapılandırmalar,
-    büyük yapılandırma,
-    yapılandırma yönetimi,
-    yeniden kullanılabilir yapılandırmalar,
-    yapılandırma organizasyonu,
-    YAML referansları,
-    dosya içe aktarımları,
+    promptfoo configuration,
+    modular configs,
+    large configuration,
+    configuration management,
+    reusable configurations,
+    configuration organization,
+    YAML references,
+    file imports,
   ]
 ---
 
-# Büyük Yapılandırmaları Yönetme
+# Managing Large Configurations
 
-Promptfoo değerlendirmeleriniz daha karmaşık hale geldikçe, yapılandırmalarınızı yönetilebilir, bakım yapılabilir ve yeniden kullanılabilir tutmak için stratejiler gerekir. Bu kılavuz, büyük yapılandırmaları organize etmek ve modüler yapmak için en iyi uygulamaları kapsar.
+As your Promptfoo evaluations grow more complex, you'll need strategies to keep your configurations manageable, maintainable, and reusable. This guide covers best practices for organizing large configurations and making them modular.
 
-## Ayrı Yapılandırma Dosyaları
+## Separate Configuration Files
 
-Yapılandırmanızı işlevselliğe göre birden fazla dosyaya bölün:
+Split your configuration into multiple files based on functionality:
 
 ```yaml title="promptfooconfig.yaml"
 # yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
-description: Ana değerlendirme yapılandırması
+description: Main evaluation configuration
 prompts: file://configs/prompts.yaml
 providers: file://configs/providers.yaml
 tests: file://configs/tests/
@@ -34,18 +34,18 @@ defaultTest: file://configs/default-test.yaml
 ```
 
 ```yaml title="configs/prompts.yaml"
-# İstemler yapılandırması
+# Prompts configuration
 - file://prompts/system-message.txt
 - file://prompts/user-prompt.txt
 - id: custom-prompt
-  label: Özel İstem
+  label: Custom Prompt
   raw: |
-    Yararlı bir asistan olarak hareket et. Lütfen aşağıdaki soruyu cevapla:
+    You are a helpful assistant. Please answer the following question:
     {{question}}
 ```
 
 ```yaml title="configs/providers.yaml"
-# Sağlayıcılar yapılandırması
+# Providers configuration
 - id: gpt-5.2
   provider: openai:gpt-5.2
   config:
@@ -59,21 +59,21 @@ defaultTest: file://configs/default-test.yaml
 ```
 
 ```yaml title="configs/default-test.yaml"
-# Varsayılan test yapılandırması
+# Default test configuration
 assert:
   - type: llm-rubric
-    value: Yanıt yararlı ve doğru olmalıdır
+    value: Response should be helpful and accurate
   - type: javascript
     value: output.length > 10 && output.length < 500
 ```
 
-### Test Durumları Organizasyonu
+### Test Case Organization
 
-Test durumlarını etki alanı veya işlevselliğe göre düzenleyin:
+Organize test cases by domain or functionality:
 
 ```yaml title="promptfooconfig.yaml"
 # yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
-description: Çok alan değerlendirmesi
+description: Multi-domain evaluation
 prompts: file://prompts/
 providers: file://providers.yaml
 tests:
@@ -84,31 +84,31 @@ tests:
 ```
 
 ```yaml title="tests/accuracy/math-problems.yaml"
-# Matematik özgü test durumları
-- description: Temel aritmetik
+# Math-specific test cases
+- description: Basic arithmetic
   vars:
-    question: 15 + 27 nedir?
+    question: What is 15 + 27?
   assert:
     - type: contains
       value: '42'
     - type: javascript
       value: /4[2]/.test(output)
 
-- description: Sözel problemler
+- description: Word problems
   vars:
-    question: Sarah'nın 3 elması varsa ve 1'ini verirse, kaç tane kalır?
+    question: If Sarah has 3 apples and gives away 1, how many does she have left?
   assert:
     - type: contains
       value: '2'
 ```
 
-### Ortama Özel Yapılandırmalar
+### Environment-Specific Configurations
 
-Ortama özel yapılandırmalar oluşturun:
+Create environment-specific configurations:
 
 ```yaml title="promptfooconfig.yaml"
 # yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
-description: Üretim değerlendirmesi
+description: Production evaluation
 prompts: file://prompts/
 providers: file://configs/providers-prod.yaml
 tests: file://tests/
@@ -116,7 +116,7 @@ env: file://configs/env-prod.yaml
 ```
 
 ```yaml title="configs/providers-prod.yaml"
-# Oran sınırlandırması olan üretim sağlayıcıları
+# Production providers with rate limiting
 - id: gpt-5.2-prod
   provider: openai:gpt-5.2
   config:
@@ -132,23 +132,23 @@ env: file://configs/env-prod.yaml
 ```
 
 ```yaml title="configs/env-prod.yaml"
-# Üretim ortamı değişkenleri
+# Production environment variables
 OPENAI_API_KEY: '{{ env.OPENAI_API_KEY_PROD }}'
 ANTHROPIC_API_KEY: '{{ env.ANTHROPIC_API_KEY_PROD }}'
 LOG_LEVEL: info
 ```
 
-## YAML Referansları ve Şablonları
+## YAML References and Templates
 
-Tekrarlamaktan kaçınmak için YAML referanslarını kullanın:
+Use YAML references to avoid repetition:
 
 ```yaml title="promptfooconfig.yaml"
 # yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
-description: Yeniden kullanılabilir bileşenlere sahip değerlendirme
+description: Evaluation with reusable components
 prompts: file://prompts/
 providers: file://providers.yaml
 
-# Yeniden kullanılabilir iddia şablonları tanımla
+# Define reusable assertion templates
 assertionTemplates:
   lengthCheck: &lengthCheck
     type: javascript
@@ -156,11 +156,11 @@ assertionTemplates:
 
   qualityCheck: &qualityCheck
     type: llm-rubric
-    value: Yanıt açık, yararlı ve iyi yapılandırılmış olmalıdır
+    value: Response should be clear, helpful, and well-structured
 
   safetyCheck: &safetyCheck
     type: llm-rubric
-    value: Yanıt zararlı veya uygunsuz içerik içermemelidir
+    value: Response should not contain harmful or inappropriate content
 
 defaultTest:
   assert:
@@ -168,36 +168,36 @@ defaultTest:
     - *safetyCheck
 
 tests:
-  - description: Kısa yanıt testi
+  - description: Short response test
     vars:
-      input: Yapay zeka nedir?
+      input: What is AI?
     assert:
       - *lengthCheck
       - *qualityCheck
 
-  - description: Uzun yanıt testi
+  - description: Long response test
     vars:
-      input: Makine öğrenimini ayrıntılı olarak açıkla
+      input: Explain machine learning in detail
     assert:
       - type: javascript
         value: output.length > 100 && output.length < 2000
       - *qualityCheck
 ```
 
-## JavaScript ile Dinamik Yapılandırma
+## Dynamic Configuration with JavaScript
 
-Karmaşık mantık için JavaScript yapılandırmalarını kullanın:
+Use JavaScript configurations for complex logic:
 
 ```javascript title="promptfooconfig.js"
 const baseConfig = {
-  description: 'Dinamik yapılandırma örneği',
+  description: 'Dynamic configuration example',
   prompts: ['file://prompts/base-prompt.txt'],
   providers: ['openai:gpt-5.2', 'anthropic:claude-sonnet-4-5-20250929'],
 };
 
-// Test durumlarını programlı olarak oluştur
-const categories = ['teknoloji', 'bilim', 'tarih', 'edebiyat'];
-const difficulties = ['temel', 'orta', 'ileri'];
+// Generate test cases programmatically
+const categories = ['technology', 'science', 'history', 'literature'];
+const difficulties = ['basic', 'intermediate', 'advanced'];
 
 const tests = [];
 for (const category of categories) {
@@ -206,7 +206,7 @@ for (const category of categories) {
       vars: {
         category,
         difficulty,
-        question: `${difficulty} ${category} hakkında bir soru oluştur`,
+        question: `Generate a ${difficulty} question about ${category}`,
       },
       assert: [
         {
@@ -217,8 +217,8 @@ for (const category of categories) {
           type: 'javascript',
           value: `
             const wordCount = output.split(' ').length;
-            const minWords = ${difficulty === 'temel' ? 5 : difficulty === 'orta' ? 15 : 30};
-            const maxWords = ${difficulty === 'temel' ? 20 : difficulty === 'orta' ? 50 : 100};
+            const minWords = ${difficulty === 'basic' ? 5 : difficulty === 'intermediate' ? 15 : 30};
+            const maxWords = ${difficulty === 'basic' ? 20 : difficulty === 'intermediate' ? 50 : 100};
             return wordCount >= minWords && wordCount <= maxWords;
           `,
         },
@@ -233,27 +233,27 @@ module.exports = {
 };
 ```
 
-## TypeScript Yapılandırması
+## TypeScript Configuration
 
-Promptfoo yapılandırmaları TypeScript'te yazılabilir:
+Promptfoo configs can be written in TypeScript:
 
 ```typescript title="promptfooconfig.ts"
 import type { UnifiedConfig } from 'promptfoo';
 
 const config: UnifiedConfig = {
-  description: 'Değerlendirme paketim',
-  prompts: ['{{topic}} hakkında bana {{style}} anlatın'],
+  description: 'My evaluation suite',
+  prompts: ['Tell me about {{topic}} in {{style}}'],
   providers: ['openai:gpt-5.2', 'anthropic:claude-sonnet-4-5-20250929'],
   tests: [
     {
       vars: {
-        topic: 'kuantum bilgisayar',
-        style: 'basit terimlerle',
+        topic: 'quantum computing',
+        style: 'simple terms',
       },
       assert: [
         {
           type: 'contains',
-          value: 'kuantum',
+          value: 'quantum',
         },
       ],
     },
@@ -263,23 +263,23 @@ const config: UnifiedConfig = {
 export default config;
 ```
 
-### TypeScript Yapılandırmalarını Çalıştırma
+### Running TypeScript Configs
 
-Bir TypeScript yükleyici yükleyin:
+Install a TypeScript loader:
 
 ```bash
 npm install tsx
 ```
 
-`NODE_OPTIONS` ile çalıştırın:
+Run with `NODE_OPTIONS`:
 
 ```bash
 NODE_OPTIONS="--import tsx" promptfoo eval -c promptfooconfig.ts
 ```
 
-### Dinamik Şema Oluşturma
+### Dynamic Schema Generation
 
-Zod şemalarını uygulamanız ve promptfoo arasında paylaşın:
+Share Zod schemas between your application and promptfoo:
 
 ```typescript title="src/schemas/response.ts"
 import { z } from 'zod';
@@ -299,7 +299,7 @@ import { ResponseSchema } from './src/schemas/response';
 const responseFormat = zodResponseFormat(ResponseSchema, 'response');
 
 const config: UnifiedConfig = {
-  prompts: ['Bu soruyu cevapla: {{question}}'],
+  prompts: ['Answer this question: {{question}}'],
   providers: [
     {
       id: 'openai:gpt-5.2',
@@ -310,7 +310,7 @@ const config: UnifiedConfig = {
   ],
   tests: [
     {
-      vars: { question: 'TypeScript nedir?' },
+      vars: { question: 'What is TypeScript?' },
       assert: [{ type: 'is-json' }],
     },
   ],
@@ -319,36 +319,36 @@ const config: UnifiedConfig = {
 export default config;
 ```
 
-Tam bir uygulama için [ts-config örneğini](https://github.com/promptfoo/promptfoo/tree/main/examples/ts-config) bakın.
+See the [ts-config example](https://github.com/promptfoo/promptfoo/tree/main/examples/config-ts) for a complete implementation.
 
-## Koşullu Yapılandırma Yükleme
+## Conditional Configuration Loading
 
-Ortama göre uyum sağlayan yapılandırmalar oluşturun:
+Create configurations that adapt based on environment:
 
 ```javascript title="promptfooconfig.js"
 const isQuickTest = process.env.TEST_MODE === 'quick';
 const isComprehensive = process.env.TEST_MODE === 'comprehensive';
 
 const baseConfig = {
-  description: 'Test modu uyarlanabilir yapılandırma',
+  description: 'Test mode adaptive configuration',
   prompts: ['file://prompts/'],
 };
 
-// Hızlı test yapılandırması
+// Quick test configuration
 if (isQuickTest) {
   module.exports = {
     ...baseConfig,
     providers: [
-      'openai:gpt-5.1-mini', // Hızlı test için daha hızlı, daha ucuz
+      'openai:gpt-5.1-mini', // Faster, cheaper for quick testing
     ],
-    tests: 'file://tests/quick/', // Daha küçük test süresi
+    tests: 'file://tests/quick/', // Smaller test suite
     env: {
       LOG_LEVEL: 'debug',
     },
   };
 }
 
-// Kapsamlı test yapılandırması
+// Comprehensive test configuration
 if (isComprehensive) {
   module.exports = {
     ...baseConfig,
@@ -357,7 +357,7 @@ if (isComprehensive) {
       'anthropic:claude-sonnet-4-5-20250929',
       'google:gemini-2.5-flash',
     ],
-    tests: 'file://tests/comprehensive/', // Tam test süresi
+    tests: 'file://tests/comprehensive/', // Full test suite
     env: {
       LOG_LEVEL: 'info',
     },
@@ -366,13 +366,13 @@ if (isComprehensive) {
 }
 ```
 
-## Dizin Yapısı
+## Directory Structure
 
-Yapılandırma dosyalarınızı mantıksal bir hiyerarşi içinde düzenleyin:
+Organize your configuration files in a logical hierarchy:
 
 ```
 project/
-├── promptfooconfig.yaml              # Ana yapılandırma
+├── promptfooconfig.yaml              # Main configuration
 ├── configs/
 │   ├── providers/
 │   │   ├── development.yaml
@@ -399,10 +399,10 @@ project/
     └── utilities/
 ```
 
-## Ayrıca Bkz.
+## See Also
 
-- [Yapılandırma Kılavuzu](./guide.md) - Temel yapılandırma kavramları
-- [Yapılandırma Referansı](./reference.md) - Eksiksiz yapılandırma seçenekleri
-- [Test Durumları](./test-cases.md) - Test durumlarını organize etme
-- [İstemler](./prompts.md) - İstemler ve şablonları yönetme
-- [Sağlayıcılar](/docs/providers/) - LLM sağlayıcılarını yapılandırma
+- [Configuration Guide](./guide.md) - Basic configuration concepts
+- [Configuration Reference](./reference.md) - Complete configuration options
+- [Test Cases](./test-cases.md) - Organizing test cases
+- [Prompts](./prompts.md) - Managing prompts and templates
+- [Providers](/docs/providers/) - Configuring LLM providers
