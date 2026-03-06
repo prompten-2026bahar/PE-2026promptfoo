@@ -252,75 +252,7 @@ providers:
       tools: file://./tools.js:getTools
 ```
 
-The function must return a tool definitions array (can be synchronous or asynchronous):
-
-```python title="tools.py"
-def get_tools():
-    return [
-        {
-            "type": "function",
-            "function": {
-                "name": "get_current_weather",
-                "description": "Get the current weather in a given location",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "location": {
-                            "type": "string",
-                            "description": "The city and state, e.g. San Francisco, CA"
-                        }
-                    },
-                    "required": ["location"]
-                }
-            }
-        }
-    ]
-```
-
-```javascript title="tools.js"
-function getTools() {
-  return [
-    {
-      type: 'function',
-      function: {
-        name: 'get_current_weather',
-        description: 'Get the current weather in a given location',
-        parameters: {
-          type: 'object',
-          properties: {
-            location: {
-              type: 'string',
-              description: 'The city and state, e.g. San Francisco, CA',
-            },
-          },
-          required: ['location'],
-        },
-      },
-    },
-  ];
-}
-
-module.exports = { getTools };
-```
-## Python/JavaScript tool files require function name
-
-If you see errors like `Python files require a function name` when loading tools from Python or JavaScript files, you need to specify the function name that returns the tool definitions.
-
-### Solution
-
-Python and JavaScript tool files must specify a function name using the `file://path:function_name` format:
-
-```yaml title="promptfooconfig.yaml"
-providers:
-  - id: openai:chat:gpt-4.1-mini
-    config:
-      # Correct - specifies function name
-      tools: file://./tools.py:get_tools
-      # or for JavaScript/TypeScript
-      tools: file://./tools.js:getTools
-```
-
-The function must return a tool definitions array (can be synchronous or asynchronous):
+Fonksiyon senkron veya asenkron olabilir; araç tanımları dizisi döndürmelidir:
 
 ```python title="tools.py"
 def get_tools():
@@ -371,30 +303,31 @@ function getTools() {
 module.exports = { getTools };
 ```
 
-## How to triage stuck evals
 
-When running evals, you may encounter timeout errors, especially when using local providers or when running many concurrent requests. Here's how to fix them:
+## Takılan değerlendirmeleri nasıl sınıflandırabilirsiniz
 
-**Common use cases:**
+Değerlendirmeleri çalıştırırken, özellikle yerel sağlayıcılar kullanıyorsanız veya birçok eşzamanlı isteği yürütüyorsanız zaman aşımı hataları ile karşılaşabilirsiniz. İşte bunları nasıl düzelteceğiniz:
 
-- Ensure evaluations complete within a time limit (useful for CI/CD)
-- Handle custom providers or providers that get stuck
-- Prevent runaway costs from long-running evaluations
+**Yaygın kullanım durumları:**
 
-You can control two settings: timeout for individual test cases and timeout for the entire evaluation.
+- Değerlendirmelerin bir zaman sınırı içinde tamamlanmasını sağlamak (CI/CD için kullanışlıdır)
+- Takılan özel sağlayıcıları veya sağlayıcıları ele almak
+- Uzun süre çalışan değerlendirmelerin yol açtığı maliyet artışlarını önlemek
 
-### Quick fixes
+Bireysel test vakaları için zaman aşımı ve tüm değerlendirme için zaman aşımı olmak üzere iki ayarı kontrol edebilirsiniz.
 
-**Set timeouts for individual requests and total evaluation time:**
+### Hızlı düzeltmeler
+
+**Bireysel istekler ve toplam değerlendirme süresi için zaman aşımı ayarlayın:**
 
 ```bash
-export PROMPTFOO_EVAL_TIMEOUT_MS=30000  # 30 seconds per request
-export PROMPTFOO_MAX_EVAL_TIME_MS=300000  # 5 minutes total limit
+export PROMPTFOO_EVAL_TIMEOUT_MS=30000  # her istek için 30 saniye
+export PROMPTFOO_MAX_EVAL_TIME_MS=300000  # 5 dakika toplam limit
 
 npx promptfoo eval
 ```
 
-You can also set these values in your `.env` file or Promptfoo config file:
+Bu değerleri aynı zamanda `.env` dosyanıza veya Promptfoo yapılandırma dosyanıza da ekleyebilirsiniz:
 
 ```yaml title="promptfooconfig.yaml"
 env:
@@ -402,64 +335,64 @@ env:
   PROMPTFOO_MAX_EVAL_TIME_MS: 300000
 ```
 
-## Debugging Python
+## Python Hata Ayıklaması
 
-When using custom Python providers, prompts, hooks, assertions, etc., you may need to debug your Python code. Here are some tips to help you troubleshoot issues:
+Özel Python sağlayıcıları, istemler, kancalar, iddialar vb. kullanırken, Python kodunuzu ayıklamanız gerekebilir. İşte sorun gidermede size yardımcı olacak bazı ipuçları:
 
-### Viewing Python output
+### Python çıktısını görüntüleme
 
-To see the output from your Python script, including print statements, set the `LOG_LEVEL` environment variable to `debug` when running your eval:
+Python komut dosyanızdan çıktıyı görmek için, print deyimleri de dahil olmak üzere, değerlendirmeyi çalıştırırken `LOG_LEVEL` ortam değişkenini `debug` olarak ayarlayın:
 
 ```bash
 LOG_LEVEL=debug npx promptfoo eval
 ```
 
-Alternatively, you can use the `--verbose` flag:
+Alternatif olarak, `--verbose` bayrağını kullanabilirsiniz:
 
 ```bash
 npx promptfoo eval --verbose
 ```
 
-### Using the Python debugger (pdb)
+### Python ayıklayıcısını (pdb) kullanma
 
-Promptfoo now supports native Python debugging with pdb. To enable it:
+Promptfoo artık pdb ile yerel Python hata ayıklamasını desteklemektedir. Bunu etkinleştirmek için:
 
 ```bash
 export PROMPTFOO_PYTHON_DEBUG_ENABLED=true
 ```
 
-Then add breakpoints in your Python code:
+Ardından Python kodunuzda kesme noktaları ekleyin:
 
 ```python
 import pdb
 
 def call_api(prompt, options, context):
-    pdb.set_trace()  # Debugger will pause here
-    # Your code...
+    pdb.set_trace()  # Hata ayıklayıcı burada duracak
+    # Kodunuz...
 ```
 
-### Python Installation and Path Issues
+### Python Kurulumu ve Yol Sorunları
 
-If you encounter errors like `spawn py -3 ENOENT` or `Python 3 not found`, promptfoo cannot locate your Python installation. Here's how to resolve this:
+`spawn py -3 ENOENT` veya `Python 3 bulunamadı` gibi hatalarla karşılaşırsanız, promptfoo Python kurulumunuzu bulamıyor. Bunu çözmek için aşağıdaki adımları izleyin:
 
-#### Setting a Custom Python Path
+#### Özel Python Yolu Ayarlama
 
-Use the `PROMPTFOO_PYTHON` environment variable to specify your Python executable:
+Python yürütülebilir dosyasını belirtmek için `PROMPTFOO_PYTHON` ortam değişkenini kullanın:
 
 ```bash
-# Windows (if Python is installed at a custom location)
+# Windows (Özel bir konumda Python kuruluysa)
 export PROMPTFOO_PYTHON=C:\Python\3_11\python.exe
 
 # macOS/Linux
 export PROMPTFOO_PYTHON=/usr/local/bin/python3
 
-# Then run your evaluation
+# Ardından değerlendirmeyi çalıştırın
 npx promptfoo eval
 ```
 
-#### Per-Provider Python Configuration
+#### Sağlayıcıya Özel Python Yapılandırması
 
-You can also set the Python path for specific providers in your config:
+Ayrıca yapılandırmanızda belirli sağlayıcılar için Python yolunu ayarlayabilirsiniz:
 
 ```yaml
 providers:
@@ -468,70 +401,68 @@ providers:
       pythonExecutable: /path/to/specific/python
 ```
 
-#### Windows-Specific Issues
+#### Windows Özel Sorunları
 
-On Windows, promptfoo tries to detect Python in this order:
+Windows'ta promptfoo Python'u aşağıdaki sırayla tespit etmeye çalışır:
 
-1. `PROMPTFOO_PYTHON` environment variable (if set)
-2. Provider-specific `pythonExecutable` config (if set)
-3. **Windows smart detection**: Uses `where python` command and filters out Microsoft Store stubs
-4. `python -c "import sys; print(sys.executable)"` (to get the actual Python path)
-5. Common fallback commands: `python`, `python3`, `py -3`, `py`
+1. `PROMPTFOO_PYTHON` ortam değişkeni (ayarlıysa)
+2. Sağlayıcıya özel `pythonExecutable` yapılandırması (ayarlıysa)
+3. **Windows akıllı algılama**: `where python` komutunu kullanır ve Microsoft Mağazası başlatıcılarını filtreler
+4. `python -c "import sys; print(sys.executable)"` (gerçek Python yolunu almak için)
+5. Yaygın yedek komutlar: `python`, `python3`, `py -3`, `py`
 
-If you don't have the Python launcher (`py.exe`) installed but have Python directly, make sure the `python` command works from your command line. If not, either:
+Python başlatıcısı (`py.exe`) yüklü değilse ancak Python doğrudan yüklüyse, komut satırında `python` komutunun çalıştığından emin olun. Değilse ya:
 
-- Add your Python installation directory to your PATH
-- Set `PROMPTFOO_PYTHON` to the full path of your `python.exe`
+- Python kurulum dizininizi PATH'e ekleyin
+- Ya da `PROMPTFOO_PYTHON`'u `python.exe`'nizin tam yoluna ayarlayın
 
-**Common Windows Python locations:**
+**Yaygın Windows Python Konumları:**
 
-- Microsoft Store: `%USERPROFILE%\AppData\Local\Microsoft\WindowsApps\python.exe`
-- Direct installer: `C:\Python3X\python.exe` (where X is the version)
+- Microsoft Mağazası: `%USERPROFILE%\AppData\Local\Microsoft\WindowsApps\python.exe`
+- Doğrudan yükleyici: `C:\Python3X\python.exe` (X sürüm numarasıdır)
 - Anaconda: `C:\Users\YourName\anaconda3\python.exe`
 
-#### Testing Your Python Configuration
+#### Python Yapılandırmanızı Test Etme
 
-To verify your Python is correctly configured:
+Python'unuzun doğru yapılandırıldığını doğrulamak için:
 
 ```bash
-# Test that promptfoo can find your Python
+# Promptfoo'nun Python'unuzu bulabildiğini test edin
 python -c "import sys; print(sys.executable)"
 
-# If this works but promptfoo still has issues, set PROMPTFOO_PYTHON:
+# Bu işe yarıyor ama promptfoo hala sorun yaşarsa, PROMPTFOO_PYTHON'u ayarlayın:
 export PROMPTFOO_PYTHON=$(python -c "import sys; print(sys.executable)")
 ```
 
-### Handling errors
+### Hataları Ele Alma
 
-If you encounter errors in your Python script, the error message and stack trace will be displayed in the promptfoo output. Make sure to check this information for clues about what might be going wrong in your code.
+Python komut dosyanızda hatalarla karşılaşırsanız, hata mesajı ve istif izleri promptfoo çıktısında görüntülenecektir. Kodunuzda neler yanlış olabileceğine dair ipuçları için bu bilgilere bakın.
 
-Remember that promptfoo runs your Python script in a separate process, so some standard debugging techniques may not work as expected. Using logging and remote debugging as described above are the most reliable ways to troubleshoot issues in your Python providers.
+Promptfoo Python komut dosyanızı ayrı bir işlemde çalıştırdığı için, bazı standart hata ayıklama teknikleri beklendiği gibi çalışmayabilir. Yukarıda açıklandığı gibi günlüğü ve uzaktan hata ayıklamayı kullanmak, Python sağlayıcılarında sorunları gidermek için en güvenilir yollardır.
 
-## Debugging the Database
+## Veritabanını Hata Ayıklama
 
-1. Set environment variables:
+1. Ortam değişkenlerini ayarlayın:
 
    ```bash
    export PROMPTFOO_ENABLE_DATABASE_LOGS=true
    export LOG_LEVEL=debug
    ```
 
-2. Run your command:
+2. Komutunuzu çalıştırın:
 
    ```bash
    npx promptfoo eval
    ```
 
-3. Disable logging when done:
+3. İşlem bittiğinde günlüğü devre dışı bırakın:
 
    ```bash
    unset PROMPTFOO_ENABLE_DATABASE_LOGS
    ```
 
-## Finding log files
+## Günlük Dosyalarını Bulma
 
-Promptfoo logs errors and verbose logs to `~/.promptfoo/logs` by default.
+Promptfoo günlüklerini `~/.promptfoo/logs` klasöründe depolar. PROMPTFOO_LOG_DIR ortam değişkenini kullanarak bunu değiştirebilirsiniz.
 
-Change the location by setting `PROMPTFOO_LOG_DIR` to a different directory.
-
-For each run an error log and a debug log will be created.
+Her çalıştırma için bir hata günlüğü ve bir hata ayıklama günlüğü oluşturulur.
