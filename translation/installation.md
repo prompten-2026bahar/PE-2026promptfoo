@@ -1,7 +1,7 @@
 ---
-title: "Promptfoo'yu Yükleme"
-description: "`npm`, `npx` veya Homebrew kullanarak `promptfoo` nasıl yükleneceğini öğrenin. Komut satırında kullanım veya projenizde bir kütüphane olarak kurulum adımları."
-keywords: [kurulum, yükleme, npm, npx, homebrew, windows, kurulum, promptfoo]
+title: Promptfoo'yu Yükleme
+description: npm, npx veya Homebrew kullanarak promptfoo'yu nasıl yükleyeceğinizi öğrenin. Promptfoo'yu komut satırı kullanımı için veya projenizde bir kütüphane olarak ayarlayın.
+keywords: [yükleme, kurulum, npm, npx, homebrew, windows, yapılandırma, promptfoo]
 sidebar_position: 4
 ---
 
@@ -9,9 +9,9 @@ import CodeBlock from '@theme/CodeBlock';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Yükleme
+# Kurulum
 
-`promptfoo`'yu [npm](https://nodejs.org/en/download), [npx](https://nodejs.org/en/download) veya [Homebrew](https://brew.sh) ile (Mac, Linux) yükleyin:
+[npm](https://nodejs.org/en/download), [npx](https://nodejs.org/en/download) veya [Homebrew](https://brew.sh) (Mac, Linux) kullanarak promptfoo'yu yükleyin:
 
 <Tabs groupId="promptfoo-command">
   <TabItem value="npm" label="npm" default>
@@ -32,14 +32,14 @@ import TabItem from '@theme/TabItem';
 </Tabs>
 
 :::note
-`npm` ve `npx` için [Node.js](https://nodejs.org/en/download) 20.20+ veya 22.22+ gereklidir.
+npm ve npx, [Node.js](https://nodejs.org/en/download) 20.20+ veya 22.22+ gerektirir.
 :::
 
-`promptfoo`'yu projenizde bir kütüphane olarak kullanmak için şu komutu çalıştırın: `npm install promptfoo --save`.
+Promptfoo'yu projenizde bir kütüphane olarak kullanmak için `npm install promptfoo --save` komutunu çalıştırın.
 
-## Yüklemeyi Doğrulama
+## Kurulumu Doğrulama
 
-`promptfoo`'nun doğru şekilde yüklendiğini doğrulamak için şu komutu çalıştırın:
+Promptfoo'nun doğru şekilde yüklendiğini doğrulamak için şunu çalıştırın:
 
 <Tabs groupId="promptfoo-command">
   <TabItem value="npm" label="npm" default>
@@ -59,11 +59,11 @@ import TabItem from '@theme/TabItem';
   </TabItem>
 </Tabs>
 
-Bu komut `promptfoo`'nun yüklü sürüm numarasını göstermelidir.
+Bu, promptfoo'nun mevcut sürüm numarasını göstermelidir.
 
 ## Promptfoo'yu Çalıştırma
 
-Yüklemeden sonra `promptfoo` kullanmaya başlamak için şu komutları çalıştırabilirsiniz:
+Kurulumdan sonra, promptfoo'yu çalıştırarak kullanmaya başlayabilirsiniz:
 
 <Tabs groupId="promptfoo-command">
   <TabItem value="npm" label="npm" default>
@@ -83,11 +83,11 @@ Yüklemeden sonra `promptfoo` kullanmaya başlamak için şu komutları çalış
   </TabItem>
 </Tabs>
 
-Bu, `promptfooconfig.yaml` dosyasını oluşturma sürecinde size adım adım rehberlik edecektir.
+Bu, `promptfooconfig.yaml` dosyası oluşturma sürecinde size rehberlik edecektir.
 
-İlk değerlendirmenizi çalıştırma rehberi için [Başlarken](./getting-started.md) sayfasına bakın.
+İlk değerlendirmenizi çalıştırmak için bir kılavuz için lütfen [Başlarken rehberimize](./getting-started.md) bakın.
 
-## Ayrıca bakınız
+## Ayrıca Bakınız
 
 - [Başlarken](./getting-started.md)
 - [Sorun Giderme](./usage/troubleshooting.md)
