@@ -1,12 +1,3 @@
----
-id: promptfoo-icin-yazin
-title: Promptfoo için Yazın
-sidebar_label: Promptfoo için Yazın
-description: Promptfoo'nun dokümantasyonuna ve bloguna yazılı içerik katkısında bulunma rehberi
-keywords: [katkı, yazarlık, dokümantasyon, blog, içerik oluşturma]
-sidebar_position: 99
----
-
 # Promptfoo için Yazın
 
 Promptfoo'yu seviyorsanız, başkalarının öğrenmesine yardımcı olmak istiyorsanız ve bir yazar olarak itibarınızı geliştirmek istiyorsanız, bu sayfa tam size göre.

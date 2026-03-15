@@ -1,8 +1,4 @@
----
-title: promptfoo'ya Katkıda Bulunma
-sidebar_label: Katkıda Bulunma
-description: Geliştirme kurallarımızı takip ederek kod, dokümantasyon, sağlayıcılar ve özellikler göndererek promptfoo'ya katkıda bulunun
----
+# promptfoo'ya Katkıda Bulunma
 
 promptfoo'yu daha iyi hale getirmek için topluluktan gelen katkıları memnuniyetle karşılıyoruz. Bu rehber, başlamanıza yardımcı olacaktır. Herhangi bir sorunuz varsa, lütfen [Discord](https://discord.gg/promptfoo) üzerinden veya bir [GitHub sorunu](https://github.com/promptfoo/promptfoo/issues/new) aracılığıyla bize ulaşın.
 
