@@ -1,0 +1,13 @@
+description: "Müşteri Yorumları Sentiment ve Özellik Analizi"
+
+prompts:
+  - "prompts/zero-shot.txt"
+  - "prompts/few-shot.txt"
+  - "prompts/instruction.txt"
+
+providers:
+  - id: google:gemini-2.5-flash
+    config:
+      temperature: 0.1
+
+tests: cases.yaml

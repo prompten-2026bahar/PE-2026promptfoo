@@ -1,0 +1,945 @@
+{
+  "evalId": "eval-Dka-2026-03-20T15:22:48",
+  "results": {
+    "version": 3,
+    "timestamp": "2026-03-20T15:22:48.521Z",
+    "prompts": [
+      {
+        "raw": "Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür.\nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nMüşteri Yorumu:\n{{review}}",
+        "label": "prompts/zero-shot.txt: Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür.\nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nMüşteri Yorumu:\n{{review}}",
+        "id": "05bb7ff230c118b345bdb6c2d99d913c5beff200114475fb0807e1d77cd48c91",
+        "provider": "google:gemini-3.1-flash-lite",
+        "metrics": {
+          "score": 0,
+          "testPassCount": 0,
+          "testFailCount": 0,
+          "testErrorCount": 5,
+          "assertPassCount": 0,
+          "assertFailCount": 0,
+          "totalLatencyMs": 708,
+          "tokenUsage": {
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "total": 0,
+            "numRequests": 5,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0
+        }
+      },
+      {
+        "raw": "Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür. \nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nÖrnek 1:\nMüşteri Yorumu: \"Ekranı çok iyi ama şarjı hemen bitiyor.\"\nÇıktı:\n{\n  \"duygu\": \"karmaşık\",\n  \"özellikler\": {\n    \"ekran\": \"olumlu\",\n    \"şarj\": \"olumsuz\"\n  }\n}\n\nÖrnek 2:\nMüşteri Yorumu: \"Harika bir ürün, zamanında geldi.\"\nÇıktı:\n{\n  \"duygu\": \"pozitif\",\n  \"özellikler\": {\n    \"ürün\": \"olumlu\",\n    \"kargo\": \"olumlu\"\n  }\n}\n\nŞimdi şu yorumu analiz et:\n\nMüşteri Yorumu:\n{{review}}",
+        "label": "prompts/few-shot.txt: Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür. \nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nÖrnek 1:\nMüşteri Yorumu: \"Ekranı çok iyi ama şarjı hemen bitiyor.\"\nÇıktı:\n{\n  \"duygu\": \"karmaşık\",\n  \"özellikler\": {\n    \"ekran\": \"olumlu\",\n    \"şarj\": \"olumsuz\"\n  }\n}\n\nÖrnek 2:\nMüşteri Yorumu: \"Harika bir ürün, zamanında geldi.\"\nÇıktı:\n{\n  \"duygu\": \"pozitif\",\n  \"özellikler\": {\n    \"ürün\": \"olumlu\",\n    \"kargo\": \"olumlu\"\n  }\n}\n\nŞimdi şu yorumu analiz et:\n\nMüşteri Yorumu:\n{{review}}",
+        "id": "27a355a4d0fa45aa12ded4c42ffb0b380d0a1931a9432ebdd2d28e8d9299b979",
+        "provider": "google:gemini-3.1-flash-lite",
+        "metrics": {
+          "score": 0,
+          "testPassCount": 0,
+          "testFailCount": 0,
+          "testErrorCount": 5,
+          "assertPassCount": 0,
+          "assertFailCount": 0,
+          "totalLatencyMs": 708,
+          "tokenUsage": {
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "total": 0,
+            "numRequests": 5,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0
+        }
+      },
+      {
+        "raw": "Sen uzman bir veri analistisin. Müşterilerimizin yorumlarını analiz ederek sistemlerimize otomatik entegre edilmesini sağlıyorsun.\nAdım adım düşün:\n1. Önce yorumu dikkatlice oku ve genel duyguyu anla (pozitif, negatif, karmaşık veya nötr).\n2. Sonra yorumda bahsedilen özellikleri (batarya, kargo, ekran, kalite vb.) bul.\n3. Her bir özelliğin müşteri tarafından nasıl değerlendirildiğine karar ver (olumlu, olumsuz).\n4. Sadece JSON formatında çıktı ver. Başka hiçbir açıklama metni ekleme.\n\nMetnin formatı her zaman şöyle olmalı:\n{\n  \"duygu\": \"[Duygu Durumu]\",\n  \"özellikler\": {\n    \"[Özellik 1]\": \"[Değerlendirme 1]\",\n    \"[Özellik 2]\": \"[Değerlendirme 2]\"\n  }\n}\n\nMüşteri Yorumu:\n{{review}}",
+        "label": "prompts/instruction.txt: Sen uzman bir veri analistisin. Müşterilerimizin yorumlarını analiz ederek sistemlerimize otomatik entegre edilmesini sağlıyorsun.\nAdım adım düşün:\n1. Önce yorumu dikkatlice oku ve genel duyguyu anla (pozitif, negatif, karmaşık veya nötr).\n2. Sonra yorumda bahsedilen özellikleri (batarya, kargo, ekran, kalite vb.) bul.\n3. Her bir özelliğin müşteri tarafından nasıl değerlendirildiğine karar ver (olumlu, olumsuz).\n4. Sadece JSON formatında çıktı ver. Başka hiçbir açıklama metni ekleme.\n\nMetnin formatı her zaman şöyle olmalı:\n{\n  \"duygu\": \"[Duygu Durumu]\",\n  \"özellikler\": {\n    \"[Özellik 1]\": \"[Değerlendirme 1]\",\n    \"[Özellik 2]\": \"[Değerlendirme 2]\"\n  }\n}\n\nMüşteri Yorumu:\n{{review}}",
+        "id": "fa1f552403b2d7b582c17d7dcd5d6fe0ad5c53fe934f7180395d3f27d2dd618d",
+        "provider": "google:gemini-3.1-flash-lite",
+        "metrics": {
+          "score": 0,
+          "testPassCount": 0,
+          "testFailCount": 0,
+          "testErrorCount": 5,
+          "assertPassCount": 0,
+          "assertFailCount": 0,
+          "totalLatencyMs": 693,
+          "tokenUsage": {
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "total": 0,
+            "numRequests": 5,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0
+        }
+      }
+    ],
+    "results": [
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "adf4ae3e-616b-47db-b239-f9e9e707dab9",
+        "latencyMs": 199,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür.\nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nMüşteri Yorumu:\nTelefon çok şık duruyor ama bataryası yarım günde bitti, biraz hayal kırıklığı.",
+          "label": "prompts/zero-shot.txt: Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür.\nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "05bb7ff230c118b345bdb6c2d99d913c5beff200114475fb0807e1d77cd48c91",
+        "promptIdx": 0,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "Telefon çok şık duruyor ama bataryası yarım günde bitti, biraz hayal kırıklığı."
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "batarya"
+            },
+            {
+              "type": "icontains",
+              "value": "olumsuz"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 0,
+        "vars": {
+          "review": "Telefon çok şık duruyor ama bataryası yarım günde bitti, biraz hayal kırıklığı."
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "471f40b8-0d11-418e-af13-61d2fca12c54",
+        "latencyMs": 168,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür. \nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nÖrnek 1:\nMüşteri Yorumu: \"Ekranı çok iyi ama şarjı hemen bitiyor.\"\nÇıktı:\n{\n  \"duygu\": \"karmaşık\",\n  \"özellikler\": {\n    \"ekran\": \"olumlu\",\n    \"şarj\": \"olumsuz\"\n  }\n}\n\nÖrnek 2:\nMüşteri Yorumu: \"Harika bir ürün, zamanında geldi.\"\nÇıktı:\n{\n  \"duygu\": \"pozitif\",\n  \"özellikler\": {\n    \"ürün\": \"olumlu\",\n    \"kargo\": \"olumlu\"\n  }\n}\n\nŞimdi şu yorumu analiz et:\n\nMüşteri Yorumu:\nTelefon çok şık duruyor ama bataryası yarım günde bitti, biraz hayal kırıklığı.",
+          "label": "prompts/few-shot.txt: Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür. \nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nÖrnek 1:\nMüşteri Yorumu: \"Ekranı çok iyi ama şarjı hemen bitiyor.\"\nÇıktı:\n{\n  \"duygu\": \"karmaşık\",\n  \"özellikler\": {\n    \"ekran\": \"olumlu\",\n    \"şarj\": \"olumsuz\"\n  }\n}\n\nÖrnek 2:\nMüşteri Yorumu: \"Harika bir ürün, zamanında geldi.\"\nÇıktı:\n{\n  \"duygu\": \"pozitif\",\n  \"özellikler\": {\n    \"ürün\": \"olumlu\",\n    \"kargo\": \"olumlu\"\n  }\n}\n\nŞimdi şu yorumu analiz et:\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "27a355a4d0fa45aa12ded4c42ffb0b380d0a1931a9432ebdd2d28e8d9299b979",
+        "promptIdx": 1,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "Telefon çok şık duruyor ama bataryası yarım günde bitti, biraz hayal kırıklığı."
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "batarya"
+            },
+            {
+              "type": "icontains",
+              "value": "olumsuz"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 0,
+        "vars": {
+          "review": "Telefon çok şık duruyor ama bataryası yarım günde bitti, biraz hayal kırıklığı."
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "7daaff7b-2f43-420f-8db8-456a1caa0776",
+        "latencyMs": 195,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Sen uzman bir veri analistisin. Müşterilerimizin yorumlarını analiz ederek sistemlerimize otomatik entegre edilmesini sağlıyorsun.\nAdım adım düşün:\n1. Önce yorumu dikkatlice oku ve genel duyguyu anla (pozitif, negatif, karmaşık veya nötr).\n2. Sonra yorumda bahsedilen özellikleri (batarya, kargo, ekran, kalite vb.) bul.\n3. Her bir özelliğin müşteri tarafından nasıl değerlendirildiğine karar ver (olumlu, olumsuz).\n4. Sadece JSON formatında çıktı ver. Başka hiçbir açıklama metni ekleme.\n\nMetnin formatı her zaman şöyle olmalı:\n{\n  \"duygu\": \"[Duygu Durumu]\",\n  \"özellikler\": {\n    \"[Özellik 1]\": \"[Değerlendirme 1]\",\n    \"[Özellik 2]\": \"[Değerlendirme 2]\"\n  }\n}\n\nMüşteri Yorumu:\nTelefon çok şık duruyor ama bataryası yarım günde bitti, biraz hayal kırıklığı.",
+          "label": "prompts/instruction.txt: Sen uzman bir veri analistisin. Müşterilerimizin yorumlarını analiz ederek sistemlerimize otomatik entegre edilmesini sağlıyorsun.\nAdım adım düşün:\n1. Önce yorumu dikkatlice oku ve genel duyguyu anla (pozitif, negatif, karmaşık veya nötr).\n2. Sonra yorumda bahsedilen özellikleri (batarya, kargo, ekran, kalite vb.) bul.\n3. Her bir özelliğin müşteri tarafından nasıl değerlendirildiğine karar ver (olumlu, olumsuz).\n4. Sadece JSON formatında çıktı ver. Başka hiçbir açıklama metni ekleme.\n\nMetnin formatı her zaman şöyle olmalı:\n{\n  \"duygu\": \"[Duygu Durumu]\",\n  \"özellikler\": {\n    \"[Özellik 1]\": \"[Değerlendirme 1]\",\n    \"[Özellik 2]\": \"[Değerlendirme 2]\"\n  }\n}\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "fa1f552403b2d7b582c17d7dcd5d6fe0ad5c53fe934f7180395d3f27d2dd618d",
+        "promptIdx": 2,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "Telefon çok şık duruyor ama bataryası yarım günde bitti, biraz hayal kırıklığı."
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "batarya"
+            },
+            {
+              "type": "icontains",
+              "value": "olumsuz"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 0,
+        "vars": {
+          "review": "Telefon çok şık duruyor ama bataryası yarım günde bitti, biraz hayal kırıklığı."
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "49649625-93ff-4689-81f1-567da70a23f8",
+        "latencyMs": 136,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür.\nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nMüşteri Yorumu:\nÜrün ne iyi ne kötü, fiyatına göre iş görür.",
+          "label": "prompts/zero-shot.txt: Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür.\nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "05bb7ff230c118b345bdb6c2d99d913c5beff200114475fb0807e1d77cd48c91",
+        "promptIdx": 0,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "Ürün ne iyi ne kötü, fiyatına göre iş görür."
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "fiyat"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 1,
+        "vars": {
+          "review": "Ürün ne iyi ne kötü, fiyatına göre iş görür."
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "405ccdba-1efd-4842-9287-9ad3cd68e0f3",
+        "latencyMs": 127,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür. \nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nÖrnek 1:\nMüşteri Yorumu: \"Ekranı çok iyi ama şarjı hemen bitiyor.\"\nÇıktı:\n{\n  \"duygu\": \"karmaşık\",\n  \"özellikler\": {\n    \"ekran\": \"olumlu\",\n    \"şarj\": \"olumsuz\"\n  }\n}\n\nÖrnek 2:\nMüşteri Yorumu: \"Harika bir ürün, zamanında geldi.\"\nÇıktı:\n{\n  \"duygu\": \"pozitif\",\n  \"özellikler\": {\n    \"ürün\": \"olumlu\",\n    \"kargo\": \"olumlu\"\n  }\n}\n\nŞimdi şu yorumu analiz et:\n\nMüşteri Yorumu:\nÜrün ne iyi ne kötü, fiyatına göre iş görür.",
+          "label": "prompts/few-shot.txt: Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür. \nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nÖrnek 1:\nMüşteri Yorumu: \"Ekranı çok iyi ama şarjı hemen bitiyor.\"\nÇıktı:\n{\n  \"duygu\": \"karmaşık\",\n  \"özellikler\": {\n    \"ekran\": \"olumlu\",\n    \"şarj\": \"olumsuz\"\n  }\n}\n\nÖrnek 2:\nMüşteri Yorumu: \"Harika bir ürün, zamanında geldi.\"\nÇıktı:\n{\n  \"duygu\": \"pozitif\",\n  \"özellikler\": {\n    \"ürün\": \"olumlu\",\n    \"kargo\": \"olumlu\"\n  }\n}\n\nŞimdi şu yorumu analiz et:\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "27a355a4d0fa45aa12ded4c42ffb0b380d0a1931a9432ebdd2d28e8d9299b979",
+        "promptIdx": 1,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "Ürün ne iyi ne kötü, fiyatına göre iş görür."
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "fiyat"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 1,
+        "vars": {
+          "review": "Ürün ne iyi ne kötü, fiyatına göre iş görür."
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "71c052dc-6f20-4bac-9e06-e0508811cd65",
+        "latencyMs": 143,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Sen uzman bir veri analistisin. Müşterilerimizin yorumlarını analiz ederek sistemlerimize otomatik entegre edilmesini sağlıyorsun.\nAdım adım düşün:\n1. Önce yorumu dikkatlice oku ve genel duyguyu anla (pozitif, negatif, karmaşık veya nötr).\n2. Sonra yorumda bahsedilen özellikleri (batarya, kargo, ekran, kalite vb.) bul.\n3. Her bir özelliğin müşteri tarafından nasıl değerlendirildiğine karar ver (olumlu, olumsuz).\n4. Sadece JSON formatında çıktı ver. Başka hiçbir açıklama metni ekleme.\n\nMetnin formatı her zaman şöyle olmalı:\n{\n  \"duygu\": \"[Duygu Durumu]\",\n  \"özellikler\": {\n    \"[Özellik 1]\": \"[Değerlendirme 1]\",\n    \"[Özellik 2]\": \"[Değerlendirme 2]\"\n  }\n}\n\nMüşteri Yorumu:\nÜrün ne iyi ne kötü, fiyatına göre iş görür.",
+          "label": "prompts/instruction.txt: Sen uzman bir veri analistisin. Müşterilerimizin yorumlarını analiz ederek sistemlerimize otomatik entegre edilmesini sağlıyorsun.\nAdım adım düşün:\n1. Önce yorumu dikkatlice oku ve genel duyguyu anla (pozitif, negatif, karmaşık veya nötr).\n2. Sonra yorumda bahsedilen özellikleri (batarya, kargo, ekran, kalite vb.) bul.\n3. Her bir özelliğin müşteri tarafından nasıl değerlendirildiğine karar ver (olumlu, olumsuz).\n4. Sadece JSON formatında çıktı ver. Başka hiçbir açıklama metni ekleme.\n\nMetnin formatı her zaman şöyle olmalı:\n{\n  \"duygu\": \"[Duygu Durumu]\",\n  \"özellikler\": {\n    \"[Özellik 1]\": \"[Değerlendirme 1]\",\n    \"[Özellik 2]\": \"[Değerlendirme 2]\"\n  }\n}\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "fa1f552403b2d7b582c17d7dcd5d6fe0ad5c53fe934f7180395d3f27d2dd618d",
+        "promptIdx": 2,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "Ürün ne iyi ne kötü, fiyatına göre iş görür."
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "fiyat"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 1,
+        "vars": {
+          "review": "Ürün ne iyi ne kötü, fiyatına göre iş görür."
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "07037e14-deba-4c01-953b-4612dc6562a3",
+        "latencyMs": 108,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür.\nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nMüşteri Yorumu:\nİnanılmaz kaliteli bir kumaşı var, üstüme tam oturdu. Kargo da çok hızlıydı teşekkürler!",
+          "label": "prompts/zero-shot.txt: Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür.\nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "05bb7ff230c118b345bdb6c2d99d913c5beff200114475fb0807e1d77cd48c91",
+        "promptIdx": 0,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "İnanılmaz kaliteli bir kumaşı var, üstüme tam oturdu. Kargo da çok hızlıydı teşekkürler!"
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "pozitif"
+            },
+            {
+              "type": "icontains",
+              "value": "kumaş"
+            },
+            {
+              "type": "icontains",
+              "value": "olumlu"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 2,
+        "vars": {
+          "review": "İnanılmaz kaliteli bir kumaşı var, üstüme tam oturdu. Kargo da çok hızlıydı teşekkürler!"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "d1d08240-2fe7-4486-8bb2-3719881e0e06",
+        "latencyMs": 149,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür. \nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nÖrnek 1:\nMüşteri Yorumu: \"Ekranı çok iyi ama şarjı hemen bitiyor.\"\nÇıktı:\n{\n  \"duygu\": \"karmaşık\",\n  \"özellikler\": {\n    \"ekran\": \"olumlu\",\n    \"şarj\": \"olumsuz\"\n  }\n}\n\nÖrnek 2:\nMüşteri Yorumu: \"Harika bir ürün, zamanında geldi.\"\nÇıktı:\n{\n  \"duygu\": \"pozitif\",\n  \"özellikler\": {\n    \"ürün\": \"olumlu\",\n    \"kargo\": \"olumlu\"\n  }\n}\n\nŞimdi şu yorumu analiz et:\n\nMüşteri Yorumu:\nİnanılmaz kaliteli bir kumaşı var, üstüme tam oturdu. Kargo da çok hızlıydı teşekkürler!",
+          "label": "prompts/few-shot.txt: Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür. \nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nÖrnek 1:\nMüşteri Yorumu: \"Ekranı çok iyi ama şarjı hemen bitiyor.\"\nÇıktı:\n{\n  \"duygu\": \"karmaşık\",\n  \"özellikler\": {\n    \"ekran\": \"olumlu\",\n    \"şarj\": \"olumsuz\"\n  }\n}\n\nÖrnek 2:\nMüşteri Yorumu: \"Harika bir ürün, zamanında geldi.\"\nÇıktı:\n{\n  \"duygu\": \"pozitif\",\n  \"özellikler\": {\n    \"ürün\": \"olumlu\",\n    \"kargo\": \"olumlu\"\n  }\n}\n\nŞimdi şu yorumu analiz et:\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "27a355a4d0fa45aa12ded4c42ffb0b380d0a1931a9432ebdd2d28e8d9299b979",
+        "promptIdx": 1,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "İnanılmaz kaliteli bir kumaşı var, üstüme tam oturdu. Kargo da çok hızlıydı teşekkürler!"
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "pozitif"
+            },
+            {
+              "type": "icontains",
+              "value": "kumaş"
+            },
+            {
+              "type": "icontains",
+              "value": "olumlu"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 2,
+        "vars": {
+          "review": "İnanılmaz kaliteli bir kumaşı var, üstüme tam oturdu. Kargo da çok hızlıydı teşekkürler!"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "b16a4edc-e382-4708-8179-9513fbd23e82",
+        "latencyMs": 110,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Sen uzman bir veri analistisin. Müşterilerimizin yorumlarını analiz ederek sistemlerimize otomatik entegre edilmesini sağlıyorsun.\nAdım adım düşün:\n1. Önce yorumu dikkatlice oku ve genel duyguyu anla (pozitif, negatif, karmaşık veya nötr).\n2. Sonra yorumda bahsedilen özellikleri (batarya, kargo, ekran, kalite vb.) bul.\n3. Her bir özelliğin müşteri tarafından nasıl değerlendirildiğine karar ver (olumlu, olumsuz).\n4. Sadece JSON formatında çıktı ver. Başka hiçbir açıklama metni ekleme.\n\nMetnin formatı her zaman şöyle olmalı:\n{\n  \"duygu\": \"[Duygu Durumu]\",\n  \"özellikler\": {\n    \"[Özellik 1]\": \"[Değerlendirme 1]\",\n    \"[Özellik 2]\": \"[Değerlendirme 2]\"\n  }\n}\n\nMüşteri Yorumu:\nİnanılmaz kaliteli bir kumaşı var, üstüme tam oturdu. Kargo da çok hızlıydı teşekkürler!",
+          "label": "prompts/instruction.txt: Sen uzman bir veri analistisin. Müşterilerimizin yorumlarını analiz ederek sistemlerimize otomatik entegre edilmesini sağlıyorsun.\nAdım adım düşün:\n1. Önce yorumu dikkatlice oku ve genel duyguyu anla (pozitif, negatif, karmaşık veya nötr).\n2. Sonra yorumda bahsedilen özellikleri (batarya, kargo, ekran, kalite vb.) bul.\n3. Her bir özelliğin müşteri tarafından nasıl değerlendirildiğine karar ver (olumlu, olumsuz).\n4. Sadece JSON formatında çıktı ver. Başka hiçbir açıklama metni ekleme.\n\nMetnin formatı her zaman şöyle olmalı:\n{\n  \"duygu\": \"[Duygu Durumu]\",\n  \"özellikler\": {\n    \"[Özellik 1]\": \"[Değerlendirme 1]\",\n    \"[Özellik 2]\": \"[Değerlendirme 2]\"\n  }\n}\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "fa1f552403b2d7b582c17d7dcd5d6fe0ad5c53fe934f7180395d3f27d2dd618d",
+        "promptIdx": 2,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "İnanılmaz kaliteli bir kumaşı var, üstüme tam oturdu. Kargo da çok hızlıydı teşekkürler!"
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "pozitif"
+            },
+            {
+              "type": "icontains",
+              "value": "kumaş"
+            },
+            {
+              "type": "icontains",
+              "value": "olumlu"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 2,
+        "vars": {
+          "review": "İnanılmaz kaliteli bir kumaşı var, üstüme tam oturdu. Kargo da çok hızlıydı teşekkürler!"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "66e2237e-1b6f-49bb-9274-a6454471f2d7",
+        "latencyMs": 149,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür.\nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nMüşteri Yorumu:\nUygulamanın arayüzü çok güzel tasarlanmış yalnız bazen durduk yere çöküyor, acil düzeltilmeli.",
+          "label": "prompts/zero-shot.txt: Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür.\nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "05bb7ff230c118b345bdb6c2d99d913c5beff200114475fb0807e1d77cd48c91",
+        "promptIdx": 0,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "Uygulamanın arayüzü çok güzel tasarlanmış yalnız bazen durduk yere çöküyor, acil düzeltilmeli."
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "arayüz"
+            },
+            {
+              "type": "icontains",
+              "value": "olumlu"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 3,
+        "vars": {
+          "review": "Uygulamanın arayüzü çok güzel tasarlanmış yalnız bazen durduk yere çöküyor, acil düzeltilmeli."
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "fe1ecda2-563f-40b4-a9e3-6e8f87dbea2b",
+        "latencyMs": 111,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür. \nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nÖrnek 1:\nMüşteri Yorumu: \"Ekranı çok iyi ama şarjı hemen bitiyor.\"\nÇıktı:\n{\n  \"duygu\": \"karmaşık\",\n  \"özellikler\": {\n    \"ekran\": \"olumlu\",\n    \"şarj\": \"olumsuz\"\n  }\n}\n\nÖrnek 2:\nMüşteri Yorumu: \"Harika bir ürün, zamanında geldi.\"\nÇıktı:\n{\n  \"duygu\": \"pozitif\",\n  \"özellikler\": {\n    \"ürün\": \"olumlu\",\n    \"kargo\": \"olumlu\"\n  }\n}\n\nŞimdi şu yorumu analiz et:\n\nMüşteri Yorumu:\nUygulamanın arayüzü çok güzel tasarlanmış yalnız bazen durduk yere çöküyor, acil düzeltilmeli.",
+          "label": "prompts/few-shot.txt: Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür. \nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nÖrnek 1:\nMüşteri Yorumu: \"Ekranı çok iyi ama şarjı hemen bitiyor.\"\nÇıktı:\n{\n  \"duygu\": \"karmaşık\",\n  \"özellikler\": {\n    \"ekran\": \"olumlu\",\n    \"şarj\": \"olumsuz\"\n  }\n}\n\nÖrnek 2:\nMüşteri Yorumu: \"Harika bir ürün, zamanında geldi.\"\nÇıktı:\n{\n  \"duygu\": \"pozitif\",\n  \"özellikler\": {\n    \"ürün\": \"olumlu\",\n    \"kargo\": \"olumlu\"\n  }\n}\n\nŞimdi şu yorumu analiz et:\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "27a355a4d0fa45aa12ded4c42ffb0b380d0a1931a9432ebdd2d28e8d9299b979",
+        "promptIdx": 1,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "Uygulamanın arayüzü çok güzel tasarlanmış yalnız bazen durduk yere çöküyor, acil düzeltilmeli."
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "arayüz"
+            },
+            {
+              "type": "icontains",
+              "value": "olumlu"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 3,
+        "vars": {
+          "review": "Uygulamanın arayüzü çok güzel tasarlanmış yalnız bazen durduk yere çöküyor, acil düzeltilmeli."
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "0dded001-2208-4806-8a01-9fd7091dea1f",
+        "latencyMs": 144,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Sen uzman bir veri analistisin. Müşterilerimizin yorumlarını analiz ederek sistemlerimize otomatik entegre edilmesini sağlıyorsun.\nAdım adım düşün:\n1. Önce yorumu dikkatlice oku ve genel duyguyu anla (pozitif, negatif, karmaşık veya nötr).\n2. Sonra yorumda bahsedilen özellikleri (batarya, kargo, ekran, kalite vb.) bul.\n3. Her bir özelliğin müşteri tarafından nasıl değerlendirildiğine karar ver (olumlu, olumsuz).\n4. Sadece JSON formatında çıktı ver. Başka hiçbir açıklama metni ekleme.\n\nMetnin formatı her zaman şöyle olmalı:\n{\n  \"duygu\": \"[Duygu Durumu]\",\n  \"özellikler\": {\n    \"[Özellik 1]\": \"[Değerlendirme 1]\",\n    \"[Özellik 2]\": \"[Değerlendirme 2]\"\n  }\n}\n\nMüşteri Yorumu:\nUygulamanın arayüzü çok güzel tasarlanmış yalnız bazen durduk yere çöküyor, acil düzeltilmeli.",
+          "label": "prompts/instruction.txt: Sen uzman bir veri analistisin. Müşterilerimizin yorumlarını analiz ederek sistemlerimize otomatik entegre edilmesini sağlıyorsun.\nAdım adım düşün:\n1. Önce yorumu dikkatlice oku ve genel duyguyu anla (pozitif, negatif, karmaşık veya nötr).\n2. Sonra yorumda bahsedilen özellikleri (batarya, kargo, ekran, kalite vb.) bul.\n3. Her bir özelliğin müşteri tarafından nasıl değerlendirildiğine karar ver (olumlu, olumsuz).\n4. Sadece JSON formatında çıktı ver. Başka hiçbir açıklama metni ekleme.\n\nMetnin formatı her zaman şöyle olmalı:\n{\n  \"duygu\": \"[Duygu Durumu]\",\n  \"özellikler\": {\n    \"[Özellik 1]\": \"[Değerlendirme 1]\",\n    \"[Özellik 2]\": \"[Değerlendirme 2]\"\n  }\n}\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "fa1f552403b2d7b582c17d7dcd5d6fe0ad5c53fe934f7180395d3f27d2dd618d",
+        "promptIdx": 2,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "Uygulamanın arayüzü çok güzel tasarlanmış yalnız bazen durduk yere çöküyor, acil düzeltilmeli."
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "arayüz"
+            },
+            {
+              "type": "icontains",
+              "value": "olumlu"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 3,
+        "vars": {
+          "review": "Uygulamanın arayüzü çok güzel tasarlanmış yalnız bazen durduk yere çöküyor, acil düzeltilmeli."
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "069b98ca-42ac-47f4-87a5-43d5c5090e28",
+        "latencyMs": 116,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür.\nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nMüşteri Yorumu:\nDün sipariş verdim bugün elime ulaştı. Paketleme harika.",
+          "label": "prompts/zero-shot.txt: Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür.\nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "05bb7ff230c118b345bdb6c2d99d913c5beff200114475fb0807e1d77cd48c91",
+        "promptIdx": 0,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "Dün sipariş verdim bugün elime ulaştı. Paketleme harika."
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "pozitif"
+            },
+            {
+              "type": "icontains",
+              "value": "kargo"
+            },
+            {
+              "type": "icontains",
+              "value": "olumlu"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 4,
+        "vars": {
+          "review": "Dün sipariş verdim bugün elime ulaştı. Paketleme harika."
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "b5c36e0e-9756-4ac7-84c9-08636e9fa25d",
+        "latencyMs": 153,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür. \nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nÖrnek 1:\nMüşteri Yorumu: \"Ekranı çok iyi ama şarjı hemen bitiyor.\"\nÇıktı:\n{\n  \"duygu\": \"karmaşık\",\n  \"özellikler\": {\n    \"ekran\": \"olumlu\",\n    \"şarj\": \"olumsuz\"\n  }\n}\n\nÖrnek 2:\nMüşteri Yorumu: \"Harika bir ürün, zamanında geldi.\"\nÇıktı:\n{\n  \"duygu\": \"pozitif\",\n  \"özellikler\": {\n    \"ürün\": \"olumlu\",\n    \"kargo\": \"olumlu\"\n  }\n}\n\nŞimdi şu yorumu analiz et:\n\nMüşteri Yorumu:\nDün sipariş verdim bugün elime ulaştı. Paketleme harika.",
+          "label": "prompts/few-shot.txt: Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür. \nSadece JSON döndür. Başka hiçbir açıklama yapma.\n\nÖrnek 1:\nMüşteri Yorumu: \"Ekranı çok iyi ama şarjı hemen bitiyor.\"\nÇıktı:\n{\n  \"duygu\": \"karmaşık\",\n  \"özellikler\": {\n    \"ekran\": \"olumlu\",\n    \"şarj\": \"olumsuz\"\n  }\n}\n\nÖrnek 2:\nMüşteri Yorumu: \"Harika bir ürün, zamanında geldi.\"\nÇıktı:\n{\n  \"duygu\": \"pozitif\",\n  \"özellikler\": {\n    \"ürün\": \"olumlu\",\n    \"kargo\": \"olumlu\"\n  }\n}\n\nŞimdi şu yorumu analiz et:\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "27a355a4d0fa45aa12ded4c42ffb0b380d0a1931a9432ebdd2d28e8d9299b979",
+        "promptIdx": 1,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "Dün sipariş verdim bugün elime ulaştı. Paketleme harika."
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "pozitif"
+            },
+            {
+              "type": "icontains",
+              "value": "kargo"
+            },
+            {
+              "type": "icontains",
+              "value": "olumlu"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 4,
+        "vars": {
+          "review": "Dün sipariş verdim bugün elime ulaştı. Paketleme harika."
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}",
+        "gradingResult": null,
+        "id": "42e9cf58-cfb0-422a-bddf-7e9e11236385",
+        "latencyMs": 101,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Sen uzman bir veri analistisin. Müşterilerimizin yorumlarını analiz ederek sistemlerimize otomatik entegre edilmesini sağlıyorsun.\nAdım adım düşün:\n1. Önce yorumu dikkatlice oku ve genel duyguyu anla (pozitif, negatif, karmaşık veya nötr).\n2. Sonra yorumda bahsedilen özellikleri (batarya, kargo, ekran, kalite vb.) bul.\n3. Her bir özelliğin müşteri tarafından nasıl değerlendirildiğine karar ver (olumlu, olumsuz).\n4. Sadece JSON formatında çıktı ver. Başka hiçbir açıklama metni ekleme.\n\nMetnin formatı her zaman şöyle olmalı:\n{\n  \"duygu\": \"[Duygu Durumu]\",\n  \"özellikler\": {\n    \"[Özellik 1]\": \"[Değerlendirme 1]\",\n    \"[Özellik 2]\": \"[Değerlendirme 2]\"\n  }\n}\n\nMüşteri Yorumu:\nDün sipariş verdim bugün elime ulaştı. Paketleme harika.",
+          "label": "prompts/instruction.txt: Sen uzman bir veri analistisin. Müşterilerimizin yorumlarını analiz ederek sistemlerimize otomatik entegre edilmesini sağlıyorsun.\nAdım adım düşün:\n1. Önce yorumu dikkatlice oku ve genel duyguyu anla (pozitif, negatif, karmaşık veya nötr).\n2. Sonra yorumda bahsedilen özellikleri (batarya, kargo, ekran, kalite vb.) bul.\n3. Her bir özelliğin müşteri tarafından nasıl değerlendirildiğine karar ver (olumlu, olumsuz).\n4. Sadece JSON formatında çıktı ver. Başka hiçbir açıklama metni ekleme.\n\nMetnin formatı her zaman şöyle olmalı:\n{\n  \"duygu\": \"[Duygu Durumu]\",\n  \"özellikler\": {\n    \"[Özellik 1]\": \"[Değerlendirme 1]\",\n    \"[Özellik 2]\": \"[Değerlendirme 2]\"\n  }\n}\n\nMüşteri Yorumu:\n{{review}}",
+          "config": {}
+        },
+        "promptId": "fa1f552403b2d7b582c17d7dcd5d6fe0ad5c53fe934f7180395d3f27d2dd618d",
+        "promptIdx": 2,
+        "provider": {
+          "id": "google:gemini-3.1-flash-lite",
+          "label": ""
+        },
+        "response": {
+          "error": "Error: No candidates returned in API response.\n\nGot response: {\"error\":{\"code\":404,\"message\":\"models/gemini-3.1-flash-lite is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}}"
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "vars": {
+            "review": "Dün sipariş verdim bugün elime ulaştı. Paketleme harika."
+          },
+          "assert": [
+            {
+              "type": "icontains",
+              "value": "pozitif"
+            },
+            {
+              "type": "icontains",
+              "value": "kargo"
+            },
+            {
+              "type": "icontains",
+              "value": "olumlu"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 4,
+        "vars": {
+          "review": "Dün sipariş verdim bugün elime ulaştı. Paketleme harika."
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      }
+    ],
+    "stats": {
+      "successes": 0,
+      "failures": 0,
+      "errors": 15,
+      "tokenUsage": {
+        "prompt": 0,
+        "completion": 0,
+        "cached": 0,
+        "total": 0,
+        "numRequests": 15,
+        "completionDetails": {
+          "reasoning": 0,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0
+        },
+        "assertions": {
+          "total": 0,
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "numRequests": 0,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0
+          }
+        }
+      },
+      "durationMs": 2168,
+      "evaluationDurationMs": 2168
+    }
+  },
+  "config": {
+    "description": "Müşteri Yorumları Sentiment ve Özellik Analizi",
+    "prompts": [
+      "prompts/zero-shot.txt",
+      "prompts/few-shot.txt",
+      "prompts/instruction.txt"
+    ],
+    "providers": [
+      {
+        "id": "google:gemini-3.1-flash-lite",
+        "config": {
+          "temperature": 0.1
+        }
+      }
+    ],
+    "tests": "cases.yaml",
+    "outputPath": [
+      "results.json"
+    ],
+    "extensions": []
+  },
+  "shareableUrl": null,
+  "metadata": {
+    "promptfooVersion": "0.121.2",
+    "nodeVersion": "v24.12.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "exportedAt": "2026-03-20T15:22:50.850Z",
+    "evaluationCreatedAt": "2026-03-20T15:22:48.521Z"
+  }
+}

@@ -1,0 +1,41 @@
+- vars:
+    review: "Telefon çok şık duruyor ama bataryası yarım günde bitti, biraz hayal kırıklığı."
+  assert:
+    - type: icontains
+      value: "batarya"
+    - type: icontains
+      value: "olumsuz"
+
+- vars:
+    review: "Ürün ne iyi ne kötü, fiyatına göre iş görür."
+  assert:
+    - type: icontains
+      value: "fiyat"
+
+- vars:
+    review: "İnanılmaz kaliteli bir kumaşı var, üstüme tam oturdu. Kargo da çok hızlıydı teşekkürler!"
+  assert:
+    - type: icontains
+      value: "pozitif"
+    - type: icontains
+      value: "kumaş"
+    - type: icontains
+      value: "olumlu"
+
+- vars:
+    review: "Uygulamanın arayüzü çok güzel tasarlanmış yalnız bazen durduk yere çöküyor, acil düzeltilmeli."
+  assert:
+    - type: icontains
+      value: "arayüz"
+    - type: icontains
+      value: "olumlu"
+
+- vars:
+    review: "Dün sipariş verdim bugün elime ulaştı. Paketleme harika."
+  assert:
+    - type: icontains
+      value: "pozitif"
+    - type: icontains
+      value: "kargo"
+    - type: icontains
+      value: "olumlu"
