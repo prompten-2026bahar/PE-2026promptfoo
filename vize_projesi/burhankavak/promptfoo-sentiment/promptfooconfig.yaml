@@ -9,5 +9,8 @@ providers:
   - id: google:gemini-2.5-flash
     config:
       temperature: 0.1
+  - id: groq:llama-3.1-8b-instant
+    config:
+      temperature: 0.1
 
 tests: cases.yaml
