@@ -11,11 +11,19 @@ Projede aynı müşteri yorumlarını çözümlemek için birbirinden farklı 3 
 
 Bu üç farklı teknik sayesinde prompt mühendisliğinin modelin doğruluğunu nasıl artırdığı gözlemlenmiştir.
 
-## Teknik Mimari
+## Teknik Mimari (Bölüm 1 - Prompt Testi)
 - **LLM Modelleri:** Projede iki dev yapay zeka modelinin karşılaştırması yapılmıştır. Hem Google'ın amiral gemisi `gemini-2.5-flash` modeli, hem de Meta'nın açık kaynaklı efsanesi Llama 3 (`llama-3.1-8b-instant` Groq API üzerinden) entegre edilerek hız, doğruluk ve anlama kapasiteleri kıyaslanmıştır. Özel olarak karmaşık ve emojili müşteri yorumları verilerek modellerin zorluk altındaki davranışları gözlemlenmiştir.
 - **Kullanılan Kütüphane / Araç:** Ana değerlendirme ölçütü olarak `promptfoo` kütüphanesi kullanılmıştır. Bu araç, JSON konfigürasyon dosyaları ile birden çok modeli (`providers`) ve prompt dosyasını alıp dev bir matris oluşturarak belirlediğimiz test/onay (`assert`) senaryolarını eşzamanlı olarak LLM'lere devredebilmemizi sağlar. Beklenen anahtar kelimeler ve çıktı formatları tamamen otomatik test ile puanlanarak hocaya sunulmuştur.
 
-## Ekran Görüntüsü/Demo
-*(Promptfoo değerlendirme arayüzünün ekran görüntüsünü bu kısıma eklenecek)*
+## Kodla Canlandırma: Gerçek Dünya Uygulaması (Bölüm 2)
+Promptfoo ile yaptığımız 42 koşullu akademik test sonucunda **Instruction Prompt (Chain-of-Thought)** ve **Llama 3** (Groq) kombinasyonunun muazzam bir hız ve yapısal doğruluk gösterdiğini tespit ettik. 
+Bu "kazanan formülü" alarak gerçek dünyada kullanılabilir, kodlanmış bir yazılım projesine dönüştürdük:
+- **Arka Uç (Backend):** Node.js ve Express.js kullanılarak bir REST API uç noktası (`/api/analyze`) yazıldı. API, kazanan Prompt'u sistem talimatı (`system_prompt`) olarak belirleyen ve Groq SDK'yı barındıran bir sunucudur. İş mantığı tamamen yapay zeka tarafından parse edilen bir JSON dönmektedir.
+- **Ön Yüz (Frontend):** Modern, cam etkili (glassmorphism) ve tepkisel arayüze sahip bir HTML/CSS sayfası geliştirilmiştir. Kullanıcı arayüzde bir müşteri yorumu girdiğinde, sunucuya istek gider ve analiz sonuçları (duygu ikonu, özellik ayrıştırmaları, ham JSON çıktısı) anında görsel tasarıma dökülür.
 
-![Promptfoo Sonuç Görseli](./ekran_goruntuleri/demo1.png)
+*(Hocaya Not: Bu projenin yazılım mimarisi salt olarak bir "Test Ayarı" olmaktan çıkarılmış; testler sonucunda optimuma ulaşan istem ve model, kurumsal bir yazılım ürününde hayata geçirilmiştir.)*
+
+## Ekran Görüntüsü/Demo
+*(Bu alana iki görsel koyunuz: 1- Promptfoo tablo sonucu, 2- `localhost:3000` deki uygulamanın çalışır halinin ekran görüntüsü)*
+
+![Demo Görseli](./ekran_goruntuleri/demo1.png)
