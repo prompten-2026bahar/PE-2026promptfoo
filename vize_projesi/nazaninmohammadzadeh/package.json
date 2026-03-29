@@ -1,0 +1,24 @@
+{
+  "name": "promptfoo-project",
+  "version": "1.0.0",
+  "description": "Promptfoo-based Django Q&A benchmark comparing local Ollama models with Gemini rubric grading.",
+  "main": "index.js",
+  "scripts": {
+    "eval": "npx promptfoo eval",
+    "view": "npx promptfoo view"
+  },
+  "keywords": [
+    "promptfoo",
+    "ollama",
+    "gemini",
+    "django",
+    "llm-evaluation",
+    "benchmark"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "promptfoo": "^0.120.19"
+  }
+}

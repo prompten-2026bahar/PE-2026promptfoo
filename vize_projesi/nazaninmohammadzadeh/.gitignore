@@ -1,0 +1,10 @@
+node_modules/
+.promptfoo/
+output/
+*.cache
+.env
+*.log
+dist/
+coverage/
+Thumbs.db
+sunum_notlari.md

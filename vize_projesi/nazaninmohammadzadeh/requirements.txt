@@ -1,0 +1,37 @@
+Project startup requirements
+
+1. Runtime
+- Node.js 18 or later is recommended
+- npm must be available in the terminal
+
+2. Install project dependencies
+- Run: npm install
+
+3. Ollama
+- Ollama must be installed and running locally
+- Default local endpoint: http://localhost:11434
+
+4. Required Ollama models
+- Run: ollama pull llama3.2
+- Run: ollama pull mistral
+- Run: ollama pull gemma2:2b
+- Run: ollama pull phi3:mini
+
+5. Gemini grader setup
+- A valid GOOGLE_API_KEY must be set in .env
+- Example:
+  GOOGLE_API_KEY=your_key_here
+
+6. Main project files
+- Main config: promptfooconfig.yaml
+- Prompt template: prompts/django_qa.txt
+
+7. Startup commands
+- Run evaluation: npm run eval
+- View results: npm run view
+
+8. Operational notes
+- Answer generation runs locally through Ollama
+- The llm-rubric grader runs through Gemini
+- If Gemini free-tier quota is exceeded, evaluation may fail with HTTP 429
+- If that happens, retry later or reduce concurrency

@@ -1,0 +1,58 @@
+description: "Django Q&A - Local Model Comparison"
+
+prompts:
+  - file://prompts/django_qa.txt
+
+providers:
+  - ollama:llama3.2
+  - ollama:mistral
+  - ollama:gemma2:2b
+  - ollama:phi3:mini
+
+defaultTest:
+  options:
+    provider:
+      id: google:gemini-2.5-flash
+      config:
+        temperature: 0
+
+tests:
+  - vars:
+      question: "Django'da model nedir ve ne işe yarar?"
+    assert:
+      - type: icontains
+        value: "ORM"
+      - type: llm-rubric
+        value: "Does the answer correctly explain what a Django model is and how it maps to database tables?"
+
+  - vars:
+      question: "Django'da middleware nedir?"
+    assert:
+      - type: icontains-any
+        value:
+          - "request"
+          - "istek"
+      - type: llm-rubric
+        value: "Does the answer correctly explain Django middleware and its role in request/response processing?"
+
+  - vars:
+      question: "Django'da migration ne işe yarar?"
+    assert:
+      - type: icontains
+        value: "Veritabanı"
+      - type: llm-rubric
+        value: "Does the answer correctly explain Django migrations and database schema management?"
+
+  - vars:
+      question: "Django REST Framework nedir?"
+    assert:
+      - type: icontains
+        value: "API"
+      - type: llm-rubric
+        value: "Does the answer correctly explain what DRF is and its role in building REST APIs?"
+
+  - vars:
+      question: "Django'da template engine nasıl çalışır?"
+    assert:
+      - type: llm-rubric
+        value: "Does the answer correctly explain how Django's template engine works?"
