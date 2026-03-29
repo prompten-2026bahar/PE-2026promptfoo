@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Ticaret Duygu Analizi | AI Destekli</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Yapay Zeka Müşteri Yorumu Analisti</h1>
+            <p>Promptfoo Tarafından Test Edilmiş En İyi Prompt (Llama 3)</p>
+        </header>
+        
+        <main>
+            <div class="input-section">
+                <textarea id="reviewInput" placeholder="Müşteri yorumunu buraya yapıştırın... (Örn: Ürün inanılmaz kaliteli ama kargosu çok geç geldi 😡)"></textarea>
+                <button id="analyzeBtn" onclick="analyzeReview()">
+                    <span>Analiz Et</span>
+                    <div class="loader" id="loader"></div>
+                </button>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <div class="sentiment-card" id="sentimentCard">
+                    <h3>Genel Duygu</h3>
+                    <div class="emoji-display" id="sentimentEmoji">🤔</div>
+                    <div class="sentiment-text" id="sentimentText">Karmaşık</div>
+                </div>
+                
+                <div class="features-card">
+                    <h3>Özellik Çıkarımı</h3>
+                    <ul class="features-list" id="featuresList">
+                        <!-- Dynamic features go here -->
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="raw-json" id="rawJsonSection" style="display: none;">
+                <h3>Modelin Ham JSON Çıktısı</h3>
+                <pre id="rawJsonCode"></pre>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        async function analyzeReview() {
+            const input = document.getElementById('reviewInput').value;
+            if(!input) return;
+
+            const btn = document.getElementById('analyzeBtn');
+            const loader = document.getElementById('loader');
+            const resultSection = document.getElementById('resultSection');
+            const rawJsonSection = document.getElementById('rawJsonSection');
+            const btnText = btn.querySelector('span');
+            
+            btn.disabled = true;
+            btnText.style.display = 'none';
+            loader.style.display = 'block';
+            resultSection.style.display = 'none';
+            rawJsonSection.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ review: input })
+                });
+                
+                const data = await response.json();
+                
+                displayResults(data);
+                
+                document.getElementById('rawJsonCode').textContent = JSON.stringify(data, null, 2);
+                rawJsonSection.style.display = 'block';
+                resultSection.style.display = 'grid';
+                
+            } catch (err) {
+                alert("Analiz başarısız oldu. Sunucuyu kontrol edin.");
+            } finally {
+                btn.disabled = false;
+                btnText.style.display = 'block';
+                loader.style.display = 'none';
+            }
+        }
+
+        function displayResults(data) {
+            const sentiment = data.duygu ? data.duygu.toLowerCase() : '';
+            const emojiEl = document.getElementById('sentimentEmoji');
+            const textEl = document.getElementById('sentimentText');
+            const cardEl = document.getElementById('sentimentCard');
+            
+            cardEl.className = 'sentiment-card';
+            if (sentiment.includes('pozitif')) {
+                emojiEl.textContent = '🥳';
+                cardEl.classList.add('positive');
+            } else if (sentiment.includes('negatif') || sentiment.includes('olumsuz')) {
+                emojiEl.textContent = '😠';
+                cardEl.classList.add('negative');
+            } else if (sentiment.includes('nötr')) {
+                emojiEl.textContent = '😐';
+                cardEl.classList.add('neutral');
+            } else {
+                emojiEl.textContent = '🤔';
+                cardEl.classList.add('mixed');
+            }
+            textEl.textContent = data.duygu ? data.duygu.toUpperCase() : 'BİLİNMİYOR';
+
+            const featuresList = document.getElementById('featuresList');
+            featuresList.innerHTML = '';
+            
+            for (const [feature, evaluation] of Object.entries(data.özellikler || {})) {
+                const li = document.createElement('li');
+                const isPositive = evaluation.toLowerCase().includes('olumlu');
+                li.className = isPositive ? 'feature-positive' : 'feature-negative';
+                li.innerHTML = `<strong>${feature}</strong>: <span>${evaluation} ${isPositive ? '✅' : '❌'}</span>`;
+                featuresList.appendChild(li);
+            }
+            if (Object.keys(data.özellikler || {}).length === 0) {
+                featuresList.innerHTML = '<li>Özellik bulunamadı</li>';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+- vars:
+    review: "Telefon çok şık duruyor ama bataryası yarım günde bitti 😒, biraz hayal kırıklığı."
+  assert:
+    - type: icontains
+      value: "batarya"
+    - type: icontains
+      value: "olumsuz"
+
+- vars:
+    review: "Ürün ne iyi ne kötü 🤷‍♂️, fiyatına göre iş görür. Beklentiyi yüksek tutmayın."
+  assert:
+    - type: icontains
+      value: "fiyat"
+
+- vars:
+    review: "İnanılmaz kaliteli bir kumaşı var 😍, üstüme tam oturdu. Kargo da çok hızlıydı teşekkürler! 🚀"
+  assert:
+    - type: icontains
+      value: "pozitif"
+    - type: icontains
+      value: "kumaş"
+    - type: icontains
+      value: "olumlu"
+
+- vars:
+    review: "Uygulamanın arayüzü çok güzel tasarlanmış 📱 yalnız bazen durduk yere çöküyor 😡, acil düzeltilmeli."
+  assert:
+    - type: icontains
+      value: "arayüz"
+    - type: icontains
+      value: "olumsuz"
+
+- vars:
+    review: "Dün sipariş verdim bugün elime ulaştı 📦. Paketleme harika. Çok memnun kaldım 👍"
+  assert:
+    - type: icontains
+      value: "pozitif"
+    - type: icontains
+      value: "kargo"
+    - type: icontains
+      value: "olumlu"
+
+- vars:
+    review: "Müşteri hizmetleri berbat, aradığımda telefonu yüzüme kapattılar 🤬. Asla bir daha buradan alışveriş yapmam 🛑."
+  assert:
+    - type: icontains
+      value: "negatif"
+    - type: icontains
+      value: "müşteri"
+    - type: icontains
+      value: "olumsuz"
+
+- vars:
+    review: "Renkleri beklediğimden biraz daha soluk geldi ama kalitesi gayet iyi 👗. Alıp almamak size kalmış 🤔."
+  assert:
+    - type: icontains
+      value: "karmaşık"
+    - type: icontains
+      value: "kalite"
+    - type: icontains
+      value: "olumlu"

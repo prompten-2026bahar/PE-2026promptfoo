@@ -1,0 +1,5 @@
+Aşağıdaki müşteri yorumunun duygu durumunu (pozitif, negatif veya nötr), ve yorumda bahsedilen ana özellikleri olumlu/olumsuz şeklinde JSON formatında döndür.
+Sadece JSON döndür. Başka hiçbir açıklama yapma.
+
+Müşteri Yorumu:
+{{review}}
